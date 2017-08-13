@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="6" >
+
+        <TextView
+            android:id="@+id/txtItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center|left"
+            android:text="Company Name"
+
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtVolume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="LT"
+
+
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/txtLTP"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="LT"
+
+
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtChange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center|right"
+            android:layout_gravity="center"
+            android:text="CM"
+            android:paddingRight="3dp"
+
+
+            android:textSize="12sp" />
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f44256" />
+
+</LinearLayout>

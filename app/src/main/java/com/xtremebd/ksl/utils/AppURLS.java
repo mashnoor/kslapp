@@ -1,0 +1,13 @@
+package com.xtremebd.ksl.utils;
+
+/**
+ * Created by rajit on 7/4/17.
+ */
+
+public class AppURLS {
+    private final static String BASE_URL = "http://128.199.157.233";
+    public static final String GET_LTP_URL = BASE_URL + ":5000/getltp/";
+    public static final String BUY_URL = BASE_URL + ":5000/trade";
+    public static final String GET_ALL_ITEMS = BASE_URL + "/all_items_latest_update.txt";
+
+}
