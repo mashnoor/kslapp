@@ -31,4 +31,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+    public void goHome(View v)
+    {
+        startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+    }
+
 }

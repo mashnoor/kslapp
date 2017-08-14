@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    private static final String BASE_URL = "http://128.199.157.233"; //address of your localhost
+    private static final String BASE_URL = "http://128.199.157.233/kslbackend/";
     private static Retrofit retrofit = null;
 
     private static Gson gson = new GsonBuilder()

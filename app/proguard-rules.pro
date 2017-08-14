@@ -41,3 +41,6 @@
 -keepattributes Exception
 -dontwarn okio.**
 -dontwarn javax.annotation.**
+-keep class dmax.dialog.** {
+    *;
+}

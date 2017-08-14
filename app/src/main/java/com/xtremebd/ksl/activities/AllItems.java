@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,20 +26,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AllItems extends AppCompatActivity {
 
-    AsyncHttpClient client;
     List<Item> allItem;
     AllItemListAdapter adapter;
     @BindView(R.id.itemList)
     RecyclerView itemList;
     ApiInterface apiInterface;
 
-    ProgressDialog dialog;
+    AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +48,22 @@ public class AllItems extends AppCompatActivity {
         ButterKnife.bind(this);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        
         getItemLists();
-        dialog = new ProgressDialog(this);
+
 
     }
 
     private void getItemLists() {
+        dialog.show();
 
         Call<List<Item>> items = apiInterface.getAllLatestItemUpdates();
         items.enqueue(new Callback<List<Item>>() {
 
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                dialog.dismiss();
                 allItem = response.body();
 
                 //Log.d("--------", allItem.get(0).getItem());
@@ -68,6 +73,7 @@ public class AllItems extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
+                dialog.dismiss();
                 Log.d("--------", "Error Occured");
 
             }
