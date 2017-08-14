@@ -15,11 +15,22 @@ public class Item {
     private String change;
     @SerializedName("ltp")
     private String ltp;
+    @SerializedName("value")
+    private String value;
+    @SerializedName("trade")
+    private String trade;
 
-    public boolean isChangeNegetive()
-    {
+    public String getValue() {
+        return value;
+    }
+
+    public String getTrade() {
+        return trade;
+    }
+
+    public boolean isChangeNegetive() {
         float change_float = Float.parseFloat(change);
-        if(change_float<0) return true;
+        if (change_float < 0) return true;
         return false;
     }
 

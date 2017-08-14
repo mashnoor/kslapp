@@ -14,7 +14,7 @@ import java.util.List;
 public class AllItemListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
 
     public AllItemListAdapter(List<Item> items) {
-        super(R.layout.item_row, items);
+        super(R.layout.row_item_latest_update, items);
     }
 
 

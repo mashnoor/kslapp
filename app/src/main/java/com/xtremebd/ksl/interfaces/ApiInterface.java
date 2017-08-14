@@ -25,6 +25,14 @@ public interface ApiInterface {
     @GET("homedatas/market_summary.txt")
     Call<MarketSummary> getMarketSummary();
 
+    @GET("marketmovers/top_twenty_by_trade.txt")
+    Call<List<Item>> getTopTwentyByTradeMaerketMover();
+
+    @GET("marketmovers/top_twenty_by_volume.txt")
+    Call<List<Item>> getTopTwentyByVolumeMaerketMover();
+
+    @GET("marketmovers/top_twenty_by_value.txt")
+    Call<List<Item>> getTopTwentyByValueMaerketMover();
 
 
 

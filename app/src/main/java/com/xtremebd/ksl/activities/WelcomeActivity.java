@@ -36,4 +36,9 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
     }
 
+    public void goMarketMovers(View v)
+    {
+        startActivity(new Intent(WelcomeActivity.this, MarketMoversActivity.class));
+    }
+
 }
