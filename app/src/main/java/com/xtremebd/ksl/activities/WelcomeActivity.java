@@ -8,12 +8,12 @@ import android.view.View;
 
 import com.xtremebd.ksl.R;
 
-public class Home2 extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home2);
+        setContentView(R.layout.activity_welcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -22,12 +22,12 @@ public class Home2 extends AppCompatActivity {
 
     public void showPlaceOrderActivity(View v)
     {
-        startActivity(new Intent(Home2.this, Home.class));
+        startActivity(new Intent(WelcomeActivity.this, TradeActivity.class));
     }
 
     public void showAllItems(View v)
     {
-        startActivity(new Intent(Home2.this, AllItems.class));
+        startActivity(new Intent(WelcomeActivity.this, AllItems.class));
 
     }
 

@@ -12,6 +12,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.xtremebd.ksl.clients.ApiClient;
+import com.xtremebd.ksl.interfaces.ApiInterface;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
@@ -23,6 +25,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllItems extends AppCompatActivity {
 
@@ -31,6 +36,7 @@ public class AllItems extends AppCompatActivity {
     AllItemListAdapter adapter;
     @BindView(R.id.itemList)
     RecyclerView itemList;
+    ApiInterface apiInterface;
 
     ProgressDialog dialog;
     @Override
@@ -38,40 +44,31 @@ public class AllItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
         ButterKnife.bind(this);
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        client = new AsyncHttpClient();
+
         getItemLists();
         dialog = new ProgressDialog(this);
 
     }
 
     private void getItemLists() {
-        client.get(AppURLS.GET_ALL_ITEMS, new AsyncHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                dialog.setMessage("Getting data from server...");
-                dialog.show();
-            }
+
+        Call<List<Item>> items = apiInterface.getAllLatestItemUpdates();
+        items.enqueue(new Callback<List<Item>>() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String response = new String(responseBody);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<Item>>() {}.getType();
-                allItem = gson.fromJson(response, type);
-                Log.d("--------", allItem.get(0).getItem());
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                allItem = response.body();
+
+                //Log.d("--------", allItem.get(0).getItem());
                 adapter = new AllItemListAdapter(allItem);
                 itemList.setAdapter(adapter);
-                dialog.dismiss();
-
-
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                dialog.dismiss();
-                Toast.makeText(AllItems.this, "Some Error Occured", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                Log.d("--------", "Error Occured");
 
             }
         });

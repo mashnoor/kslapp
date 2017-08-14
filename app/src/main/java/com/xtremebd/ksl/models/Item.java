@@ -1,13 +1,19 @@
 package com.xtremebd.ksl.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Mashnoor on 8/10/17.
  */
 
 public class Item {
+    @SerializedName("item")
     private String item;
+    @SerializedName("volume")
     private String volume;
+    @SerializedName("change")
     private String change;
+    @SerializedName("ltp")
     private String ltp;
 
     public boolean isChangeNegetive()

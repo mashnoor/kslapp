@@ -21,7 +21,7 @@ import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.util.TextUtils;
 
-public class Home extends AppCompatActivity {
+public class TradeActivity extends AppCompatActivity {
 
     @BindView(R.id.itemName)
     EditText txtItemName;
@@ -38,10 +38,10 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_trade);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
@@ -56,7 +56,7 @@ public class Home extends AppCompatActivity {
 
     private void showToast(String s)
     {
-        Toast.makeText(Home.this, s, Toast.LENGTH_LONG).show();
+        Toast.makeText(TradeActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnGetLtp)
