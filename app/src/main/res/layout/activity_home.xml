@@ -215,6 +215,302 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Market Summary"
+            android:textSize="20dp" />
+
+        <!-- Volume -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Value in Taka" />
+
+                <TextView
+                    android:id="@+id/tvValueInTaka"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Contract Number -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Volume" />
+
+                <TextView
+                    android:id="@+id/tvVolume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Issues Traded -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Contract Number" />
+
+                <TextView
+                    android:id="@+id/tvContractNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Issues Advanced -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Issues Traded" />
+
+                <TextView
+                    android:id="@+id/tvIssuedTraded"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Issues Declined -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Issues Advanced" />
+
+                <TextView
+                    android:id="@+id/tvIssuedAdvanced"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Issues Unchanged -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Issues Declined" />
+
+                <TextView
+                    android:id="@+id/tvIssuesDeclined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- issued Capital -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Issues Unchanged" />
+
+                <TextView
+                    android:id="@+id/tvIssuesUnchanged"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Closing Market Capitalization -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Issued Capital" />
+
+                <TextView
+                    android:id="@+id/tvIssuedCapital"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Value in taka -->
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Closing Market Capitalization" />
+
+                <TextView
+                    android:id="@+id/tvClosingMarketCapitalization"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
 
 
     </LinearLayout>

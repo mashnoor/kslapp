@@ -9,8 +9,11 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.clients.ApiClient;
 import com.xtremebd.ksl.interfaces.ApiInterface;
 import com.xtremebd.ksl.models.Index;
+import com.xtremebd.ksl.models.MarketSummary;
+import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,20 +42,54 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.tvCsichange)
     TextView tvcsichange;
 
-    ApiInterface apiInterface;
+    @BindView(R.id.tvValueInTaka) TextView tvValueInTaka;
+    @BindView(R.id.tvVolume) TextView tvVolume;
+    @BindView(R.id.tvContractNumber) TextView tvContractNumber;
+    @BindView(R.id.tvIssuedTraded) TextView tvIssuedTraded;
+    @BindView(R.id.tvIssuedAdvanced) TextView tvIssuedAdvanced;
+    @BindView(R.id.tvIssuesDeclined) TextView tvIssuesDeclined;
+    @BindView(R.id.tvIssuesUnchanged) TextView tvIssuesUnchanged;
+    @BindView(R.id.tvIssuedCapital) TextView tvIssuedCapital;
+    @BindView(R.id.tvClosingMarketCapitalization) TextView tvClosingMarketCapitalization;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
         getIndexes();
+        getMarketSummary();
 
     }
 
+    private void getMarketSummary() {
+        ApiInterfaceGetter.getInterface().getMarketSummary().enqueue(new Callback<MarketSummary>() {
+            @Override
+            public void onResponse(Call<MarketSummary> call, Response<MarketSummary> response) {
+                MarketSummary summary = response.body();
+                tvValueInTaka.setText(summary.getValueInTaka());
+                tvVolume.setText(summary.getVolume());
+                tvContractNumber.setText(summary.getContractNumber());
+                tvIssuedTraded.setText(summary.getIssuesTraded());
+                tvIssuedAdvanced.setText(summary.getIssuesAdvanced());
+                tvIssuesDeclined.setText(summary.getIssuesDeclined());
+                tvIssuesUnchanged.setText(summary.getIssuesUnchanged());
+                tvIssuedCapital.setText(summary.getIssuedCapital());
+                tvClosingMarketCapitalization.setText(summary.getClosingMarketCapitalization());
+
+            }
+
+            @Override
+            public void onFailure(Call<MarketSummary> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void getIndexes() {
-        Call<Index> index = apiInterface.getHomeIndex();
+        Call<Index> index = ApiInterfaceGetter.getInterface().getHomeIndex();
         index.enqueue(new Callback<Index>() {
             @Override
             public void onResponse(Call<Index> call, Response<Index> response) {

@@ -2,6 +2,7 @@ package com.xtremebd.ksl.interfaces;
 
 import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.Item;
+import com.xtremebd.ksl.models.MarketSummary;
 
 import java.util.List;
 
@@ -20,6 +21,10 @@ public interface ApiInterface {
 
     @GET("homedatas/all_indexes.txt")
     Call<Index> getHomeIndex();
+
+    @GET("homedatas/market_summary.txt")
+    Call<MarketSummary> getMarketSummary();
+
 
 
 

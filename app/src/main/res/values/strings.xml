@@ -7,4 +7,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_home2">Home2</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_market_movers">MarketMoversActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

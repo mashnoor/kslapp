@@ -15,6 +15,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xtremebd.ksl.clients.ApiClient;
 import com.xtremebd.ksl.interfaces.ApiInterface;
+import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
@@ -37,7 +38,7 @@ public class AllItems extends AppCompatActivity {
     AllItemListAdapter adapter;
     @BindView(R.id.itemList)
     RecyclerView itemList;
-    ApiInterface apiInterface;
+
 
     AlertDialog dialog;
 
@@ -46,10 +47,9 @@ public class AllItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
         ButterKnife.bind(this);
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
-        
+
         getItemLists();
 
 
@@ -58,7 +58,7 @@ public class AllItems extends AppCompatActivity {
     private void getItemLists() {
         dialog.show();
 
-        Call<List<Item>> items = apiInterface.getAllLatestItemUpdates();
+        Call<List<Item>> items = ApiInterfaceGetter.getInterface().getAllLatestItemUpdates();
         items.enqueue(new Callback<List<Item>>() {
 
             @Override
