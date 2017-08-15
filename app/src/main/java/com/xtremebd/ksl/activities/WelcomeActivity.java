@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.models.News;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -39,6 +40,15 @@ public class WelcomeActivity extends AppCompatActivity {
     public void goMarketMovers(View v)
     {
         startActivity(new Intent(WelcomeActivity.this, MarketMoversActivity.class));
+    }
+
+    public void goNews(View v)
+    {
+        startActivity(new Intent(this, NewsActivity.class));
+    }
+    public void goIPO(View v)
+    {
+        startActivity(new Intent(this, IPOActivity.class));
     }
 
 }

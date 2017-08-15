@@ -1,13 +1,16 @@
 package com.xtremebd.ksl.interfaces;
 
+
 import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.models.MarketSummary;
+import com.xtremebd.ksl.models.News;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 
 /**
@@ -33,6 +36,13 @@ public interface ApiInterface {
 
     @GET("marketmovers/top_twenty_by_value.txt")
     Call<List<Item>> getTopTwentyByValueMaerketMover();
+
+    @GET("latest_news.txt")
+    Call<List<News>> getLatestNews();
+
+    @GET("item_details/{item}.txt")
+    Call<Item> getItemDetail(@Path("item") String item);
+
 
 
 

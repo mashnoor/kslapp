@@ -9,5 +9,6 @@ public class AppURLS {
     public static final String GET_LTP_URL = BASE_URL + ":5000/getltp/";
     public static final String BUY_URL = BASE_URL + ":5000/trade";
     public static final String GET_ALL_ITEMS = BASE_URL + "/all_items_latest_update.txt";
+    public static final String IPO_URL = BASE_URL + "/kslbackend//ipo.txt";
 
 }

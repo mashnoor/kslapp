@@ -2,13 +2,16 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -66,8 +69,16 @@ public class AllItems extends AppCompatActivity {
                 dialog.dismiss();
                 allItem = response.body();
 
-                //Log.d("--------", allItem.get(0).getItem());
+
                 adapter = new AllItemListAdapter(allItem);
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        Intent i = new Intent(AllItems.this, ItemDetailActivity.class);
+                        i.putExtra("item", allItem.get(position).getItem());
+                        startActivity(i);
+                    }
+                });
                 itemList.setAdapter(adapter);
             }
 

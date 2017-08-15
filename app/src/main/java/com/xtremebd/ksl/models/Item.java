@@ -19,6 +19,42 @@ public class Item {
     private String value;
     @SerializedName("trade")
     private String trade;
+    @SerializedName("closeprice")
+    private String closeprice;
+    @SerializedName("ycp")
+    private String yesterdayClosePrice;
+    @SerializedName("openprice")
+    private String openPrice;
+    @SerializedName("range")
+    private String range;
+    @SerializedName("ltd")
+    private String lastTradeDate;
+    @SerializedName("capital")
+    private String capital;
+
+    public String getCloseprice() {
+        return closeprice;
+    }
+
+    public String getYesterdayClosePrice() {
+        return yesterdayClosePrice;
+    }
+
+    public String getOpenPrice() {
+        return openPrice;
+    }
+
+    public String getRange() {
+        return range;
+    }
+
+    public String getLastTradeDate() {
+        return lastTradeDate;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
 
     public String getValue() {
         return value;

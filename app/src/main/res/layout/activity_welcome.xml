@@ -301,6 +301,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goIPO"
                 android:orientation="vertical">
 
                 <ImageView
@@ -320,6 +321,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goNews"
                 android:orientation="vertical">
 
                 <ImageView

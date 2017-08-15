@@ -1,5 +1,10 @@
 package com.xtremebd.ksl.adapters;
 
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xtremebd.ksl.R;
@@ -16,6 +21,7 @@ public class AllItemListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
     public AllItemListAdapter(List<Item> items) {
         super(R.layout.row_item_latest_update, items);
     }
+
 
 
     @Override
