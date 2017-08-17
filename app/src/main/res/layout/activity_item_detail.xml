@@ -43,14 +43,14 @@
             app:roundedCorners="true"
             app:showOutline="false" />
         <com.beardedhen.androidbootstrap.BootstrapButton
-
+            android:id="@+id/btnWatchList"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-
-            android:text="Watchlist"
+            android:onClick="actionWatchlist"
+            android:text="Add To Watchlist"
             app:bootstrapBrand="info"
             app:bootstrapSize="sm"
             app:buttonMode="regular"

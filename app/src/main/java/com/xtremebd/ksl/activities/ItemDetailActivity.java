@@ -3,11 +3,14 @@ package com.xtremebd.ksl.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
+import com.snappydb.SnappydbException;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.utils.DBHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +33,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     @BindView(R.id.tvChange) TextView tvChange;
     @BindView(R.id.tvItemName) TextView tvItemName;
 
-
+    String item_name;
+    Item current_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +42,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
-        String item_name = getIntent().getStringExtra("item");
+        item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
         getIntemDetail(item_name);
     }
@@ -49,17 +53,17 @@ public class ItemDetailActivity extends AppCompatActivity {
         ApiInterfaceGetter.getInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
-                Item item = response.body();
-                tvClosePrice.setText(item.getCloseprice());
-                tvLTP.setText(item.getLtp());
-                tvYCP.setText(item.getYesterdayClosePrice());
-                tvOpenPrice.setText(item.getOpenPrice());
-                tvTrade.setText(item.getTrade());
-                tvVolume.setText(item.getVolume());
-                tvRange.setText(item.getRange());
-                tvLTD.setText(item.getLastTradeDate());
-                tvCapital.setText(item.getCapital());
-                tvChange.setText(item.getChange());
+                current_item = response.body();
+                tvClosePrice.setText(current_item.getCloseprice());
+                tvLTP.setText(current_item.getLtp());
+                tvYCP.setText(current_item.getYesterdayClosePrice());
+                tvOpenPrice.setText(current_item.getOpenPrice());
+                tvTrade.setText(current_item.getTrade());
+                tvVolume.setText(current_item.getVolume());
+                tvRange.setText(current_item.getRange());
+                tvLTD.setText(current_item.getLastTradeDate());
+                tvCapital.setText(current_item.getCapital());
+                tvChange.setText(current_item.getChange());
 
             }
 
@@ -69,6 +73,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    public void actionWatchlist(View v) 
+    {
+
 
     }
 

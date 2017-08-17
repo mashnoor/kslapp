@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xtremebd.ksl">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".utils.KSLApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".utils.KSLApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.TradeActivity"
             android:label="@string/app_name"
@@ -42,7 +45,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.NewsActivity" />
         <activity android:name=".activities.IPOActivity" />
-        <activity android:name=".activities.ItemDetailActivity"></activity>
+        <activity android:name=".activities.ItemDetailActivity" />
+        <activity android:name=".activities.WatchlistActivity"></activity>
     </application>
 
 </manifest>

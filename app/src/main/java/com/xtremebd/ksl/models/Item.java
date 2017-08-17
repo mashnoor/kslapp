@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Mashnoor on 8/10/17.
  */
 
-public class Item {
+public class Item{
     @SerializedName("item")
     private String item;
     @SerializedName("volume")
@@ -31,6 +31,9 @@ public class Item {
     private String lastTradeDate;
     @SerializedName("capital")
     private String capital;
+
+
+
 
     public String getCloseprice() {
         return closeprice;
