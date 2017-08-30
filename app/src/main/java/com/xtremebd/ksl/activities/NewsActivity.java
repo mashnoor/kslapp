@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.NewsAdapter;
-import com.xtremebd.ksl.interfaces.ApiInterface;
 import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 
@@ -31,7 +30,7 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         ButterKnife.bind(this);
         rvNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        ApiInterfaceGetter.getInterface().getLatestNews().enqueue(new Callback<List<News>>() {
+        ApiInterfaceGetter.getStaticInterface().getLatestNews().enqueue(new Callback<List<News>>() {
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
                 adapter = new NewsAdapter(response.body());

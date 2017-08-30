@@ -106,6 +106,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goOpenAccount"
                 android:orientation="vertical">
 
                 <ImageView

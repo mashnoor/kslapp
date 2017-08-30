@@ -1,7 +1,8 @@
 package com.xtremebd.ksl.utils;
 
 import com.xtremebd.ksl.clients.ApiClient;
-import com.xtremebd.ksl.interfaces.ApiInterface;
+import com.xtremebd.ksl.interfaces.DynamicApiInterface;
+import com.xtremebd.ksl.interfaces.StaticApiInterface;
 
 /**
  * Created by Mashnoor on 8/15/17.
@@ -10,16 +11,26 @@ import com.xtremebd.ksl.interfaces.ApiInterface;
 public class ApiInterfaceGetter {
 
     private ApiInterfaceGetter(){}
-    private static ApiInterface apiInterface = null;
+    private static StaticApiInterface staticStaticApiInterface = null;
+    private static DynamicApiInterface dynamicStaticApiInterface = null;
 
-    public static ApiInterface getInterface()
+    public static StaticApiInterface getStaticInterface()
     {
-        if(apiInterface == null)
+        if(staticStaticApiInterface == null)
         {
-            apiInterface =  ApiClient.getClient().create(ApiInterface.class);
+            staticStaticApiInterface =  ApiClient.getStaticClient().create(StaticApiInterface.class);
 
         }
-        return apiInterface;
+        return staticStaticApiInterface;
+    }
+    public static DynamicApiInterface getDynamicInterface()
+    {
+        if(dynamicStaticApiInterface == null)
+        {
+            dynamicStaticApiInterface =  ApiClient.getDynamicClient().create(DynamicApiInterface.class);
+
+        }
+        return dynamicStaticApiInterface;
     }
 
 }

@@ -50,7 +50,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void getIntemDetail(final String item_name)
     {
 
-        ApiInterfaceGetter.getInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
+        ApiInterfaceGetter.getStaticInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                 current_item = response.body();

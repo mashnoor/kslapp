@@ -50,5 +50,9 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, IPOActivity.class));
     }
+    public void goOpenAccount(View v)
+    {
+        startActivity(new Intent(this, OpenaccountActivity.class));
+    }
 
 }

@@ -24,7 +24,6 @@ import retrofit2.Response;
 public class MarketMoversFragment extends Fragment {
 
 
-
     RecyclerView rvlistMarketMovers;
     MarketMoversAdapter adapter;
 
@@ -38,12 +37,11 @@ public class MarketMoversFragment extends Fragment {
         rvlistMarketMovers.setLayoutManager(new LinearLayoutManager(getContext()));
         int position = getArguments().getInt("position");
 
-        switch (position)
-        {
+        switch (position) {
             case 0:
                 //By Value
                 tvsubject.setText("Value");
-                ApiInterfaceGetter.getInterface().getTopTwentyByValueMaerketMover().enqueue(new Callback<List<Item>>() {
+                ApiInterfaceGetter.getStaticInterface().getTopTwentyByValueMaerketMover().enqueue(new Callback<List<Item>>() {
                     @Override
                     public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
 
@@ -61,7 +59,7 @@ public class MarketMoversFragment extends Fragment {
                 break;
             case 1:
                 tvsubject.setText("Volume");
-                ApiInterfaceGetter.getInterface().getTopTwentyByVolumeMaerketMover().enqueue(new Callback<List<Item>>() {
+                ApiInterfaceGetter.getStaticInterface().getTopTwentyByVolumeMaerketMover().enqueue(new Callback<List<Item>>() {
                     @Override
                     public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
 
@@ -78,7 +76,7 @@ public class MarketMoversFragment extends Fragment {
                 break;
             case 2:
                 tvsubject.setText("Trade");
-                ApiInterfaceGetter.getInterface().getTopTwentyByTradeMaerketMover().enqueue(new Callback<List<Item>>() {
+                ApiInterfaceGetter.getStaticInterface().getTopTwentyByTradeMaerketMover().enqueue(new Callback<List<Item>>() {
                     @Override
                     public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
 
@@ -99,12 +97,6 @@ public class MarketMoversFragment extends Fragment {
 
         return v;
     }
-
-
-
-
-
-
 
 
 }

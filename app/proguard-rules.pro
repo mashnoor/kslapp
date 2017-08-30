@@ -44,3 +44,5 @@
 -keep class dmax.dialog.** {
     *;
 }
+-dontwarn com.esotericsoftware.kryo.**
+-dontwarn org.objenesis.instantiator.sun.**

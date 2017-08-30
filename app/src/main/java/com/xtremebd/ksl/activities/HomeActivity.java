@@ -6,14 +6,11 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.clients.ApiClient;
-import com.xtremebd.ksl.interfaces.ApiInterface;
 import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.MarketSummary;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getMarketSummary() {
-        ApiInterfaceGetter.getInterface().getMarketSummary().enqueue(new Callback<MarketSummary>() {
+        ApiInterfaceGetter.getStaticInterface().getMarketSummary().enqueue(new Callback<MarketSummary>() {
             @Override
             public void onResponse(Call<MarketSummary> call, Response<MarketSummary> response) {
                 MarketSummary summary = response.body();
@@ -89,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getIndexes() {
-        Call<Index> index = ApiInterfaceGetter.getInterface().getHomeIndex();
+        Call<Index> index = ApiInterfaceGetter.getStaticInterface().getHomeIndex();
         index.enqueue(new Callback<Index>() {
             @Override
             public void onResponse(Call<Index> call, Response<Index> response) {
