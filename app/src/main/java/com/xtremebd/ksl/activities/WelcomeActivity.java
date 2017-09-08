@@ -21,37 +21,36 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    public void showPlaceOrderActivity(View v)
-    {
+    public void showPlaceOrderActivity(View v) {
         startActivity(new Intent(WelcomeActivity.this, TradeActivity.class));
     }
 
-    public void showAllItems(View v)
-    {
+    public void showAllItems(View v) {
         startActivity(new Intent(WelcomeActivity.this, AllItems.class));
 
     }
 
-    public void goHome(View v)
-    {
+    public void goHome(View v) {
         startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
     }
-
-    public void goMarketMovers(View v)
+    public void goFundRequisition(View v)
     {
+        startActivity(new Intent(WelcomeActivity.this, FundRequisitionActivity.class));
+    }
+
+    public void goMarketMovers(View v) {
         startActivity(new Intent(WelcomeActivity.this, MarketMoversActivity.class));
     }
 
-    public void goNews(View v)
-    {
+    public void goNews(View v) {
         startActivity(new Intent(this, NewsActivity.class));
     }
-    public void goIPO(View v)
-    {
+
+    public void goIPO(View v) {
         startActivity(new Intent(this, IPOActivity.class));
     }
-    public void goOpenAccount(View v)
-    {
+
+    public void goOpenAccount(View v) {
         startActivity(new Intent(this, OpenaccountActivity.class));
     }
 

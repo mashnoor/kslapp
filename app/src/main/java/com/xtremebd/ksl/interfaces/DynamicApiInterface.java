@@ -6,6 +6,7 @@ import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.models.MarketSummary;
 import com.xtremebd.ksl.models.News;
+import com.xtremebd.ksl.models.Requisition;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface DynamicApiInterface {
 
     @POST("requestaccount")
     Call<String> submitAccountRequest(@Body Account account);
+    @POST("requestrequisition")
+    Call<String> submitFundRequisitionRequest(@Body Requisition requisition);
 
 
 }
