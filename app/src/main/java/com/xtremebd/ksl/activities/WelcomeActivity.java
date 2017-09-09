@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import com.snappydb.DB;
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
+import com.xtremebd.ksl.utils.DBHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -17,6 +21,9 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        MasterAccount acc = DBHelper.getMasterAccount(this);
+        Log.d("--------", acc.getMasterPass());
 
 
     }
@@ -33,8 +40,8 @@ public class WelcomeActivity extends AppCompatActivity {
     public void goHome(View v) {
         startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
     }
-    public void goFundRequisition(View v)
-    {
+
+    public void goFundRequisition(View v) {
         startActivity(new Intent(WelcomeActivity.this, FundRequisitionActivity.class));
     }
 

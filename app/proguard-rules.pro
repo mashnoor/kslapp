@@ -46,3 +46,6 @@
 }
 -dontwarn com.esotericsoftware.kryo.**
 -dontwarn org.objenesis.instantiator.sun.**
+-keep class com.xtremebd.ksl.models.MasterAccount.** {
+  *;
+}

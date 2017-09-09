@@ -2,9 +2,11 @@ package com.xtremebd.ksl.interfaces;
 
 
 import com.xtremebd.ksl.models.Account;
+import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.models.MarketSummary;
+import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.models.Requisition;
 
@@ -29,6 +31,11 @@ public interface DynamicApiInterface {
     Call<String> submitAccountRequest(@Body Account account);
     @POST("requestrequisition")
     Call<String> submitFundRequisitionRequest(@Body Requisition requisition);
+    @POST("masterlogin")
+    Call<String> masterLogin(@Body MasterAccount masterAccount);
+    @POST("itsaccounts")
+    Call<List<ITSAccount>> getItsAccounts(@Body MasterAccount masterAccount);
+
 
 
 }
