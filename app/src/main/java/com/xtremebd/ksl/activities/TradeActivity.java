@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,28 +15,37 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.models.ITSAccount;
+import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.DBHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.util.TextUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TradeActivity extends AppCompatActivity {
 
     @BindView(R.id.itemName)
     EditText txtItemName;
-    @BindView(R.id.loginId)
-    EditText txtLoginId;
-    @BindView(R.id.password)
-    EditText txtPassword;
+
     @BindView(R.id.itemQuantity)
     EditText txtQty;
     @BindView(R.id.itemLtp)
     TextView tvLtp;
+    @BindView(R.id.spnrItsAccounts)
+    Spinner spnrItsAccounts;
     AsyncHttpClient client;
     ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +57,27 @@ public class TradeActivity extends AppCompatActivity {
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Connecting with server. Please wait...");
+
+
+        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
+            @Override
+            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
+                List<ITSAccount> itsAccounts = response.body();
+                List<String> accountNos = new ArrayList<String>();
+                for (int i = 0; i < itsAccounts.size(); i++) {
+                    accountNos.add(itsAccounts.get(i).getItsAccountNo());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(TradeActivity.this, android.R.layout.simple_spinner_item, accountNos);
+                spnrItsAccounts.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     @Override
@@ -54,17 +86,14 @@ public class TradeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void showToast(String s)
-    {
+    private void showToast(String s) {
         Toast.makeText(TradeActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnGetLtp)
-    public void getLtp()
-    {
+    public void getLtp() {
         String itemName = txtItemName.getText().toString().trim();
-        if(TextUtils.isEmpty(itemName))
-        {
+        if (TextUtils.isEmpty(itemName)) {
             txtItemName.setError("Enter item name");
             return;
         }
@@ -78,14 +107,11 @@ public class TradeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
-                if (response.equals("null"))
-                {
+                if (response.equals("null")) {
                     showToast("Item Name Error. Please check item name");
 
-                }
-                else
-                {
-                   tvLtp.setText(response);
+                } else {
+                    tvLtp.setText(response);
                 }
                 dialog.dismiss();
             }
@@ -100,11 +126,10 @@ public class TradeActivity extends AppCompatActivity {
 
     }
 
-    public void btnBuy(View v)
-    {
+    public void btnBuy(View v) {
         RequestParams trading_params = new RequestParams();
-        trading_params.put("loginid", txtLoginId.getText().toString().trim());
-        trading_params.put("password", txtPassword.getText().toString().trim());
+        trading_params.put("loginid", spnrItsAccounts.getSelectedItem().toString());
+        trading_params.put("password", "");
         trading_params.put("item", txtItemName.getText().toString().trim());
         trading_params.put("qty", txtQty.getText().toString().trim());
         client.post(AppURLS.BUY_URL, trading_params, new AsyncHttpResponseHandler() {

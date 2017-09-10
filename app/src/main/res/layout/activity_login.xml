@@ -36,6 +36,7 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:text="Request Account"
+        android:onClick="goOpenAccount"
         android:textColor="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

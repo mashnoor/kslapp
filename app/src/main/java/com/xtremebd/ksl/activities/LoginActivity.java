@@ -1,12 +1,14 @@
 package com.xtremebd.ksl.activities;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.interfaces.DynamicApiInterface;
@@ -16,6 +18,7 @@ import com.xtremebd.ksl.utils.DBHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +30,14 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.tvMasterPassword)
     EditText tvMasterPassword;
+    SpotsDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
 
     }
 
@@ -48,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             tvMasterPassword.setError("Master Password can't be empty");
             return;
         }
+        dialog.show();
         final MasterAccount account = new MasterAccount(masterId, masterPassword);
         ApiInterfaceGetter.getDynamicInterface().masterLogin(account).enqueue(new Callback<String>() {
             @Override
@@ -59,15 +65,28 @@ public class LoginActivity extends AppCompatActivity {
 
                     startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                 }
+                else
+                {
+                    showToast("Login info failed");
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d("--------", t.getMessage());
+                dialog.dismiss();
+                showToast("Couldn't connect to KSL server.");
 
             }
         });
 
 
+    }
+    public void goOpenAccount(View v) {
+        startActivity(new Intent(this, OpenaccountActivity.class));
+    }
+    private void showToast(String s)
+    {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }
