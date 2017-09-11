@@ -47,7 +47,8 @@
         <activity android:name=".activities.WatchlistActivity" />
         <activity android:name=".activities.OpenaccountActivity" />
         <activity android:name=".activities.FundRequisitionActivity" />
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.ITSAccountsActivity"></activity>
     </application>
 
 </manifest>

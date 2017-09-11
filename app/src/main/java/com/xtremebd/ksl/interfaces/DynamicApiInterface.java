@@ -35,6 +35,8 @@ public interface DynamicApiInterface {
     Call<String> masterLogin(@Body MasterAccount masterAccount);
     @POST("itsaccounts")
     Call<List<ITSAccount>> getItsAccounts(@Body MasterAccount masterAccount);
+    @POST("{masterid}/additsaccountmobile")
+    Call<String> addItsAccount(@Path("masterid") String masterId, @Body ITSAccount itsAccount);
 
 
 
