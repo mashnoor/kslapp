@@ -1,8 +1,11 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,46 +27,60 @@ import retrofit2.Response;
 public class ItemDetailActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.tvClosePrice) TextView tvClosePrice;
-    @BindView(R.id.tvLTP) TextView tvLTP;
-    @BindView(R.id.tvYCP) TextView tvYCP;
-    @BindView(R.id.tvOpenPrice) TextView tvOpenPrice;
-    @BindView(R.id.tvTrade) TextView tvTrade;
-    @BindView(R.id.tvVolume) TextView tvVolume;
-    @BindView(R.id.tvRange) TextView tvRange;
-    @BindView(R.id.tvLTD) TextView tvLTD;
-    @BindView(R.id.tvCapital) TextView tvCapital;
-    @BindView(R.id.tvChange) TextView tvChange;
-    @BindView(R.id.tvItemName) TextView tvItemName;
+    @BindView(R.id.tvClosePrice)
+    TextView tvClosePrice;
+    @BindView(R.id.tvLTP)
+    TextView tvLTP;
+    @BindView(R.id.tvYCP)
+    TextView tvYCP;
+    @BindView(R.id.tvOpenPrice)
+    TextView tvOpenPrice;
+    @BindView(R.id.tvTrade)
+    TextView tvTrade;
+    @BindView(R.id.tvVolume)
+    TextView tvVolume;
+    @BindView(R.id.tvRange)
+    TextView tvRange;
+    @BindView(R.id.tvLTD)
+    TextView tvLTD;
+    @BindView(R.id.tvCapital)
+    TextView tvCapital;
+    @BindView(R.id.tvChange)
+    TextView tvChange;
+    @BindView(R.id.tvItemName)
+    TextView tvItemName;
     @BindView(R.id.btnWatchList)
     BootstrapButton btnWatchList;
+    @BindView(R.id.btnPortfolio) BootstrapButton btnPortfolio;
 
     String item_name;
     Item current_item;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
         item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
-        if(DBHelper.isIteminWatchlist(this, item_name))
-        {
+        if (DBHelper.isIteminWatchlist(this, item_name)) {
             btnWatchList.setText("Remove from Watchlist");
-        }
-        else
-        {
+        } else {
             btnWatchList.setText("Add to Watchlist");
+        }
+        if (!DBHelper.isIteminPortfolio(ItemDetailActivity.this, item_name))
+        {
+            btnPortfolio.setText("Add to Portfolio");
+
+        } else {
+            btnPortfolio.setText("Customize Portfolio");
         }
 
         getIntemDetail(item_name);
 
     }
 
-    private void getIntemDetail(final String item_name)
-    {
+    private void getIntemDetail(final String item_name) {
 
         ApiInterfaceGetter.getStaticInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
             @Override
@@ -92,10 +109,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
-    public void actionWatchlist(View v) 
-    {
-        if(!DBHelper.isIteminWatchlist(ItemDetailActivity.this, item_name))
-        {
+    public void actionWatchlist(View v) {
+        if (!DBHelper.isIteminWatchlist(ItemDetailActivity.this, item_name)) {
             DBHelper.addIteminWatchList(ItemDetailActivity.this, current_item);
             showToast("Item added to watchlist successfully");
 
@@ -103,8 +118,36 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
-    private void showToast(String s)
-    {
+    public void actionPortfolio(View v) {
+        if (!DBHelper.isIteminPortfolio(ItemDetailActivity.this, item_name)) {
+            AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
+                    this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialougeView = inflater.inflate(
+                    R.layout.addtoportfoliodialogue, null);
+            portfolioAddDialouge.setView(dialougeView);
+
+            portfolioAddDialouge.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    TextView tvnoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
+                    TextView tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
+                    current_item.setBuyPrice(tvbuyPrice.getText().toString());
+                    current_item.setNoOfStock(tvnoOfStock.getText().toString());
+                    DBHelper.addIteminPortfolio(ItemDetailActivity.this, current_item);
+                    showToast("Added to portfolio");
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
+
+        }
+    }
+
+    private void showToast(String s) {
         Toast.makeText(ItemDetailActivity.this, s, Toast.LENGTH_LONG).show();
     }
 

@@ -2,6 +2,8 @@ package com.xtremebd.ksl.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Mashnoor on 8/10/17.
  */
@@ -31,9 +33,43 @@ public class Item{
     private String lastTradeDate;
     @SerializedName("capital")
     private String capital;
+    //For Portfolio
+    private String buyPrice;
+    private String noOfStock;
 
+    public String getBuyPrice() {
+        return buyPrice;
+    }
 
+    public String getNoOfStock() {
+        return noOfStock;
+    }
 
+    public void setNoOfStock(String noOfStock) {
+        this.noOfStock = noOfStock;
+    }
+
+    public void setBuyPrice(String buyPrice) {
+        this.buyPrice = buyPrice;
+    }
+
+    public String getNetProfit()
+    {
+        double buyPrice = Double.parseDouble(getBuyPrice());
+        double noStock = Double.parseDouble(getNoOfStock());
+        double ltp = Double.parseDouble(getLtp());
+        return String.valueOf((buyPrice-ltp) * noStock);
+    }
+    public String getNetProfitPercentage()
+    {
+        double buyPrice = Double.parseDouble(getBuyPrice());
+
+        double ltp = Double.parseDouble(getLtp());
+        double profitRatio = (buyPrice - ltp) /ltp;
+        double percentage =  profitRatio*100;
+        DecimalFormat df = new DecimalFormat("0.00");
+        return String.valueOf(df.format(percentage)).concat("%");
+    }
 
     public String getCloseprice() {
         return closeprice;

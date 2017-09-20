@@ -389,6 +389,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goWatchlist"
                 android:orientation="vertical">
 
                 <ImageView
@@ -408,6 +409,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goPortfolio"
                 android:orientation="vertical">
 
                 <ImageView

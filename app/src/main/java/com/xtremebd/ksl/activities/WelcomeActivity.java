@@ -67,5 +67,13 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, ITSAccountsActivity.class));
     }
+    public void goWatchlist(View v)
+    {
+        startActivity(new Intent(this, WatchlistActivity.class));
+    }
+    public void goPortfolio(View v)
+    {
+        startActivity(new Intent(this, PortfolioActivity.class));
+    }
 
 }

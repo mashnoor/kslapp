@@ -27,8 +27,7 @@ public class DBHelper {
     }
 
 
-    public static MasterAccount getMasterAccount(Activity activity)
-    {
+    public static MasterAccount getMasterAccount(Activity activity) {
 
         Hawk.init(activity).build();
         return Hawk.get("masteraccount");
@@ -36,34 +35,61 @@ public class DBHelper {
 
     }
 
+    public static void updateAllWatchlistItems(Activity activity, List<Item> items) {
+        List<Item> watchlistItesm = getWatchlistItems(activity);
+        for (Item item : items) {
 
-    public static boolean isIteminWatchlist(Activity activity, String itemName)
-    {
+        }
+    }
+
+
+    public static boolean isIteminWatchlist(Activity activity, String itemName) {
         List<Item> allItems = getWatchlistItems(activity);
-        if(allItems == null) return false;
-        for (Item currItem : allItems)
-        {
-            if(currItem.getItem().equals(itemName))
-            {
+        if (allItems == null) return false;
+        for (Item currItem : allItems) {
+            if (currItem.getItem().equals(itemName)) {
                 return true;
             }
-            
+
         }
         return false;
 
 
     }
-    public static List<Item> getWatchlistItems(Activity activity)
+
+    public static boolean isIteminPortfolio(Activity activity, String itemName)
+    {
+        List<Item> allPortfolioItems = getPortfolioItems(activity);
+        for (Item currItem : allPortfolioItems) {
+            if (currItem.getItem().equals(itemName)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static List<Item> getPortfolioItems(Activity activity) {
+        return Hawk.get("portfolio", new ArrayList<Item>());
+    }
+
+    public static List<Item> getWatchlistItems(Activity activity) {
+        Hawk.init(activity).build();
+        return Hawk.get("watchlist", new ArrayList<Item>());
+    }
+
+    public static void addIteminPortfolio(Activity activity, Item item)
     {
         Hawk.init(activity).build();
-        return Hawk.get("watchlist");
+        List<Item> portfolioItems = getPortfolioItems(activity);
+        portfolioItems.add(item);
+        Hawk.put("portfolio", portfolioItems);
     }
 
     public static void addIteminWatchList(Activity activity, Item item) {
         Hawk.init(activity).build();
-        List<Item> wathclistItems= getWatchlistItems(activity);
-        if(wathclistItems == null)
-        {
+        List<Item> wathclistItems = getWatchlistItems(activity);
+        if (wathclistItems == null) {
             wathclistItems = new ArrayList<>();
         }
         Log.d("---------db helper", item.getItem());
@@ -73,7 +99,7 @@ public class DBHelper {
 
     }
 
-    public static void deleteItemFromWatchList(Activity activity, Item item)  {
+    public static void deleteItemFromWatchList(Activity activity, Item item) {
 
 
     }

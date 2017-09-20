@@ -63,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-
+            android:id="@+id/btnPortfolio"
+            android:onClick="actionPortfolio"
             android:text="Portfolio"
             app:bootstrapBrand="info"
             app:bootstrapSize="sm"

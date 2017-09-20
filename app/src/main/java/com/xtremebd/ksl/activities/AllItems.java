@@ -50,8 +50,7 @@ public class AllItems extends AppCompatActivity {
     private void getItemLists() {
         dialog.show();
 
-        Call<List<Item>> items = ApiInterfaceGetter.getStaticInterface().getAllLatestItemUpdates();
-        items.enqueue(new Callback<List<Item>>() {
+        ApiInterfaceGetter.getStaticInterface().getAllLatestItemUpdates().enqueue(new Callback<List<Item>>() {
 
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
