@@ -9,8 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import com.snappydb.DB;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.ITSAccountAdapter;
 import com.xtremebd.ksl.models.ITSAccount;

@@ -7,7 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import com.snappydb.DB;
+
+import com.orhanobut.hawk.Hawk;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
@@ -21,6 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Hawk.init(this).build();
+        Log.d("--------","-" +  Hawk.count());
 
         MasterAccount acc = DBHelper.getMasterAccount(this);
         Log.d("--------", acc.getMasterPass());

@@ -4,9 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.snappydb.SnappydbException;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
@@ -32,6 +35,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     @BindView(R.id.tvCapital) TextView tvCapital;
     @BindView(R.id.tvChange) TextView tvChange;
     @BindView(R.id.tvItemName) TextView tvItemName;
+    @BindView(R.id.btnWatchList)
+    BootstrapButton btnWatchList;
 
     String item_name;
     Item current_item;
@@ -44,7 +49,17 @@ public class ItemDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
+        if(DBHelper.isIteminWatchlist(this, item_name))
+        {
+            btnWatchList.setText("Remove from Watchlist");
+        }
+        else
+        {
+            btnWatchList.setText("Add to Watchlist");
+        }
+
         getIntemDetail(item_name);
+
     }
 
     private void getIntemDetail(final String item_name)
@@ -54,6 +69,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                 current_item = response.body();
+                current_item.setItem(item_name);
                 tvClosePrice.setText(current_item.getCloseprice());
                 tvLTP.setText(current_item.getLtp());
                 tvYCP.setText(current_item.getYesterdayClosePrice());
@@ -78,8 +94,18 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public void actionWatchlist(View v) 
     {
+        if(!DBHelper.isIteminWatchlist(ItemDetailActivity.this, item_name))
+        {
+            DBHelper.addIteminWatchList(ItemDetailActivity.this, current_item);
+            showToast("Item added to watchlist successfully");
 
+        }
 
+    }
+
+    private void showToast(String s)
+    {
+        Toast.makeText(ItemDetailActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
 

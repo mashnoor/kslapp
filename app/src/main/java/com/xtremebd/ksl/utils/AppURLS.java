@@ -1,7 +1,7 @@
 package com.xtremebd.ksl.utils;
 
 /**
- * Created by rajit on 7/4/17.
+ * Created by Mashnoor on 7/4/17.
  */
 
 public class AppURLS {

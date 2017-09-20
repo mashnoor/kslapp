@@ -73,6 +73,10 @@ public class Item{
         return false;
     }
 
+    public void setItem(String item) {
+        this.item = item;
+    }
+
     public String getItem() {
         return item;
     }
