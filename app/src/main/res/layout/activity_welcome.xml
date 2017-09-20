@@ -344,6 +344,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="goDiscussion"
                 android:orientation="vertical">
 
                 <ImageView

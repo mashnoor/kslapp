@@ -75,5 +75,9 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, PortfolioActivity.class));
     }
+    public void goDiscussion(View v)
+    {
+        startActivity(new Intent(this, DiscussionActivity.class));
+    }
 
 }
