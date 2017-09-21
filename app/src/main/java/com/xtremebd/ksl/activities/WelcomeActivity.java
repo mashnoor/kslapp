@@ -79,5 +79,15 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, DiscussionActivity.class));
     }
+    public void goLogout(View v)
+    {
+        DBHelper.setMasterAccount(this, null);
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+    public void goNotifications(View v)
+    {
+        startActivity(new Intent(this, NotificationsActivity.class));
+    }
 
 }

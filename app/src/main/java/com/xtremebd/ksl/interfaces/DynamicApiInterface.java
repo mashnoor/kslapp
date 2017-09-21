@@ -8,6 +8,7 @@ import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.models.MarketSummary;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
+import com.xtremebd.ksl.models.Notification;
 import com.xtremebd.ksl.models.Requisition;
 
 import java.util.List;
@@ -37,6 +38,10 @@ public interface DynamicApiInterface {
     Call<List<ITSAccount>> getItsAccounts(@Body MasterAccount masterAccount);
     @POST("{masterid}/additsaccountmobile")
     Call<String> addItsAccount(@Path("masterid") String masterId, @Body ITSAccount itsAccount);
+    @GET("getnotifications/{masterid}")
+    Call<List<Notification>> getNotifications(@Path("masterid") String masterId);
+    @POST("settoken")
+    Call<String> setToken(@Body MasterAccount masterAccount);
 
 
 

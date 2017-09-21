@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.xtremebd.ksl">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -50,7 +49,20 @@
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.ITSAccountsActivity" />
         <activity android:name=".activities.PortfolioActivity" />
-        <activity android:name=".activities.DiscussionActivity"></activity>
+        <activity android:name=".activities.DiscussionActivity" />
+
+        <service android:name=".services.KSLFirebaseMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.KSLFirebaseInstance">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activities.NotificationsActivity"></activity>
     </application>
 
 </manifest>

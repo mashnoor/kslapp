@@ -1,14 +1,20 @@
 package com.xtremebd.ksl.models;
 
+import android.support.annotation.Keep;
+
 import java.util.Date;
 
 /**
  * Created by Mashnoor on 9/20/17.
  */
 
-public class Message { private String messageText;
-    private String messageUser;
-    private long messageTime;
+public class Message {
+    @Keep
+    public String messageText;
+    @Keep
+    public String messageUser;
+    @Keep
+    public long messageTime;
 
     public Message(String messageText, String messageUser) {
         this.messageText = messageText;
@@ -17,10 +23,13 @@ public class Message { private String messageText;
         // Initialize to current time
         messageTime = new Date().getTime();
     }
+    @Keep
     public Message()
     {
 
     }
+
+
 
 
     public String getMessageText() {

@@ -9,6 +9,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.PortfolioListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.PortfolioHelper;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class PortfolioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
         ButterKnife.bind(this);
-        List<Item> portfolioItems = DBHelper.getPortfolioItems(this);
+        List<Item> portfolioItems = PortfolioHelper.getPortfolioItems(this);
         rvPortfolioList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new PortfolioListAdapter(portfolioItems);
         rvPortfolioList.setAdapter(adapter);

@@ -17,6 +17,8 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.PortfolioHelper;
+import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +53,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView tvItemName;
     @BindView(R.id.btnWatchList)
     BootstrapButton btnWatchList;
-    @BindView(R.id.btnPortfolio) BootstrapButton btnPortfolio;
+    @BindView(R.id.btnPortfolio)
+    BootstrapButton btnPortfolio;
 
     String item_name;
     Item current_item;
@@ -63,13 +66,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
-        if (DBHelper.isIteminWatchlist(this, item_name)) {
+        if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
             btnWatchList.setText("Remove from Watchlist");
         } else {
             btnWatchList.setText("Add to Watchlist");
         }
-        if (!DBHelper.isIteminPortfolio(ItemDetailActivity.this, item_name))
-        {
+        if (!PortfolioHelper.isIteminPortfolio(ItemDetailActivity.this, item_name)) {
             btnPortfolio.setText("Add to Portfolio");
 
         } else {
@@ -110,16 +112,20 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void actionWatchlist(View v) {
-        if (!DBHelper.isIteminWatchlist(ItemDetailActivity.this, item_name)) {
-            DBHelper.addIteminWatchList(ItemDetailActivity.this, current_item);
+        if (!WatchlistHelper.isIteminWatchlist(ItemDetailActivity.this, item_name)) {
+            WatchlistHelper.addIteminWatchList(ItemDetailActivity.this, current_item);
             showToast("Item added to watchlist successfully");
 
+        } else {
+            WatchlistHelper.deleteItemFromWatchList(ItemDetailActivity.this, item_name);
+            showToast("Item removed from watchlist successfully");
+            btnWatchList.setText("Add to watchlist");
         }
 
     }
 
     public void actionPortfolio(View v) {
-        if (!DBHelper.isIteminPortfolio(ItemDetailActivity.this, item_name)) {
+        if (!PortfolioHelper.isIteminPortfolio(ItemDetailActivity.this, item_name)) {
             AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
                     this);
             LayoutInflater inflater = getLayoutInflater();
@@ -134,7 +140,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     TextView tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
                     current_item.setBuyPrice(tvbuyPrice.getText().toString());
                     current_item.setNoOfStock(tvnoOfStock.getText().toString());
-                    DBHelper.addIteminPortfolio(ItemDetailActivity.this, current_item);
+                    PortfolioHelper.addIteminPortfolio(ItemDetailActivity.this, current_item);
                     showToast("Added to portfolio");
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -145,6 +151,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             }).show();
 
         }
+
     }
 
     private void showToast(String s) {

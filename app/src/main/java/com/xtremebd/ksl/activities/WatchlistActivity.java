@@ -12,6 +12,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class WatchlistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist);
         ButterKnife.bind(this);
-        allItem = DBHelper.getWatchlistItems(this);
+        allItem = WatchlistHelper.getWatchlistItems(this);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new AllItemListAdapter(allItem);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

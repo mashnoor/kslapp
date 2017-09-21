@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.interfaces.DynamicApiInterface;
 import com.xtremebd.ksl.models.MasterAccount;
@@ -38,7 +39,30 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        if(DBHelper.getMasterAccount(this) != null)
+        {
+            startActivity(new Intent(this, WelcomeActivity.class));
+            finish();
+        }
 
+    }
+
+    private void sendToken()
+    {
+        Log.d("-------", "Called tolem");
+        ApiInterfaceGetter.getDynamicInterface().setToken(DBHelper.getMasterAccount(this)).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.d("------", response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+
+            }
+        });
     }
 
     public void masterLogin(View v) {
@@ -60,10 +84,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d("--------", response.body());
                 if (response.body().equals("success")) {
+                    account.setToken(FirebaseInstanceId.getInstance().getToken());
+
 
                     DBHelper.setMasterAccount(LoginActivity.this, account);
+                    sendToken();
 
+                    dialog.dismiss();
                     startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+
+                    finish();
                 }
                 else
                 {

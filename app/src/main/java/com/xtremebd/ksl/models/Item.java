@@ -58,14 +58,14 @@ public class Item{
         double buyPrice = Double.parseDouble(getBuyPrice());
         double noStock = Double.parseDouble(getNoOfStock());
         double ltp = Double.parseDouble(getLtp());
-        return String.valueOf((buyPrice-ltp) * noStock);
+        return String.valueOf((ltp-buyPrice) * noStock);
     }
     public String getNetProfitPercentage()
     {
         double buyPrice = Double.parseDouble(getBuyPrice());
 
         double ltp = Double.parseDouble(getLtp());
-        double profitRatio = (buyPrice - ltp) /ltp;
+        double profitRatio = (ltp - buyPrice) /ltp;
         double percentage =  profitRatio*100;
         DecimalFormat df = new DecimalFormat("0.00");
         return String.valueOf(df.format(percentage)).concat("%");

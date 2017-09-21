@@ -14,6 +14,9 @@ public class MasterAccount {
     @SerializedName("masterpass")
     private String masterPass;
 
+    @SerializedName("token")
+    private String token;
+
     public MasterAccount(String masterId, String masterPass) {
         this.masterId = masterId;
         this.masterPass = masterPass;
@@ -21,6 +24,10 @@ public class MasterAccount {
 
     public MasterAccount() {
 
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getMasterId() {
