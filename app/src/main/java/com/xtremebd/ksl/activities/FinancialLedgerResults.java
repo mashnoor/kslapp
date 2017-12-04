@@ -1,64 +1,61 @@
 package com.xtremebd.ksl.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.adapters.OrderStatusAdapter;
+import com.xtremebd.ksl.adapters.LedgerAdapter;
+import com.xtremebd.ksl.models.Ledger;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
 
-
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import dmax.dialog.SpotsDialog;
 
-public class OrderSearcResult extends AppCompatActivity {
+public class FinancialLedgerResults extends AppCompatActivity {
 
-    AsyncHttpClient client;
 
-    @BindView(R.id.rvOrderStatus)
-    RecyclerView rvOrderStatus;
-
+    @BindView(R.id.rvFinancialLedger)
+    RecyclerView rvFinancialLedger;
     SpotsDialog dialog;
 
+    AsyncHttpClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_searc_result);
+        setContentView(R.layout.activity_financial_ledger_results);
         ButterKnife.bind(this);
-        client = new AsyncHttpClient();
-        rvOrderStatus.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        Logger.addLogAdapter(new AndroidLogAdapter());
-        getOrderStatus();
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
-
+        rvFinancialLedger.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        getFinancialLedger();
     }
 
-    private void getOrderStatus() {
+    private void getFinancialLedger()
+    {
         Intent i = getIntent();
-        String itsaccoutnt = i.getStringExtra("itsaccount");
-        String itspass = i.getStringExtra("itsaccountpass");
-        String fromdate = i.getStringExtra("fromdate");
-        String todate = i.getStringExtra("todate");
+        String clientid= i.getStringExtra("client_id");
+        String fromDate = i.getStringExtra("from_date");
+        String todate = i.getStringExtra("to_date");
+        com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter());
+        client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.put("itsaccountno", itsaccoutnt);
-        params.put("itsaccountpass", itspass);
-        params.put("startdate", fromdate);
-        params.put("enddate", todate);
-        client.post(AppURLS.GET_ORDER_STATUS, params, new AsyncHttpResponseHandler() {
+        params.put("client_id", clientid);
+        params.put("from_date", fromDate);
+        params.put("to_date", todate);
+        client.post(AppURLS.GET_FINANCIAL_LEDGER, params, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -68,19 +65,25 @@ public class OrderSearcResult extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
-                com.xtremebd.ksl.models.OrderStatus[] statuses = Geson.g().fromJson(response, com.xtremebd.ksl.models.OrderStatus[].class);
-                OrderStatusAdapter adapter = new OrderStatusAdapter(Arrays.asList(statuses));
-                rvOrderStatus.setAdapter(adapter);
+                Ledger[] ledgers = Geson.g().fromJson(response, Ledger[].class);
+                LedgerAdapter adapter = new LedgerAdapter(Arrays.asList(ledgers));
+                rvFinancialLedger.setAdapter(adapter);
                 dialog.dismiss();
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(new String(responseBody));
-                dialog.dismiss();
-
+                com.orhanobut.logger.Logger.d(new String(responseBody));
             }
         });
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

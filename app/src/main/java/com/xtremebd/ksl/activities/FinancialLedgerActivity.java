@@ -5,46 +5,46 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.loopj.android.http.AsyncHttpClient;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderStatus extends AppCompatActivity {
+public class FinancialLedgerActivity extends AppCompatActivity {
 
-    @BindView(R.id.spnrItsAccounts)
-    Spinner spnrItsAccounts;
+    @BindView(R.id.spnrClientIds)
+    Spinner spnrClientIds;
     @BindView(R.id.etFromDate)
     EditText etFromDate;
     @BindView(R.id.etToDate)
     EditText etTodate;
-    @BindView(R.id.etItsAccountPass)
-    EditText etitsAccountPass;
 
     int which;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_status);
+        setContentView(R.layout.activity_financial_ledger);
         ButterKnife.bind(this);
+
 
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -53,16 +53,18 @@ public class OrderStatus extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                if(monthOfYear+1 < 10)
-                    monthOfYear = Integer.parseInt("0" + String.valueOf(monthOfYear+1));
+                String month = String.valueOf(monthOfYear+1);
+                String day = String.valueOf(dayOfMonth);
+                if(month.length() == 1)
+                    month = "0" + month;
                 // TODO Auto-generated method stub
-                if(dayOfMonth+1 < 10)
-                    dayOfMonth = Integer.parseInt("0" + String.valueOf(dayOfMonth+1));
+                if(day.length() == 1)
+                    day = "0" + day;
                 if (which == 0)
-                    etFromDate.setText(year + "-" + (monthOfYear+1) + "-" + (dayOfMonth+1));
+                    etFromDate.setText(year + "-" + month + "-" + day);
 
                 else
-                    etTodate.setText(year + "-" + (monthOfYear+1) + "-" + (dayOfMonth+1));
+                    etTodate.setText(year + "-" + month + "-" + day);
             }
 
         };
@@ -73,7 +75,7 @@ public class OrderStatus extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 which = 0;
-                new DatePickerDialog(OrderStatus.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                new DatePickerDialog(FinancialLedgerActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -86,51 +88,38 @@ public class OrderStatus extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 which = 1;
-                new DatePickerDialog(OrderStatus.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                new DatePickerDialog(FinancialLedgerActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
             }
         });
 
-
-        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
+        ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                List<ITSAccount> itsAccounts = response.body();
-                List<String> accountNos = new ArrayList<String>();
-                for(int  i = 0; i<itsAccounts.size(); i++)
-                {
-                    accountNos.add(itsAccounts.get(i).getItsAccountNo());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderStatus.this, android.R.layout.simple_spinner_item, accountNos);
-                spnrItsAccounts.setAdapter(adapter);
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                Log.d("-------", response.body().toString());
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(FinancialLedgerActivity.this, android.R.layout.simple_spinner_item, response.body());
+                spnrClientIds.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.d("--------", t.getMessage());
 
             }
         });
-
-
     }
 
-    public void submitOrderStatus(View v) {
-        String itsAccount = spnrItsAccounts.getSelectedItem().toString();
+    public void viewFinancialLedger(View v)
+    {
+        String clientID = spnrClientIds.getSelectedItem().toString();
         String fromDate = etFromDate.getText().toString();
-        String toDate = etTodate.getText().toString();
-        String itsAccountPass = etitsAccountPass.getText().toString();
-
-        Intent i = new Intent(this, OrderSearcResult.class);
-
-        i.putExtra("itsaccount", itsAccount);
-
-        i.putExtra("itsaccountpass", itsAccountPass);
-        i.putExtra("fromdate", fromDate);
-        i.putExtra("todate", toDate);
-
+        String todate = etTodate.getText().toString();
+        Intent i = new Intent(this, FinancialLedgerResults.class);
+        i.putExtra("client_id", clientID);
+        i.putExtra("from_date", fromDate);
+        i.putExtra("to_date", todate);
         startActivity(i);
-
     }
 }

@@ -47,3 +47,4 @@
 }
 -dontwarn com.esotericsoftware.kryo.**
 -dontwarn org.objenesis.instantiator.sun.**
+-dontwarn android.arch.**

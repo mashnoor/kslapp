@@ -10,10 +10,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseListOptions;
+
 import com.google.firebase.FirebaseApp;
 
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Message;
 import com.xtremebd.ksl.utils.DBHelper;
@@ -53,28 +54,8 @@ public class DiscussionActivity extends AppCompatActivity {
     {
         ListView listOfMessages =findViewById(R.id.list_of_messages);
 
-        FirebaseListOptions<Message> options = new FirebaseListOptions.Builder<Message>()
 
-                .build();
 
-        adapter = new FirebaseListAdapter<Message>(options) {
-            @Override
-            protected void populateView(View v, Message model, int position) {
-                TextView messageText = v.findViewById(R.id.message_text);
-                TextView messageUser = v.findViewById(R.id.message_user);
-                TextView messageTime = v.findViewById(R.id.message_time);
-
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
-            }
-        };
-
-        /***
         adapter = new FirebaseListAdapter<Message>(this, Message.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference()) {
             @Override
@@ -94,7 +75,7 @@ public class DiscussionActivity extends AppCompatActivity {
             }
         };
 
-         ***/
+
         listOfMessages.setAdapter(adapter);
     }
 }
