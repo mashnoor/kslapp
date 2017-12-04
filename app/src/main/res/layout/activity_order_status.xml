@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ITS Acc No:" />
+
+    <Spinner
+        android:id="@+id/spnrItsAccounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ITS Acc Pass:" />
+    <EditText
+        android:id="@+id/etItsAccountPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:inputType="textPassword"
+        android:hint="ITS Password" />
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From Date:" />
+
+    <EditText
+        android:id="@+id/etFromDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To Date" />
+
+    <EditText
+        android:id="@+id/etToDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="submitOrderStatus"
+        android:text="Submit" />
+
+</LinearLayout>
+

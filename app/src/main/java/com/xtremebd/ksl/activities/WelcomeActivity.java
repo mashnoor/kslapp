@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Hawk.init(this).build();
-        Log.d("--------","-" +  Hawk.count());
+        Log.d("--------", "-" + Hawk.count());
 
         MasterAccount acc = DBHelper.getMasterAccount(this);
         Log.d("--------", acc.getMasterPass());
@@ -63,31 +63,39 @@ public class WelcomeActivity extends AppCompatActivity {
     public void goOpenAccount(View v) {
         startActivity(new Intent(this, OpenaccountActivity.class));
     }
-    public void goITSAccounts(View v)
-    {
+
+    public void goITSAccounts(View v) {
         startActivity(new Intent(this, ITSAccountsActivity.class));
     }
-    public void goWatchlist(View v)
-    {
+
+    public void goWatchlist(View v) {
         startActivity(new Intent(this, WatchlistActivity.class));
     }
-    public void goPortfolio(View v)
-    {
+
+    public void goPortfolio(View v) {
         startActivity(new Intent(this, PortfolioActivity.class));
     }
-    public void goDiscussion(View v)
-    {
+
+    public void goDiscussion(View v) {
         startActivity(new Intent(this, DiscussionActivity.class));
     }
-    public void goLogout(View v)
-    {
+
+    public void goLogout(View v) {
         DBHelper.setMasterAccount(this, null);
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
-    public void goNotifications(View v)
-    {
+
+    public void goNotifications(View v) {
         startActivity(new Intent(this, NotificationsActivity.class));
+    }
+
+    public void goPortfolioStatement(View v) {
+        startActivity(new Intent(this, PortfolioStatement.class));
+    }
+
+    public void goOrderStatus(View v) {
+        startActivity(new Intent(this, OrderStatus.class));
     }
 
 }

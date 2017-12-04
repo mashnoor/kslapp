@@ -115,6 +115,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         if (!WatchlistHelper.isIteminWatchlist(ItemDetailActivity.this, item_name)) {
             WatchlistHelper.addIteminWatchList(ItemDetailActivity.this, current_item);
             showToast("Item added to watchlist successfully");
+            recreate();
 
         } else {
             WatchlistHelper.deleteItemFromWatchList(ItemDetailActivity.this, item_name);
@@ -142,6 +143,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     current_item.setNoOfStock(tvnoOfStock.getText().toString());
                     PortfolioHelper.addIteminPortfolio(ItemDetailActivity.this, current_item);
                     showToast("Added to portfolio");
+                    recreate();
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override

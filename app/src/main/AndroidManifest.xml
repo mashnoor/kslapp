@@ -62,7 +62,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.NotificationsActivity"></activity>
+        <activity android:name=".activities.NotificationsActivity" />
+        <activity android:name=".activities.PortfolioStatement" />
+        <activity android:name=".activities.OrderStatus" />
+        <activity android:name=".activities.OrderSearcResult"></activity>
     </application>
 
 </manifest>

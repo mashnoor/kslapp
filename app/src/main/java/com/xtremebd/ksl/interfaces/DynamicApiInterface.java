@@ -9,7 +9,9 @@ import com.xtremebd.ksl.models.MarketSummary;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.models.Notification;
+import com.xtremebd.ksl.models.PortfolioStatement;
 import com.xtremebd.ksl.models.Requisition;
+import com.xtremebd.ksl.models.Resp;
 
 import java.util.List;
 
@@ -42,6 +44,10 @@ public interface DynamicApiInterface {
     Call<List<Notification>> getNotifications(@Path("masterid") String masterId);
     @POST("settoken")
     Call<String> setToken(@Body MasterAccount masterAccount);
+    @POST("clientids")
+    Call<List<String>> getClientIds(@Body MasterAccount masterAccount);
+    @POST("getportfoliostatement")
+    Call<Resp> getPortfolioStatement(@Body PortfolioStatement ps);
 
 
 
