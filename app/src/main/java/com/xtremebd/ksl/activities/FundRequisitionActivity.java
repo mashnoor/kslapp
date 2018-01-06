@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.models.Requisition;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,12 +34,17 @@ public class FundRequisitionActivity extends AppCompatActivity {
     EditText etAmount;
     @BindView(R.id.etDate)
     EditText etDate;
+    SpotsDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fund_requisition);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog.show();
         ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
             @Override
             public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
@@ -49,10 +56,12 @@ public class FundRequisitionActivity extends AppCompatActivity {
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, accountNos);
                 spnrItsAcc.setAdapter(adapter);
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+                dialog.dismiss();
 
             }
         });

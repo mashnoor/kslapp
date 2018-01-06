@@ -55,13 +55,23 @@ public class Item{
 
     public String getNetProfit()
     {
+        if(getLtp().equals("Not Traded Today"))
+            return "0";
+        if(getBuyPrice().equals("Not Traded Today"))
+            return "0";
         double buyPrice = Double.parseDouble(getBuyPrice());
         double noStock = Double.parseDouble(getNoOfStock());
         double ltp = Double.parseDouble(getLtp());
+
         return String.valueOf((ltp-buyPrice) * noStock);
     }
     public String getNetProfitPercentage()
     {
+        if(getBuyPrice().equals("Not Traded Today") || getLtp().equals("Not Traded Today"))
+        {
+            return "0";
+        }
+
         double buyPrice = Double.parseDouble(getBuyPrice());
 
         double ltp = Double.parseDouble(getLtp());

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
@@ -33,11 +34,13 @@ public class AllItems extends AppCompatActivity {
 
 
     AlertDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
@@ -25,11 +26,13 @@ public class WatchlistActivity extends AppCompatActivity {
     AllItemListAdapter adapter;
     @BindView(R.id.itemList)
     RecyclerView itemList;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         allItem = WatchlistHelper.getWatchlistItems(this);
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new AllItemListAdapter(allItem);

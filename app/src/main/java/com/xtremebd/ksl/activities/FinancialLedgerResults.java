@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,10 +34,12 @@ public class FinancialLedgerResults extends AppCompatActivity {
     SpotsDialog dialog;
 
     AsyncHttpClient client;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_ledger_results);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         rvFinancialLedger.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -75,6 +78,8 @@ public class FinancialLedgerResults extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 com.orhanobut.logger.Logger.d(new String(responseBody));
+                dialog.dismiss();
+
             }
         });
 

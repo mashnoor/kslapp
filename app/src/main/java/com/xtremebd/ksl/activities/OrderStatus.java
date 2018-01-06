@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.ITSAccount;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,13 +41,17 @@ public class OrderStatus extends AppCompatActivity {
     EditText etitsAccountPass;
 
     int which;
+    SpotsDialog dialog;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_status);
         ButterKnife.bind(this);
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -53,16 +59,18 @@ public class OrderStatus extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                if(monthOfYear+1 < 10)
-                    monthOfYear = Integer.parseInt("0" + String.valueOf(monthOfYear+1));
+                String month = String.valueOf(monthOfYear + 1);
+                String day = String.valueOf(dayOfMonth);
+                if (month.length() == 1)
+                    month = "0" + month;
                 // TODO Auto-generated method stub
-                if(dayOfMonth+1 < 10)
-                    dayOfMonth = Integer.parseInt("0" + String.valueOf(dayOfMonth+1));
+                if (day.length() == 1)
+                    day = "0" + day;
                 if (which == 0)
-                    etFromDate.setText(year + "-" + (monthOfYear+1) + "-" + (dayOfMonth+1));
+                    etFromDate.setText(year + "-" + month + "-" + day);
 
                 else
-                    etTodate.setText(year + "-" + (monthOfYear+1) + "-" + (dayOfMonth+1));
+                    etTodate.setText(year + "-" + month + "-" + day);
             }
 
         };
@@ -93,22 +101,24 @@ public class OrderStatus extends AppCompatActivity {
             }
         });
 
+        dialog.show();
 
         ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
             @Override
             public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
                 List<ITSAccount> itsAccounts = response.body();
                 List<String> accountNos = new ArrayList<String>();
-                for(int  i = 0; i<itsAccounts.size(); i++)
-                {
+                for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderStatus.this, android.R.layout.simple_spinner_item, accountNos);
                 spnrItsAccounts.setAdapter(adapter);
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+                dialog.dismiss();
 
             }
         });

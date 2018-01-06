@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.interfaces.DynamicApiInterface;
@@ -32,12 +33,15 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.tvMasterPassword)
     EditText tvMasterPassword;
     SpotsDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         if(DBHelper.getMasterAccount(this) != null)
         {

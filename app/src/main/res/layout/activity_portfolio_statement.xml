@@ -14,11 +14,12 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/etPsDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:id="@+id/etPsDate"
-        android:text="Select Portfolio Date" />
+        android:focusable="false"
+        android:hint="Select PS Date" />
 
     <Button
         android:layout_width="wrap_content"

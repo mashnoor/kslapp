@@ -193,6 +193,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "425183610067-7025c62m8bmjs20k2iqsjvk0purvsmjm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xtremebd.ksl",
+            "certificate_hash": "c23a4e42e47b7fa3a35e2688df5bddef27f75656"
+          }
+        },
+        {
           "client_id": "425183610067-1kkk473i29ecl7l1h46ssl7nqtl3q8qh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

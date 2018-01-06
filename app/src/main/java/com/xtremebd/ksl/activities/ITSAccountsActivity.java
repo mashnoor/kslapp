@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.ITSAccountAdapter;
 import com.xtremebd.ksl.models.ITSAccount;
@@ -38,7 +39,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
 
     SpotsDialog dialog;
     ITSAccountAdapter adapter;
-
+    private FirebaseAnalytics mFirebaseAnalytics;
     private void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
@@ -48,6 +49,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itsaccounts);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         rvitsAccounts.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getItsAccounts();

@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
@@ -22,6 +24,7 @@ import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,12 +61,16 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     String item_name;
     Item current_item;
+    SpotsDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
         if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
@@ -83,6 +90,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void getIntemDetail(final String item_name) {
+        dialog.show();
+
 
         ApiInterfaceGetter.getStaticInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
             @Override
@@ -99,11 +108,13 @@ public class ItemDetailActivity extends AppCompatActivity {
                 tvLTD.setText(current_item.getLastTradeDate());
                 tvCapital.setText(current_item.getCapital());
                 tvChange.setText(current_item.getChange());
+                dialog.dismiss();
 
             }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
+                dialog.dismiss();
 
 
             }
@@ -158,6 +169,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private void showToast(String s) {
         Toast.makeText(ItemDetailActivity.this, s, Toast.LENGTH_LONG).show();
+    }
+    public void btnPlaceOrder(View v)
+    {
+        Intent i = new Intent(this, TradeActivity.class);
+        i.putExtra("itemname", item_name);
+        startActivity(i);
     }
 
 

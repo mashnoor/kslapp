@@ -21,6 +21,7 @@
         app:bootstrapSize="lg"
         app:buttonMode="regular"
         app:roundedCorners="true"
+        android:onClick="btnPlaceOrder"
         android:layout_marginBottom="5dp"
         app:showOutline="false" />
     <LinearLayout

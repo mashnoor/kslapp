@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.MarketSummary;
@@ -49,13 +50,14 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.tvIssuedCapital) TextView tvIssuedCapital;
     @BindView(R.id.tvClosingMarketCapitalization) TextView tvClosingMarketCapitalization;
 
-
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         getIndexes();
         getMarketSummary();
 

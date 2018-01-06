@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
@@ -36,14 +37,17 @@ public class FinancialLedgerActivity extends AppCompatActivity {
     EditText etTodate;
 
     int which;
+    SpotsDialog dialog;
 
-
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_ledger);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
 
 
 
@@ -94,6 +98,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
 
             }
         });
+        dialog.show();
 
         ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
             @Override
@@ -101,11 +106,13 @@ public class FinancialLedgerActivity extends AppCompatActivity {
                 Log.d("-------", response.body().toString());
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(FinancialLedgerActivity.this, android.R.layout.simple_spinner_item, response.body());
                 spnrClientIds.setAdapter(adapter);
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.d("--------", t.getMessage());
+                dialog.dismiss();
 
             }
         });

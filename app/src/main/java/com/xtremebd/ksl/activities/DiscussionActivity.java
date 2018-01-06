@@ -13,6 +13,7 @@ import com.firebase.ui.database.FirebaseListAdapter;
 
 import com.google.firebase.FirebaseApp;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.xtremebd.ksl.R;
@@ -20,12 +21,13 @@ import com.xtremebd.ksl.models.Message;
 import com.xtremebd.ksl.utils.DBHelper;
 
 public class DiscussionActivity extends AppCompatActivity {
-
+    private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseListAdapter<Message> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         FirebaseApp.initializeApp(this);
         displayMessages();
         FloatingActionButton fab =

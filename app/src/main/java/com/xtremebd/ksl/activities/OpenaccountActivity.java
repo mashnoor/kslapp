@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Account;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
@@ -27,12 +28,14 @@ public class OpenaccountActivity extends AppCompatActivity {
     TextView etUserMobile;
     @BindView(R.id.etUserPassword)
     TextView etUserPassword;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openaccount);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
     private void showToast(String s)
     {

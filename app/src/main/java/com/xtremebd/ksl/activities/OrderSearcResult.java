@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,12 +34,14 @@ public class OrderSearcResult extends AppCompatActivity {
     RecyclerView rvOrderStatus;
 
     SpotsDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_searc_result);
         ButterKnife.bind(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         client = new AsyncHttpClient();
         rvOrderStatus.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Logger.addLogAdapter(new AndroidLogAdapter());

@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -45,15 +47,33 @@ public class TradeActivity extends AppCompatActivity {
     Spinner spnrItsAccounts;
     AsyncHttpClient client;
     ProgressDialog dialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
+    List<ITSAccount> itsAccounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade);
         ButterKnife.bind(this);
+        Intent i = getIntent();
+        try
+        {
+            String itemName = i.getStringExtra("itemname");
+            txtItemName.setFocusable(false);
+            txtItemName.setText(itemName);
+            getLtp();
+
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Connecting with server. Please wait...");
@@ -62,7 +82,7 @@ public class TradeActivity extends AppCompatActivity {
         ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
             @Override
             public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                List<ITSAccount> itsAccounts = response.body();
+               itsAccounts = response.body();
                 List<String> accountNos = new ArrayList<String>();
                 for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());
@@ -129,7 +149,7 @@ public class TradeActivity extends AppCompatActivity {
     public void btnBuy(View v) {
         RequestParams trading_params = new RequestParams();
         trading_params.put("loginid", spnrItsAccounts.getSelectedItem().toString());
-        trading_params.put("password", "");
+        trading_params.put("password", itsAccounts.get(spnrItsAccounts.getSelectedItemPosition()).getItsAccountPass());
         trading_params.put("item", txtItemName.getText().toString().trim());
         trading_params.put("qty", txtQty.getText().toString().trim());
         client.post(AppURLS.BUY_URL, trading_params, new AsyncHttpResponseHandler() {

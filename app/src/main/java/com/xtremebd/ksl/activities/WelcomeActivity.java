@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.MasterAccount;
@@ -16,6 +17,7 @@ import com.xtremebd.ksl.utils.DBHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Hawk.init(this).build();
         Log.d("--------", "-" + Hawk.count());
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         MasterAccount acc = DBHelper.getMasterAccount(this);
         Log.d("--------", acc.getMasterPass());
