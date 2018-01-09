@@ -105,4 +105,8 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         startActivity(new Intent(this, FinancialLedgerActivity.class));
     }
+    public void goKslNews(View v)
+    {
+        startActivity(new Intent(this, KSLNews.class));
+    }
 }

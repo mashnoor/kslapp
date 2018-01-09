@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class ITSAccountAdapter extends BaseQuickAdapter<ITSAccount, BaseViewHolder> {
-    public ITSAccountAdapter( @Nullable List<ITSAccount> data) {
+    public ITSAccountAdapter(@Nullable List<ITSAccount> data) {
         super(R.layout.row_its_account, data);
     }
 
@@ -23,5 +23,7 @@ public class ITSAccountAdapter extends BaseQuickAdapter<ITSAccount, BaseViewHold
     @Override
     protected void convert(BaseViewHolder holder, ITSAccount account) {
         holder.setText(R.id.tvItsAccountNo, account.getItsAccountNo());
+        holder.addOnClickListener(R.id.btnDelete);
+
     }
 }

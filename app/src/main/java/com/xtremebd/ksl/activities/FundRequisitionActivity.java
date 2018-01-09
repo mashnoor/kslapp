@@ -45,45 +45,37 @@ public class FundRequisitionActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         dialog.show();
-        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
+        ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                List<ITSAccount> itsAccounts = response.body();
-                List<String> accountNos = new ArrayList<String>();
-                for(int  i = 0; i<itsAccounts.size(); i++)
-                {
-                    accountNos.add(itsAccounts.get(i).getItsAccountNo());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, accountNos);
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, response.body());
+                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, accountNos);
                 spnrItsAcc.setAdapter(adapter);
                 dialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 dialog.dismiss();
 
             }
         });
     }
-    private void showToast(String s)
-    {
+
+    private void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 
-    public void submitRequest(View v)
-    {
+    public void submitRequest(View v) {
         String itsAccno = spnrItsAcc.getSelectedItem().toString();
         String amount = etAmount.getText().toString().trim();
         String date = etDate.getText().toString().trim();
 
-        if(TextUtils.isEmpty(amount))
-        {
+        if (TextUtils.isEmpty(amount)) {
             etAmount.setError("Amount can't be empty");
             return;
         }
-        if(TextUtils.isEmpty(date))
-        {
+        if (TextUtils.isEmpty(date)) {
             etDate.setError("Date can't be empty");
             return;
         }

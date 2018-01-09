@@ -2,7 +2,9 @@ package com.xtremebd.ksl.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -39,6 +41,7 @@ public class KSLNews extends AppCompatActivity {
         ButterKnife.bind(this);
         client = new AsyncHttpClient();
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        rvKslNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getKslNews();
     }
 
@@ -54,6 +57,7 @@ public class KSLNews extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 News kslNews[] = Geson.g().fromJson(new String(responseBody), News[].class);
                 List<News> kslNewsList = Arrays.asList(kslNews);
+                Log.d("----------",   "" + kslNews.length);
                 adapter = new NewsAdapter(kslNewsList);
                 rvKslNewsList.setAdapter(adapter);
                 dialog.dismiss();

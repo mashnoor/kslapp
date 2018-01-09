@@ -12,6 +12,7 @@ public class AppURLS {
     public static final String GET_PORTFOLIO_STATEMENT = BASE_URL + ":5003/getportfoliostatement";
     public static final String GET_ORDER_STATUS = BASE_URL + ":5003/getorderstatus";
     public static final String GET_FINANCIAL_LEDGER = BASE_URL + ":5003/getfinancialledgrs";
-    public static final String GET_KSL_NEWS = BASE_URL + "";
+    public static final String DELETE_ITS_ACCOUNT = BASE_URL + ":5003/deleteitsaccount";
+    public static final String GET_KSL_NEWS = BASE_URL + "/kslbackend/ksl_news.txt";
 
 }

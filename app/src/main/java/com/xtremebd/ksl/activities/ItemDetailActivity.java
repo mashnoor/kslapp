@@ -170,8 +170,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void showToast(String s) {
         Toast.makeText(ItemDetailActivity.this, s, Toast.LENGTH_LONG).show();
     }
-    public void btnPlaceOrder(View v)
-    {
+
+    public void btnPlaceOrder(View v) {
         Intent i = new Intent(this, TradeActivity.class);
         i.putExtra("itemname", item_name);
         startActivity(i);
