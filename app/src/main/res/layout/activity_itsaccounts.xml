@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +10,19 @@
     tools:context="com.xtremebd.ksl.activities.ITSAccountsActivity">
 
     <TextView
-        android:id="@+id/tvmasterIdTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="ITS Accounts For "
+        android:layout_marginBottom="5dp"
+        android:text="ITS ACCOUNTS"
+        android:textColor="@color/general"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Add ITS Account"
+        android:textColor="#000"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -22,29 +31,50 @@
         android:orientation="horizontal"
         android:weightSum="5">
 
-        <EditText
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/etItsAccountNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="ITS Account" />
-        <EditText
+            android:hint="Account No"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="md"
+
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/etItsAccountPass"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:hint="Password"
             android:inputType="textPassword"
-            android:hint="ITS Password" />
-        <Button
-            android:layout_weight="1"
-            android:text="Add"
-            android:onClick="addItsAccount"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="md"
+
+            app:roundedCorners="true" />
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:onClick="addItsAccount"
+            android:text="Add"
+            android:layout_weight="1"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="md"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:showOutline="false" />
+
+
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItsAccounts"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

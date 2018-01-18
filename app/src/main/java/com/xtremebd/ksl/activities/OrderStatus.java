@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.beardedhen.androidbootstrap.BootstrapDropDown;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.xtremebd.ksl.R;
@@ -19,6 +20,7 @@ import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -113,6 +115,7 @@ public class OrderStatus extends AppCompatActivity {
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderStatus.this, android.R.layout.simple_spinner_item, accountNos);
                 spnrItsAccounts.setAdapter(adapter);
+
                 dialog.dismiss();
             }
 

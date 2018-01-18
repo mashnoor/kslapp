@@ -56,23 +56,17 @@ public class TradeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trade);
         ButterKnife.bind(this);
         Intent i = getIntent();
-        try
-        {
+        try {
             String itemName = i.getStringExtra("itemname");
             txtItemName.setFocusable(false);
             txtItemName.setText(itemName);
             getLtp();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
 
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
@@ -82,7 +76,7 @@ public class TradeActivity extends AppCompatActivity {
         ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
             @Override
             public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-               itsAccounts = response.body();
+                itsAccounts = response.body();
                 List<String> accountNos = new ArrayList<String>();
                 for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());

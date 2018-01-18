@@ -6,6 +6,16 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:text="NOTIFICATIONS"
+        android:textColor="@color/general"
+        android:textSize="30sp" />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvNotifications"
         android:layout_width="match_parent"

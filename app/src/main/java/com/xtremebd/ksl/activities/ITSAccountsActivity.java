@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -77,8 +78,15 @@ public class ITSAccountsActivity extends AppCompatActivity {
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        askForMasterPassword(itsAccs.get(position).getItsAccountNo());
-                        Toast.makeText(ITSAccountsActivity.this, "" + position, Toast.LENGTH_LONG).show();
+                        if (view.getId() == R.id.btnDelete) {
+                            trydeletingaccout(itsAccs.get(position).getItsAccountNo());
+                        } else if (view.getId() == R.id.btnEdit) {
+                            Toast.makeText(ITSAccountsActivity.this, "Edit", Toast.LENGTH_LONG).show();
+
+                        }
+
+
+                        Toast.makeText(ITSAccountsActivity.this, "" + position + " " + view.getId(), Toast.LENGTH_LONG).show();
                     }
                 });
                 rvitsAccounts.setAdapter(adapter);
@@ -95,7 +103,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
         });
     }
 
-    private void askForMasterPassword(final String itsAccNo) {
+    private void trydeletingaccout(final String itsAccNo) {
         AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
                 this);
         LayoutInflater inflater = getLayoutInflater();
@@ -112,8 +120,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
                     return;
 
                 }
-                if(!masterPassword.equals(DBHelper.getMasterAccount(ITSAccountsActivity.this)))
-                {
+                if (!masterPassword.equals(DBHelper.getMasterAccount(ITSAccountsActivity.this))) {
                     showToast("Master password didn't match");
                     dialog.dismiss();
                     return;
@@ -123,7 +130,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
                 AsyncHttpClient client = new AsyncHttpClient();
                 RequestParams params = new RequestParams();
                 params.put("masterid", masterId);
-                params.put("masterpass",masterPassword);
+                params.put("masterpass", masterPassword);
                 params.put("itsid", itsAccNo);
                 client.post(AppURLS.DELETE_ITS_ACCOUNT, params, new AsyncHttpResponseHandler() {
                     @Override

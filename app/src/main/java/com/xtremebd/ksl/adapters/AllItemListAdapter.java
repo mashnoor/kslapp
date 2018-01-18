@@ -24,7 +24,8 @@ public class AllItemListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
         holder.setText(R.id.txtItem, item.getItem())
                 .setText(R.id.txtChange, item.getChange())
                 .setText(R.id.txtLTP, item.getLtp())
-                .setText(R.id.txtVolume, item.getVolume());
+                .setText(R.id.txtVolume, item.getVolume())
+                .setTextColor(R.id.txtChange, item.getColor());
 
     }
 }

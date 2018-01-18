@@ -24,6 +24,7 @@ public class ITSAccountAdapter extends BaseQuickAdapter<ITSAccount, BaseViewHold
     protected void convert(BaseViewHolder holder, ITSAccount account) {
         holder.setText(R.id.tvItsAccountNo, account.getItsAccountNo());
         holder.addOnClickListener(R.id.btnDelete);
+        holder.addOnClickListener(R.id.btnEdit);
 
     }
 }

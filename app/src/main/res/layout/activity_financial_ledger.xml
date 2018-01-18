@@ -2,15 +2,26 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="FINANCIAL LEDGER"
+        android:textColor="@color/general"
+        android:textSize="30sp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Client Id:" />
+        android:text="Client ID:"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/spnrClientIds"
@@ -22,31 +33,44 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From Date:" />
+        android:text="Select From Date:"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etFromDate"
-        android:focusable="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusable="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To Date" />
+        android:text="Select To Date"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etToDate"
-        android:focusable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="false" />
+
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
         android:onClick="viewFinancialLedger"
-        android:text="Submit" />
+        android:text="View Ledger"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false" />
+
 
 </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.xtremebd.ksl.models;
 
+import android.graphics.Color;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DecimalFormat;
@@ -137,5 +139,26 @@ public class Item{
 
     public String getLtp() {
         return ltp;
+    }
+    public int getColor()
+    {
+        try
+
+        {
+            double change = Double.parseDouble(getChange());
+            if(change<0)
+            {
+                return Color.RED;
+            }
+            else
+            {
+                return Color.GREEN;
+            }
+
+        }
+        catch (Exception e)
+        {
+            return Color.RED;
+        }
     }
 }
