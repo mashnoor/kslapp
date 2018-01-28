@@ -12,10 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activities.TradeActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
         <activity
             android:name=".activities.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -27,10 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.WelcomeActivity"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.AllItems" />
         <activity
             android:name=".activities.HomeActivity"
@@ -68,7 +65,14 @@
         <activity android:name=".activities.OrderSearcResult" />
         <activity android:name=".activities.FinancialLedgerActivity" />
         <activity android:name=".activities.FinancialLedgerResults" />
-        <activity android:name=".activities.KSLNews"></activity>
+        <activity android:name=".activities.KSLNews" />
+        <activity android:name=".activities.TopGainerLoserActivity" />
+        <activity
+            android:name=".activities.VolumeGraphActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.CandleStickChartActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

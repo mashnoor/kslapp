@@ -11,13 +11,16 @@ import android.view.View;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.adapters.TopGainerLoserAdapter;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.News;
+import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.DBHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,12 +104,23 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, OrderStatus.class));
     }
 
-    public void goFinacialStatement(View v)
-    {
+    public void goFinacialStatement(View v) {
         startActivity(new Intent(this, FinancialLedgerActivity.class));
     }
-    public void goKslNews(View v)
-    {
+
+    public void goKslNews(View v) {
         startActivity(new Intent(this, KSLNews.class));
+    }
+
+    public void goTopTenGainers(View v) {
+        Intent i = new Intent(this, TopGainerLoserActivity.class);
+        i.putExtra("which", Constants.TOP_GAINER);
+        startActivity(i);
+    }
+
+    public void goTopTenLosers(View v) {
+        Intent i = new Intent(this, TopGainerLoserActivity.class);
+        i.putExtra("which", Constants.TOP_LOSERS);
+        startActivity(i);
     }
 }

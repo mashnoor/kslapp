@@ -28,4 +28,5 @@ public class AllItemListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
                 .setTextColor(R.id.txtChange, item.getColor());
 
     }
+
 }

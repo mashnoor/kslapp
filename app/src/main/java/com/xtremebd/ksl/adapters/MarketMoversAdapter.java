@@ -38,7 +38,7 @@ public class MarketMoversAdapter extends BaseQuickAdapter<Item, BaseViewHolder> 
         else if(position == 2)
         {
             //Show Value
-            holder.setText(R.id.tvSubjectData, item.getTrade());
+            holder.setText(R.id.tvSubjectData, item.getTotaltrade());
         }
 
 

@@ -14,5 +14,10 @@ public class AppURLS {
     public static final String GET_FINANCIAL_LEDGER = BASE_URL + ":5003/getfinancialledgrs";
     public static final String DELETE_ITS_ACCOUNT = BASE_URL + ":5003/deleteitsaccount";
     public static final String GET_KSL_NEWS = BASE_URL + "/kslbackend/ksl_news.txt";
+    public static final String GET_TOP_GAINERS = BASE_URL + "/kslbackend/top_gainers.txt";
+    public static final String GET_TOP_LOSERS = BASE_URL + "/kslbackend/top_losers.txt";
+    public static final String GET_DAY_END_DATA = BASE_URL + ":5003/getdayenddata";
+    public static final String GET_ITEM_DETAIL = BASE_URL + ":5003/getitemdetail/";
+
 
 }

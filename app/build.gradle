@@ -58,6 +58,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:2.3.0'
     compile 'com.orhanobut:logger:2.1.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 
 

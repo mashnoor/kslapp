@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +15,24 @@ import android.widget.Toast;
 
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.github.mikephil.charting.charts.CandleStickChart;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,8 +70,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     String item_name;
     Item current_item;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +80,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please wait...");
         item_name = getIntent().getStringExtra("item");
         tvItemName.setText(item_name);
+        Logger.addLogAdapter(new AndroidLogAdapter());
         if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
             btnWatchList.setText("Remove from Watchlist");
         } else {
@@ -90,35 +102,43 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void getIntemDetail(final String item_name) {
-        dialog.show();
 
-
-        ApiInterfaceGetter.getStaticInterface().getItemDetail(item_name).enqueue(new Callback<Item>() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(AppURLS.GET_ITEM_DETAIL + item_name, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
-                current_item = response.body();
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                current_item = Geson.g().fromJson(response, Item.class);
                 current_item.setItem(item_name);
                 tvClosePrice.setText(current_item.getCloseprice());
                 tvLTP.setText(current_item.getLtp());
                 tvYCP.setText(current_item.getYesterdayClosePrice());
                 tvOpenPrice.setText(current_item.getOpenPrice());
-                tvTrade.setText(current_item.getTrade());
+                tvTrade.setText(current_item.getTotaltrade());
                 tvVolume.setText(current_item.getVolume());
                 tvRange.setText(current_item.getRange());
-                tvLTD.setText(current_item.getLastTradeDate());
+
                 tvCapital.setText(current_item.getCapital());
                 tvChange.setText(current_item.getChange());
                 dialog.dismiss();
-
             }
 
             @Override
-            public void onFailure(Call<Item> call, Throwable t) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Logger.d(new String(responseBody));
+                Logger.d(error.getMessage());
                 dialog.dismiss();
-
 
             }
         });
+
 
     }
 
@@ -175,6 +195,10 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent i = new Intent(this, TradeActivity.class);
         i.putExtra("itemname", item_name);
         startActivity(i);
+    }
+
+    public void goVolumeGraph(View v) {
+        startActivity(new Intent(this, CandleStickChartActivity.class));
     }
 
 
