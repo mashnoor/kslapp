@@ -167,6 +167,12 @@ public class Item {
     @SerializedName("item")
     private String item;
 
+    @SerializedName("amounttradedinbdt")
+    private String amountTradedInBdt;
+
+    public String getAmountTradedInBdt() {
+        return amountTradedInBdt;
+    }
 
     public void setCloseprice(String closeprice) {
         this.closeprice = closeprice;

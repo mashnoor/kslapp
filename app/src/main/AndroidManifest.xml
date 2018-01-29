@@ -30,14 +30,14 @@
         <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.AllItems" />
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".activities.MarketSummaryActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MarketMoversActivity"
             android:label="@string/title_activity_market_movers"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.NewsActivity" />
+        <activity android:name=".activities.CseNewsActivity" />
         <activity android:name=".activities.IPOActivity" />
         <activity android:name=".activities.ItemDetailActivity" />
         <activity android:name=".activities.WatchlistActivity" />

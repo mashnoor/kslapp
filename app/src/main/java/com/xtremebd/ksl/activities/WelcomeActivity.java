@@ -3,7 +3,6 @@ package com.xtremebd.ksl.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -11,11 +10,10 @@ import android.view.View;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.adapters.TopGainerLoserAdapter;
 import com.xtremebd.ksl.models.MasterAccount;
-import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Sidebar;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -25,9 +23,9 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         Hawk.init(this).build();
+        Sidebar.attach(this, "HOME");
         Log.d("--------", "-" + Hawk.count());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -47,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void goHome(View v) {
-        startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, MarketSummaryActivity.class));
     }
 
     public void goFundRequisition(View v) {
@@ -59,7 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void goNews(View v) {
-        startActivity(new Intent(this, NewsActivity.class));
+        startActivity(new Intent(this, CseNewsActivity.class));
     }
 
     public void goIPO(View v) {

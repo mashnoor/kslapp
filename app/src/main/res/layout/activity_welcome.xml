@@ -15,7 +15,11 @@
 
         android:padding="10dp">
 
-        <include layout="@layout/topbar" />
+        <include layout="@layout/topbar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,9 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goNotifications"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -87,9 +91,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goITSAccounts"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -117,9 +121,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goFundRequisition"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -140,9 +144,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goFinacialStatement"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
 
                     android:padding="20dp">
@@ -168,10 +172,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goPortfolioStatement"
                     android:orientation="vertical"
-                    android:background="@drawable/home_menu_border"
 
                     android:padding="20dp">
 
@@ -203,9 +207,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="showAllItems"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -227,9 +231,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goMarketMovers"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -251,10 +255,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goWatchlist"
                     android:orientation="vertical"
-                    android:background="@drawable/home_menu_border"
                     android:padding="20dp">
 
                     <ImageView
@@ -283,8 +287,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:onClick="goPortfolio"
                     android:orientation="vertical"
                     android:padding="20dp">
@@ -306,8 +310,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:onClick="goTopTenGainers"
                     android:orientation="vertical"
                     android:padding="20dp">
@@ -329,8 +333,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:onClick="goTopTenLosers"
                     android:orientation="vertical"
                     android:padding="20dp">
@@ -360,8 +364,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -382,9 +386,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goIPO"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -405,9 +409,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goKslNews"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -437,9 +441,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goNews"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -460,8 +464,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:onClick="goDiscussion"
                     android:orientation="vertical"
                     android:padding="20dp">
@@ -483,8 +487,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:orientation="vertical"
 
                     android:padding="20dp">
@@ -515,9 +519,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:onClick="goHome"
-                    android:background="@drawable/home_menu_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -538,8 +542,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -560,8 +564,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/home_menu_border"
+                    android:gravity="center"
                     android:orientation="vertical"
 
                     android:padding="20dp">

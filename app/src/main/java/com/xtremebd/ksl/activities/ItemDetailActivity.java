@@ -28,7 +28,10 @@ import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
+import com.xtremebd.ksl.utils.Sidebar;
 import com.xtremebd.ksl.utils.WatchlistHelper;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,32 +44,83 @@ import retrofit2.Response;
 public class ItemDetailActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.tvClosePrice)
-    TextView tvClosePrice;
     @BindView(R.id.tvLTP)
     TextView tvLTP;
-    @BindView(R.id.tvYCP)
-    TextView tvYCP;
-    @BindView(R.id.tvOpenPrice)
-    TextView tvOpenPrice;
-    @BindView(R.id.tvTrade)
-    TextView tvTrade;
-    @BindView(R.id.tvVolume)
-    TextView tvVolume;
-    @BindView(R.id.tvRange)
-    TextView tvRange;
-    @BindView(R.id.tvLTD)
-    TextView tvLTD;
-    @BindView(R.id.tvCapital)
-    TextView tvCapital;
     @BindView(R.id.tvChange)
     TextView tvChange;
+    @BindView(R.id.tvChangePercentage)
+    TextView tvChangePercentage;
+    @BindView(R.id.tvClosePrice)
+    TextView tvClosePrice;
+    @BindView(R.id.tvTodayOpenPrice)
+    TextView tvTodayOpenPrice;
+    @BindView(R.id.tvDaysRange)
+    TextView tvDaysRange;
+    @BindView(R.id.tvTotalTrade)
+    TextView tvTotalTrade;
+    @BindView(R.id.tvAmountTradedInBdt)
+    TextView tvAmountTradedinBdt;
+    @BindView(R.id.tvYCP)
+    TextView tvYCP;
+    @BindView(R.id.tvAdjustOpenPrice)
+    TextView tvAdjustOpenPrice;
+    @BindView(R.id.tvMarketCapital)
+    TextView tvMarketCapital;
+    @BindView(R.id.tvMarketCategory)
+    TextView tvMarketCategory;
+
+    //Basic Info
+    @BindView(R.id.tvAuthorizedCapitalinBdt)
+    TextView tvAuthorizedCapitalinBdt;
+    @BindView(R.id.tvPaidUpValue)
+    TextView tvPaidupValue;
+    @BindView(R.id.tvFaceValue)
+    TextView tvFaceValue;
+    @BindView(R.id.tvTotalNoofSecurities)
+    TextView tvTotalNoOfSecurities;
+    @BindView(R.id.tv52WeekRange)
+    TextView tv52WeekRange;
+    @BindView(R.id.tvMarketLot)
+    TextView tvMarketLot;
+
+    //PE Ratio
+    @BindView(R.id.tvPEBasic)
+    TextView tvPEBaic;
+    @BindView(R.id.tvPEDiluted)
+    TextView tvPEDiluted;
+
+    //History
+    @BindView(R.id.tvLastAGM)
+    TextView tvLastAgm;
+    @BindView(R.id.tvYearEnd)
+    TextView tvYearEnd;
+
+    //Others
+    @BindView(R.id.tvBonousIssue)
+    TextView tvBonusIssue;
+    @BindView(R.id.tvRightIssue)
+    TextView tvRightIssue;
+    @BindView(R.id.tvReserveAndSurplus)
+    TextView tvReserveAndSurplus;
+    //Share Percentage
+    @BindView(R.id.tvDirector)
+    TextView tvDirector;
+    @BindView(R.id.tvGovernMent)
+    TextView tvGovernment;
+    @BindView(R.id.tvInstitute)
+    TextView tvInstitute;
+    @BindView(R.id.tvForeign)
+    TextView tvForeign;
+    @BindView(R.id.tvPublic)
+    TextView tvPublic;
+
+
     @BindView(R.id.tvItemName)
     TextView tvItemName;
     @BindView(R.id.btnWatchList)
-    BootstrapButton btnWatchList;
+    Button btnWatchList;
     @BindView(R.id.btnPortfolio)
-    BootstrapButton btnPortfolio;
+    Button btnPortfolio;
 
     String item_name;
     Item current_item;
@@ -81,8 +135,10 @@ public class ItemDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
+
         dialog.setMessage("Loading. Please wait...");
         item_name = getIntent().getStringExtra("item");
+        Sidebar.attach(this, item_name + "  Details");
         tvItemName.setText(item_name);
         Logger.addLogAdapter(new AndroidLogAdapter());
         if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
@@ -117,16 +173,49 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Logger.d(response);
                 current_item = Geson.g().fromJson(response, Item.class);
                 current_item.setItem(item_name);
+
                 tvClosePrice.setText(current_item.getCloseprice());
                 tvLTP.setText(current_item.getLtp());
                 tvYCP.setText(current_item.getYesterdayClosePrice());
-                tvOpenPrice.setText(current_item.getOpenPrice());
-                tvTrade.setText(current_item.getTotaltrade());
-                tvVolume.setText(current_item.getVolume());
-                tvRange.setText(current_item.getRange());
+                tvAdjustOpenPrice.setText(current_item.getOpenPrice());
+                tvTotalTrade.setText(current_item.getTotaltrade());
+                //tvVolume.setText(current_item.getVolume());
+                tvDaysRange.setText(current_item.getDaysrange());
+                tvChangePercentage.setText(current_item.getChangepercentage());
+                tvTodayOpenPrice.setText(current_item.getOpenprice());
+                tvAmountTradedinBdt.setText(current_item.getAmountTradedInBdt());
+                tvMarketCategory.setText(current_item.getMarketcatagory());
 
-                tvCapital.setText(current_item.getCapital());
+                tvMarketCapital.setText(current_item.getCapital());
                 tvChange.setText(current_item.getChange());
+
+                //Basic Info
+                tvAuthorizedCapitalinBdt.setText(current_item.getAuthorizedcapital());
+                tvPaidupValue.setText(current_item.getPaidupvalue());
+                tvFaceValue.setText(current_item.getFacevalue());
+                tvTotalNoOfSecurities.setText(current_item.getNoofsecurities());
+                tv52WeekRange.setText(current_item.getWeekrange());
+                tvMarketLot.setText(current_item.getMarketlot());
+
+                //PE Ratio
+                tvPEBaic.setText(current_item.getPERatioBasic());
+                tvPEDiluted.setText(current_item.getPERatioDiluted());
+
+                //History
+                tvLastAgm.setText(current_item.getLastagm());
+                tvYearEnd.setText(current_item.getYearend());
+
+                //Others
+                tvBonusIssue.setText(current_item.getBonousissue());
+                tvRightIssue.setText(current_item.getRightissue());
+                tvReserveAndSurplus.setText(current_item.getReserveandsurplus());
+                //Share Percentage
+                tvDirector.setText(current_item.getSpSponsorDirector());
+                tvGovernment.setText(current_item.getSpGovt());
+                tvInstitute.setText(current_item.getSpInstitute());
+                tvForeign.setText(current_item.getSpForeign());
+                tvPublic.setText(current_item.getSpPublic());
+
                 dialog.dismiss();
             }
 

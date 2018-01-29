@@ -18,6 +18,8 @@ public class AppURLS {
     public static final String GET_TOP_LOSERS = BASE_URL + "/kslbackend/top_losers.txt";
     public static final String GET_DAY_END_DATA = BASE_URL + ":5003/getdayenddata";
     public static final String GET_ITEM_DETAIL = BASE_URL + ":5003/getitemdetail/";
+    public static final String GET_MARKET_SUMMARY = BASE_URL + "/kslbackend/homedatas/market_summary.txt";
+    public static final String GET_INDEX = BASE_URL + "/kslbackend/homedatas/all_indexes.txt";
 
 
 }
