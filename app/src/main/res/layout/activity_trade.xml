@@ -1,94 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/general_background"
+    android:fillViewport="true"
     android:padding="10dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="TRADE ITEM"
-        android:textColor="@color/general"
-        android:textSize="30sp" />
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/topbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_menu_container_drawble"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item Name"
+                android:textColor="@color/black_overlay" />
+
+            <EditText
+                android:id="@+id/itemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_edittext_search"
+                android:focusable="false"
+                android:padding="7dp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Select ITS Account"
+                android:textColor="@color/black_overlay" />
+
+            <Spinner
+                android:id="@+id/spnrItsAccounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_its_acc_spinner_drawable"
+
+                android:gravity="center"
+                android:textColor="@android:color/black" />
 
 
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/itemName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:focusable="false"
-        android:hint="Item Name"
-        app:bootstrapBrand="info"
-        app:bootstrapSize="md"
-        app:roundedCorners="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Quantity"
+
+                android:textColor="@color/black_overlay" />
 
 
-    <TextView
-        android:id="@+id/itemLtp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="n/a"
-        android:textSize="15sp" />
+            <EditText
+                android:id="@+id/itemQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_edittext_search"
+                android:inputType="numberDecimal"
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnGetLtp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:onClick="btnBuy"
-        android:text="Get LTP"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false" />
+                android:padding="13dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Price"
+
+                android:textColor="@color/black_overlay" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Select ITS Account"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_edittext_search"
+                android:inputType="numberDecimal"
 
-    <Spinner
-        android:id="@+id/spnrItsAccounts"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center" />
+                android:padding="13dp"
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
+
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/buy_now_gradient_button"
+                android:gravity="center"
+                android:onClick="goBuy"
+                android:text="BUY NOW"
+                android:textColor="@android:color/white" />
+
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/sell_now_gradient_button"
+                android:gravity="center"
+                android:onClick="goSell"
+                android:text="SELL NOW"
+                android:textColor="@android:color/white" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+
+                android:layout_marginTop="15dp"
+
+                android:background="@drawable/rounded_white_container"
+                android:padding="13dp"
+                android:text="TOP BUY"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_container"
+                android:orientation="horizontal"
+                android:padding="13dp"
+
+                android:weightSum="2">
 
 
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/itemQuantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
 
-        android:hint="Item Quantity"
-        android:inputType="numberDecimal"
-        app:bootstrapBrand="info"
-        app:bootstrapSize="md"
-        app:roundedCorners="true" />
+                    android:text="Price" />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:onClick="btnBuy"
-        android:text="Buy"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Volume" />
 
 
-</LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvBuyMarketDepth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_white_container"
+                android:padding="13dp" />
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+
+                android:layout_marginTop="15dp"
+
+                android:background="@drawable/rounded_white_container"
+                android:padding="13dp"
+                android:text="TOP SELL"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_container"
+                android:orientation="horizontal"
+                android:padding="13dp"
+
+                android:weightSum="2">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:text="Price" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Volume" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvSellMarketDepth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_white_container"
+                android:padding="13dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

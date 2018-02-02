@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/general_background"
     android:fillViewport="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <include
+        layout="@layout/topbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/home_menu_container_drawble"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="15dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="FUND REQUISITION"
-            android:textColor="@color/general"
-            android:textSize="30sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Client ID:"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textColor="@color/black_overlay" />
 
         <Spinner
             android:id="@+id/spnrItsAccounts"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_its_acc_spinner_drawable" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount:"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:layout_marginTop="7dp"
+            android:text="Amount"
+            android:textColor="@color/black_overlay" />
 
 
-        <com.beardedhen.androidbootstrap.BootstrapEditText
+        <EditText
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
             android:hint="Enter Amount"
-            app:bootstrapBrand="info"
-            app:bootstrapSize="md"
-
-            app:roundedCorners="true" />
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:text="Date"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textColor="@color/black_overlay" />
 
         <EditText
             android:id="@+id/etDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
             android:focusable="false"
-            android:hint="Select Date" />
+            android:hint="Select Date"
+            android:inputType="date"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/sell_now_gradient_button"
             android:gravity="center"
             android:onClick="submitRequest"
+            android:layout_marginTop="13dp"
             android:text="Request Requisition"
-            app:bootstrapBrand="success"
-            app:bootstrapSize="lg"
-            app:buttonMode="regular"
-            app:roundedCorners="true"
-            app:showOutline="false" />
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

@@ -2,79 +2,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/general_background"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context="com.xtremebd.ksl.activities.ITSAccountsActivity">
+    android:padding="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
+    <include
+        layout="@layout/topbar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="ITS ACCOUNTS"
-        android:textColor="@color/general"
-        android:textSize="30sp" />
+        android:layout_marginBottom="10dp"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Add ITS Account"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="5">
+        android:background="@drawable/home_menu_container_drawble"
+        android:orientation="vertical"
+        android:padding="15dp">
 
 
-        <com.beardedhen.androidbootstrap.BootstrapEditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Account No."
+            android:textColor="@color/black_overlay" />
+
+
+        <EditText
             android:id="@+id/etItsAccountNo"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="Account No"
-            app:bootstrapBrand="info"
-            app:bootstrapSize="md"
+            android:background="@drawable/round_edittext_search"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            app:roundedCorners="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Password"
+            android:textColor="@color/black_overlay" />
 
-        <com.beardedhen.androidbootstrap.BootstrapEditText
+        <EditText
             android:id="@+id/etItsAccountPass"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+
+            android:background="@drawable/round_edittext_search"
             android:hint="Password"
             android:inputType="textPassword"
-            app:bootstrapBrand="info"
-            app:bootstrapSize="md"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            app:roundedCorners="true" />
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="0dp"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="7dp"
-            android:layout_marginRight="7dp"
+            android:background="@drawable/sell_now_gradient_button"
             android:onClick="addItsAccount"
-            android:text="Add"
-            android:layout_weight="1"
-            app:bootstrapBrand="success"
-            app:bootstrapSize="md"
-            app:buttonMode="regular"
-            app:roundedCorners="true"
-            app:showOutline="false" />
+            android:text="Add Account"
+            android:textColor="@android:color/white" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="All Accounts"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
 
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvItsAccounts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvItsAccounts"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

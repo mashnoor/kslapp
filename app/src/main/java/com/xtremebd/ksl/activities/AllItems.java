@@ -20,6 +20,7 @@ import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
+import com.xtremebd.ksl.utils.Sidebar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class AllItems extends AppCompatActivity {
         setContentView(R.layout.activity_all_items);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
+        Sidebar.attach(this, "All Items");
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         Logger.addLogAdapter(new AndroidLogAdapter());

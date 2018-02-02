@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:src="@drawable/kslsplash" />
+        android:src="@drawable/ksllogo" />
 
 
 </FrameLayout>

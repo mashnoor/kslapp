@@ -36,4 +36,12 @@
         <item name="DialogSpotCount">4</item>
     </style>
 
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/round_edittext_search</item>
+        <item name="android:padding">10dp</item>
+
+    </style>
+
 </resources>

@@ -1,10 +1,13 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,8 +18,10 @@ import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.models.Requisition;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Sidebar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,9 +47,43 @@ public class FundRequisitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fund_requisition);
         ButterKnife.bind(this);
+        Sidebar.attach(this, "FUND REQUISITION");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         dialog.show();
+        final Calendar myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                String month = String.valueOf(monthOfYear + 1);
+                String day = String.valueOf(dayOfMonth);
+                if (month.length() == 1)
+                    month = "0" + month;
+                // TODO Auto-generated method stub
+                if (day.length() == 1)
+                    day = "0" + day;
+
+                etDate.setText(year + "-" + month + "-" + day);
+
+
+            }
+
+        };
+
+        etDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                new DatePickerDialog(FundRequisitionActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
         ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {

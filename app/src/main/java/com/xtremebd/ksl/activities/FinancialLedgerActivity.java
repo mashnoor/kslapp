@@ -16,6 +16,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Sidebar;
 
 import java.util.Calendar;
 import java.util.List;
@@ -45,7 +46,9 @@ public class FinancialLedgerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_ledger);
+        Sidebar.attach(this, "FINANCIAL LEDGER");
         ButterKnife.bind(this);
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
 

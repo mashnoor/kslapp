@@ -1,75 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/general_background"
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="FINANCIAL LEDGER"
-        android:textColor="@color/general"
-        android:textSize="30sp" />
-
-    <TextView
+    <include
+        layout="@layout/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Client ID:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginBottom="10dp"
 
-    <Spinner
-        android:id="@+id/spnrClientIds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="10dp" />
 
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select From Date:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/etFromDate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select To Date"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/etToDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false" />
+        android:background="@drawable/home_menu_container_drawble"
+        android:orientation="vertical"
+        android:padding="15dp">
 
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:onClick="viewFinancialLedger"
-        android:text="View Ledger"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client ID:"
+            android:textColor="@color/black_overlay" />
+
+        <Spinner
+            android:id="@+id/spnrClientIds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_its_acc_spinner_drawable"
+            android:textColor="@android:color/black" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Select From Date:"
+            android:textColor="@color/black_overlay" />
+
+        <EditText
+            android:id="@+id/etFromDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Select To Date"
+            android:textColor="@color/black_overlay" />
+
+        <EditText
+            android:id="@+id/etToDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/sell_now_gradient_button"
+            android:gravity="center"
+            android:onClick="viewFinancialLedger"
+            android:text="View Ledger"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -2,24 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/general_background"
+    android:orientation="vertical"
+    android:padding="10dp">
 
+    <include
+        layout="@layout/topbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/white"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:padding="10dp"
 
         android:weightSum="4">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center|right"
+            android:layout_gravity="center|start"
             android:layout_weight="2"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:orientation="vertical">
 
             <TextView
@@ -28,14 +38,14 @@
                 android:layout_height="wrap_content"
                 android:text="Symbol"
                 android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tvChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Changes"
-                android:textColor="@color/black_overlay"
+
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -53,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Low"
-                android:textColor="@color/black_overlay"
+
                 android:textSize="12sp" />
 
             <TextView
@@ -62,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="High"
-                android:textColor="@android:color/black"
+
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -71,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:orientation="vertical">
 
             <TextView
@@ -98,6 +108,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTopGainerLoser"
         android:layout_width="match_parent"
+
         android:layout_height="match_parent" />
 
 </LinearLayout>
