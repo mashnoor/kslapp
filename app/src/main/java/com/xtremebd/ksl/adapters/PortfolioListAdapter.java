@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Mashnoor on 9/20/17.
  */
 
-public class PortfolioListAdapter extends BaseQuickAdapter<Item, BaseViewHolder>  {
+public class PortfolioListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
     public PortfolioListAdapter(List<Item> items) {
         super(R.layout.row_portfolio, items);
     }
@@ -23,7 +23,9 @@ public class PortfolioListAdapter extends BaseQuickAdapter<Item, BaseViewHolder>
                 .setText(R.id.tvBuyPrice, item.getBuyPrice())
                 .setText(R.id.tvLtp, item.getLtp())
                 .setText(R.id.tvNetProfit, item.getNetProfit())
-                .setText(R.id.tvNetProfitPercentage, item.getNetProfitPercentage());
+                .setText(R.id.tvNetProfitPercentage, item.getNetProfitPercentage())
+                .setTextColor(R.id.tvNetProfitPercentage, item.getNetProfitColor())
+                .setTextColor(R.id.tvNetProfit, item.getNetProfitColor());
 
     }
 

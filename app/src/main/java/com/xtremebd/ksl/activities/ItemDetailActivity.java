@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.github.mikephil.charting.charts.CandleStickChart;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,23 +20,15 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
-import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
-import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 import com.xtremebd.ksl.utils.WatchlistHelper;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import dmax.dialog.SpotsDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -138,7 +127,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         dialog.setMessage("Loading. Please wait...");
         item_name = getIntent().getStringExtra("item");
-        Sidebar.attach(this, item_name + "  Details");
+        TopBar.attach(this, item_name + "  Details");
         tvItemName.setText(item_name);
         Logger.addLogAdapter(new AndroidLogAdapter());
         if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
@@ -287,7 +276,20 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void goVolumeGraph(View v) {
-        startActivity(new Intent(this, CandleStickChartActivity.class));
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        CharSequence items[] = new CharSequence[] {"Volume", "Candle Stick"};
+        adb.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(i == 0)
+                    startActivity(new Intent(ItemDetailActivity.this, VolumeGraphActivity.class));
+                else
+                    startActivity(new Intent(ItemDetailActivity.this, CandleStickChartActivity.class));
+            }
+        });
+        adb.setTitle("Select Graph Type");
+        adb.setPositiveButton("Cancel", null);
+        adb.show();
     }
 
 

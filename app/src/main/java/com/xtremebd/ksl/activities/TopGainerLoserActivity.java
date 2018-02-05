@@ -17,6 +17,7 @@ import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_gainer_loser);
         ButterKnife.bind(this);
+        TopBar.attach(this, "TOP GAINER/LOSER");
         Logger.addLogAdapter(new AndroidLogAdapter());
         rvTopGainerLoser.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         String which = getIntent().getStringExtra("which");
@@ -53,8 +55,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         }
     }
 
-    private void getTopGainerLoser(String url)
-    {
+    private void getTopGainerLoser(String url) {
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

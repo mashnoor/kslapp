@@ -1,24 +1,20 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.CandleStickChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -28,8 +24,10 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.DayEndData;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,6 +47,8 @@ public class CandleStickChartActivity extends AppCompatActivity {
     AsyncHttpClient client;
     ProgressDialog dialog;
 
+    int which;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,58 @@ public class CandleStickChartActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading and drawing graph...");
         Logger.addLogAdapter(new AndroidLogAdapter());
+        registerCalenderListener();
+        TopBar.attach(this, "CANDLE STICK CHART");
+    }
+
+    private void registerCalenderListener() {
+        final Calendar myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                String month = String.valueOf(monthOfYear + 1);
+                String day = String.valueOf(dayOfMonth);
+                if (month.length() == 1)
+                    month = "0" + month;
+                // TODO Auto-generated method stub
+                if (day.length() == 1)
+                    day = "0" + day;
+                if (which == 0)
+                    etFromDate.setText(year + "-" + month + "-" + day);
+
+                else
+                    etTodate.setText(year + "-" + month + "-" + day);
+            }
+
+        };
+
+        etFromDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                which = 0;
+                new DatePickerDialog(CandleStickChartActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+        etTodate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                which = 1;
+                new DatePickerDialog(CandleStickChartActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
     }
 
     public void viewGraph(final View v) {

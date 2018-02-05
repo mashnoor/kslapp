@@ -1,14 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/general_background"
+    android:padding="@dimen/dp_10">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/topbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+
+        android:layout_marginTop="10dp" />
 
 
     <LinearLayout
         android:id="@+id/portfolio_upbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
+        android:layout_below="@id/top"
+        android:background="@android:color/white"
         android:orientation="horizontal"
         android:padding="5dp"
         android:weightSum="5">
@@ -18,6 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.55"
             android:gravity="start|center"
+
             android:orientation="vertical">
 
             <TextView
@@ -26,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
                 android:text="Quantity"
+                android:textColor="@android:color/black"
 
-                android:textSize="12dp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
@@ -38,8 +53,8 @@
             android:layout_weight="1.25"
             android:gravity="center"
             android:text="Buy Price"
-
-            android:textSize="12dp" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
 
         <TextView
 
@@ -49,8 +64,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="LTP"
-
-            android:textSize="12dp" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
 
         <TextView
 
@@ -60,8 +75,8 @@
             android:layout_weight="1.2"
             android:gravity="center|end"
             android:text="Net Profit"
-
-            android:textSize="12dp" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

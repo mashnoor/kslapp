@@ -22,6 +22,7 @@ public class AppURLS {
     public static final String GET_INDEX = BASE_URL + "/kslbackend/homedatas/all_indexes.txt";
     public static final String GET_BUY_MARKET_DEPTH = BASE_URL + ":5003/getbuymarketdepth/";
     public static final String GET_SELL_MARKET_DEPTH = BASE_URL + ":5003/getsellmarketdepth/";
+    public static final String GELL_ALL_ITEMS_UPDATES = BASE_URL + "/kslbackend/all_items_latest_update.txt";
 
 
 }

@@ -53,7 +53,6 @@ public class MarketMoversActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
     }
 
 
@@ -78,8 +77,6 @@ public class MarketMoversActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     /**

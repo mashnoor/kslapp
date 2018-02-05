@@ -18,6 +18,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,7 @@ public class OrderStatus extends AppCompatActivity {
     SpotsDialog dialog;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class OrderStatus extends AppCompatActivity {
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        TopBar.attach(this, "ORDER STATUS");
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

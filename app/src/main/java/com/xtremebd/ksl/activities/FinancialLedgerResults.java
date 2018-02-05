@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
@@ -17,10 +16,9 @@ import com.xtremebd.ksl.adapters.LedgerAdapter;
 import com.xtremebd.ksl.models.Ledger;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +40,7 @@ public class FinancialLedgerResults extends AppCompatActivity {
         setContentView(R.layout.activity_financial_ledger_results);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
+        TopBar.attach(this, "FINANCIAL LEDGER RESULTS");
 
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         rvFinancialLedger.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

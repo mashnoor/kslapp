@@ -1,94 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/general_background"
     android:orientation="vertical"
     android:padding="10dp">
-    <TextView
-        android:text="ORDER STATUS"
-        android:textColor="@color/general"
-        android:textSize="30sp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <TextView
+    <include
+        layout="@layout/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select ITS Acc No:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
-
-    <Spinner
-        android:id="@+id/spnrItsAccounts"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp" />
+        android:layout_height="match_parent"
+        android:background="@drawable/home_menu_container_drawble"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ITS Account Password:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/etItsAccountPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ITS Password"
-        app:bootstrapBrand="info"
-        app:bootstrapSize="md"
-
-        app:roundedCorners="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select ITS Acc No:" />
 
 
-    <TextView
+        <Spinner
+            android:id="@+id/spnrItsAccounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_its_acc_spinner_drawable" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select From Date:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="ITS Account Password:" />
 
-    <EditText
-        android:id="@+id/etFromDate"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:focusable="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select To Date:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/etToDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false" />
+        <EditText
+            android:id="@+id/etItsAccountPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:inputType="textPassword"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:onClick="submitOrderStatus"
-        android:text="Get Order Status"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false" />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Select From Date:" />
+
+        <EditText
+            android:id="@+id/etFromDate"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:inputType="date"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Select To Date:" />
+
+        <EditText
+            android:id="@+id/etToDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:inputType="date"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sell_now_gradient_button"
+            android:gravity="center"
+            android:onClick="submitOrderStatus"
+            android:text="Get Order Status"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

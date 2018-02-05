@@ -1,113 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutSwipe"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/general_background"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context="com.xtremebd.ksl.activities.AllItems">
+    android:layout_height="match_parent">
 
-    <include
-        layout="@layout/topbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@drawable/home_menu_container_drawble"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_edittext_search"
-            android:padding="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:textSize="14sp"
+        android:layout_height="match_parent"
+        android:background="@drawable/general_background"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-            android:hint="Search Here..." />
+        <include
+            layout="@layout/topbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:background="@android:color/white"
-            android:padding="4dp"
-            android:layout_marginTop="8dp"
-            android:weightSum="6">
+            android:background="@drawable/home_menu_container_drawble"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtItem"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center|start"
-                android:text="Item"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/round_edittext_search"
+                android:hint="Search Here..."
+                android:padding="10dp"
 
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/txtVolume"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Volume"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:weightSum="6">
+
+                <TextView
+                    android:id="@+id/txtItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="center|start"
+                    android:text="Item"
+
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtVolume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Volume"
 
 
-                android:textSize="12sp" />
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/txtLTP"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="LTP"
-
-
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/txtChange"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center|right"
-                android:paddingEnd="3dp"
-                android:paddingRight="3dp"
-                android:text="Change"
+                <TextView
+                    android:id="@+id/txtLTP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="LTP"
 
 
-                android:textSize="12sp" />
+                    android:textSize="12sp" />
 
+                <TextView
+                    android:id="@+id/txtChange"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="center|right"
+                    android:paddingEnd="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Change"
+
+
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/itemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp" />
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/itemList"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </LinearLayout>
 
 
-
-</LinearLayout>
-    
+</android.support.v4.widget.SwipeRefreshLayout>
 

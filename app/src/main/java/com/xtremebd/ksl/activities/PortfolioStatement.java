@@ -23,6 +23,7 @@ import com.xtremebd.ksl.models.Resp;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.Calendar;
 import java.util.List;
@@ -57,6 +58,7 @@ public class PortfolioStatement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio_statement);
         ButterKnife.bind(this);
+        TopBar.attach(this, "PORTFOLIO STATEMENT");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);

@@ -11,6 +11,7 @@ import com.xtremebd.ksl.adapters.PortfolioListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.PortfolioHelper;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.List;
 
@@ -25,11 +26,13 @@ public class PortfolioActivity extends AppCompatActivity {
 
     PortfolioListAdapter adapter;
     private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
         ButterKnife.bind(this);
+        TopBar.attach(this, "PORTFOLIO");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         List<Item> portfolioItems = PortfolioHelper.getPortfolioItems(this);
         rvPortfolioList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

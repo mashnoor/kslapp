@@ -12,13 +12,12 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.NewsAdapter;
 import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +36,7 @@ public class CseNewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cse_news);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
-        Sidebar.attach(this, "CSE NEWS");
+        TopBar.attach(this, "CSE NEWS");
         rvNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new ProgressDialog(this);
         dialog.setMessage("Getting data from server...");

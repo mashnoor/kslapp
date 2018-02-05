@@ -43,16 +43,14 @@ public class LoginActivity extends AppCompatActivity {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
-        if(DBHelper.getMasterAccount(this) != null)
-        {
+        if (DBHelper.getMasterAccount(this) != null) {
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
         }
 
     }
 
-    private void sendToken()
-    {
+    private void sendToken() {
         Log.d("-------", "Called tolem");
         ApiInterfaceGetter.getDynamicInterface().setToken(DBHelper.getMasterAccount(this)).enqueue(new Callback<String>() {
             @Override
@@ -98,9 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
 
                     finish();
-                }
-                else
-                {
+                } else {
                     showToast("Login info failed");
                 }
             }
@@ -116,11 +112,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
     public void goOpenAccount(View v) {
         startActivity(new Intent(this, OpenaccountActivity.class));
     }
-    private void showToast(String s)
-    {
+
+    private void showToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }

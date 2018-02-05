@@ -14,12 +14,9 @@ import com.xtremebd.ksl.adapters.NewsAdapter;
 import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +37,7 @@ public class KSLNews extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kslnews);
         ButterKnife.bind(this);
-        Sidebar.attach(this, "KSL NEWS");
+        TopBar.attach(this, "KSL NEWS");
         client = new AsyncHttpClient();
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         rvKslNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

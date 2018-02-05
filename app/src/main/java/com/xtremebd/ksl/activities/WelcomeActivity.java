@@ -13,7 +13,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.DBHelper;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Hawk.init(this).build();
-        Sidebar.attach(this, "HOME");
+        TopBar.attach(this, "HOME");
         Log.d("--------", "-" + Hawk.count());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 

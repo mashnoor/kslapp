@@ -14,13 +14,11 @@ import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.models.Requisition;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -47,7 +45,7 @@ public class FundRequisitionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fund_requisition);
         ButterKnife.bind(this);
-        Sidebar.attach(this, "FUND REQUISITION");
+        TopBar.attach(this, "FUND REQUISITION");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         dialog.show();

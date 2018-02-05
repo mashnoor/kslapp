@@ -11,7 +11,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Account;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +36,7 @@ public class OpenaccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openaccount);
         ButterKnife.bind(this);
-        Sidebar.attach(this, "REQUEST ACCOUNT");
+        TopBar.attach(this, "REQUEST ACCOUNT");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
     private void showToast(String s)

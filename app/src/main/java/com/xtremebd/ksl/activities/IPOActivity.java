@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.TopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ public class IPOActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ipo);
         ButterKnife.bind(this);
+        TopBar.attach(this, "IPO");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         getIpo();
     }

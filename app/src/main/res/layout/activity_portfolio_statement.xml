@@ -1,68 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/general_background"
     android:orientation="vertical"
-    android:padding="7dp"
-    tools:context="com.xtremebd.ksl.activities.PortfolioStatement">
+    android:padding="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="PORTFOLIO STATEMENT"
-        android:textColor="@color/general"
-        android:textSize="30sp" />
 
-    <TextView
+    <include
+        layout="@layout/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Client ID:"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
-    <Spinner
-        android:id="@+id/spnrClientIds"
-
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
-
-    <EditText
-        android:id="@+id/etPsDate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/home_menu_container_drawble"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        android:focusable="false"
-        android:hint="Select PS Date" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client ID:" />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:onClick="viewPortfolioStatement"
-        android:text="Get Portfolio Statement"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false" />
+        <Spinner
+            android:id="@+id/spnrClientIds"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_its_acc_spinner_drawable" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Statement Date:" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Statement"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/etPsDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:inputType="date"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-    <TextView
-        android:id="@+id/tvPortfolioStatement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Data" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sell_now_gradient_button"
+            android:gravity="center"
+            android:onClick="viewPortfolioStatement"
+            android:text="Get Portfolio Statement"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Statement"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvPortfolioStatement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Data" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

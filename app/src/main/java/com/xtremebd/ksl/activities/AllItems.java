@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,7 @@ import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +53,29 @@ public class AllItems extends AppCompatActivity {
         setContentView(R.layout.activity_all_items);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
-        Sidebar.attach(this, "All Items");
+        TopBar.attach(this, "All Items");
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         getItemLists();
+        registerSwipeListener();
 
 
     }
+
+    private void registerSwipeListener()
+    {
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.layoutSwipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getItemLists();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
 
     private void getItemLists() {
         dialog.show();

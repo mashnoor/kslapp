@@ -1,10 +1,13 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -26,8 +29,10 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.DayEndData;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +51,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
 
     AsyncHttpClient client;
     ProgressDialog dialog;
+    int which;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +61,61 @@ public class VolumeGraphActivity extends AppCompatActivity {
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading and drawing graph...");
+        TopBar.attach(this, "VOLUME CHART");
         Logger.addLogAdapter(new AndroidLogAdapter());
+        registerCalenderListener();
     }
+
+    private void registerCalenderListener() {
+        final Calendar myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                String month = String.valueOf(monthOfYear + 1);
+                String day = String.valueOf(dayOfMonth);
+                if (month.length() == 1)
+                    month = "0" + month;
+                // TODO Auto-generated method stub
+                if (day.length() == 1)
+                    day = "0" + day;
+                if (which == 0)
+                    etFromDate.setText(year + "-" + month + "-" + day);
+
+                else
+                    etTodate.setText(year + "-" + month + "-" + day);
+            }
+
+        };
+
+        etFromDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                which = 0;
+                new DatePickerDialog(VolumeGraphActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+        etTodate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                which = 1;
+                new DatePickerDialog(VolumeGraphActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+    }
+
 
     public void viewGraph(final View v) {
         String[] fromDate = etFromDate.getText().toString().split("-");
@@ -85,8 +144,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
                 dialog.dismiss();
                 final DayEndData[] datas = Geson.g().fromJson(response, DayEndData[].class);
                 List<BarEntry> entries = new ArrayList<>();
-                for(DayEndData dayEndData : datas)
-                {
+                for (DayEndData dayEndData : datas) {
                     entries.add(new BarEntry(dayEndData.getDifference(), dayEndData.getVolume()));
                     Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
                 }
@@ -100,10 +158,8 @@ public class VolumeGraphActivity extends AppCompatActivity {
                     @Override
                     public String getFormattedValue(float value, AxisBase axis) {
 
-                        for (DayEndData dayEndData : datas)
-                        {
-                            if(dayEndData.getDifference() == value )
-                            {
+                        for (DayEndData dayEndData : datas) {
+                            if (dayEndData.getDifference() == value) {
                                 return dayEndData.getDate();
                             }
                         }
@@ -118,7 +174,6 @@ public class VolumeGraphActivity extends AppCompatActivity {
                 volumeChart.getXAxis().setGranularity(1f);
                 volumeChart.getXAxis().setValueFormatter(formatter);
                 volumeChart.invalidate();
-
 
 
             }

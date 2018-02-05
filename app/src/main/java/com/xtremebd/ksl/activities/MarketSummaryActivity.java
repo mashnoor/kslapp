@@ -16,7 +16,7 @@ import com.xtremebd.ksl.models.Index;
 import com.xtremebd.ksl.models.MarketSummary;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
-import com.xtremebd.ksl.utils.Sidebar;
+import com.xtremebd.ksl.utils.TopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +74,7 @@ public class MarketSummaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_market_summary);
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Sidebar.attach(this, "MARKET SUMMARY");
+        TopBar.attach(this, "MARKET SUMMARY");
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new ProgressDialog(this);
         dialog.setMessage("Getting data from server...");

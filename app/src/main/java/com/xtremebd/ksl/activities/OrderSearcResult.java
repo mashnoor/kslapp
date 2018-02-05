@@ -17,6 +17,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.OrderStatusAdapter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.TopBar;
 
 
 import java.util.Arrays;
@@ -41,6 +42,7 @@ public class OrderSearcResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_searc_result);
         ButterKnife.bind(this);
+        TopBar.attach(this, "ORDER STATUS RESULT");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         client = new AsyncHttpClient();
         rvOrderStatus.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

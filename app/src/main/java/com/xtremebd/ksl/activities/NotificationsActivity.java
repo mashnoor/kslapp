@@ -12,6 +12,7 @@ import com.xtremebd.ksl.adapters.NotificationAdapter;
 import com.xtremebd.ksl.models.Notification;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ButterKnife.bind(this);
+        TopBar.attach(this, "NOTIFICATIONS");
         rvNotifications.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         dialog.show();

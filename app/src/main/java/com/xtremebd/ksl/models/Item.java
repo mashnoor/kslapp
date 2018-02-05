@@ -571,7 +571,8 @@ public class Item {
         double noStock = Double.parseDouble(getNoOfStock());
         double ltp = Double.parseDouble(getLtp());
 
-        return String.valueOf((ltp - buyPrice) * noStock);
+        DecimalFormat df = new DecimalFormat("0.00");
+        return String.valueOf(df.format((ltp - buyPrice) * noStock));
     }
 
     public String getNetProfitPercentage() {
@@ -654,5 +655,12 @@ public class Item {
         } catch (Exception e) {
             return Color.RED;
         }
+    }
+
+    public int getNetProfitColor()
+    {
+        if(Double.parseDouble(getNetProfit()) < 0)
+            return Color.RED;
+        return Color.GREEN;
     }
 }

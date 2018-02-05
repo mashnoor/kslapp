@@ -9,8 +9,8 @@ import com.xtremebd.ksl.R;
  * Created by mashnoor on 28/1/18.
  */
 
-public class Sidebar {
-    private Sidebar(){}
+public class TopBar {
+    private TopBar(){}
 
     public static void attach(Activity activity, String title)
     {
