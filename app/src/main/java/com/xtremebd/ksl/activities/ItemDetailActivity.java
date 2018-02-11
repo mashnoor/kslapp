@@ -146,6 +146,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
+    public void goNews(View v) {
+        Intent i = new Intent(this, CseNewsActivity.class);
+        i.putExtra("which", item_name);
+        startActivity(i);
+    }
+
     private void getIntemDetail(final String item_name) {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -277,11 +283,11 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public void goVolumeGraph(View v) {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        CharSequence items[] = new CharSequence[] {"Volume", "Candle Stick"};
+        CharSequence items[] = new CharSequence[]{"Volume", "Candle Stick"};
         adb.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(i == 0)
+                if (i == 0)
                     startActivity(new Intent(ItemDetailActivity.this, VolumeGraphActivity.class));
                 else
                     startActivity(new Intent(ItemDetailActivity.this, CandleStickChartActivity.class));

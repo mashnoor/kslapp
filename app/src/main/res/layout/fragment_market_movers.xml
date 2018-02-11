@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_menu_container_drawble"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.xtremebd.ksl.activities.MarketMoversActivity">
@@ -41,10 +42,11 @@
             android:text="Volume"
             android:textSize="13sp" />
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMarketMovers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

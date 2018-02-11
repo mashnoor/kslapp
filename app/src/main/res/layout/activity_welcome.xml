@@ -542,6 +542,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:onClick="goAbout"
                     android:background="@drawable/home_menu_border"
                     android:gravity="center"
                     android:orientation="vertical"

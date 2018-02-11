@@ -9,8 +9,12 @@ import com.google.gson.annotations.SerializedName;
 public class News {
     @SerializedName("body")
     private String body;
+
     @SerializedName("title")
     private String title;
+
+    @SerializedName("date")
+    private String date;
 
     public String getBody() {
         return body;
@@ -18,5 +22,9 @@ public class News {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

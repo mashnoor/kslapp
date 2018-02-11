@@ -57,7 +57,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void goNews(View v) {
-        startActivity(new Intent(this, CseNewsActivity.class));
+        Intent i = new Intent(this, CseNewsActivity.class);
+        i.putExtra("which", "all");
+        startActivity(i);
     }
 
     public void goIPO(View v) {
@@ -120,5 +122,9 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent i = new Intent(this, TopGainerLoserActivity.class);
         i.putExtra("which", Constants.TOP_LOSERS);
         startActivity(i);
+    }
+
+    public void goAbout(View v) {
+        startActivity(new Intent(this, AboutActivity.class));
     }
 }

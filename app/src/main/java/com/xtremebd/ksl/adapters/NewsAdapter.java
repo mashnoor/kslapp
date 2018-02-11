@@ -15,13 +15,14 @@ import java.util.List;
  */
 
 public class NewsAdapter extends BaseQuickAdapter<News, BaseViewHolder> {
-    public NewsAdapter( @Nullable List<News> data) {
+    public NewsAdapter(@Nullable List<News> data) {
         super(R.layout.row_news, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, News item) {
-        holder.setText(R.id.tvNewsTitle, item.getTitle())
-                .setText(R.id.tvNewsBody, item.getBody());
+    protected void convert(BaseViewHolder holder, News news) {
+        holder.setText(R.id.tvNewsTitle, news.getTitle())
+                .setText(R.id.tvNewsBody, news.getBody())
+                .setText(R.id.tvDate, news.getDate());
     }
 }

@@ -1055,6 +1055,7 @@
                 android:background="@drawable/news_archive_gradient_button"
                 android:gravity="center"
                 android:text="NEWS ARCHIVE"
+                android:onClick="goNews"
                 android:textColor="@android:color/white" />
 
             <Button
