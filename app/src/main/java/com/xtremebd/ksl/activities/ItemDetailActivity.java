@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
+import com.xtremebd.ksl.utils.PriceAlertHelper;
 import com.xtremebd.ksl.utils.TopBar;
 import com.xtremebd.ksl.utils.WatchlistHelper;
 
@@ -103,13 +105,15 @@ public class ItemDetailActivity extends AppCompatActivity {
     @BindView(R.id.tvPublic)
     TextView tvPublic;
 
-
     @BindView(R.id.tvItemName)
     TextView tvItemName;
     @BindView(R.id.btnWatchList)
     Button btnWatchList;
     @BindView(R.id.btnPortfolio)
     Button btnPortfolio;
+    @BindView(R.id.btnPriceAlert)
+    Button btnPriceAlert;
+
 
     String item_name;
     Item current_item;
@@ -124,12 +128,15 @@ public class ItemDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         dialog.setMessage("Loading. Please wait...");
         item_name = getIntent().getStringExtra("item");
         TopBar.attach(this, item_name + "  Details");
         tvItemName.setText(item_name);
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        //If item is already in pricealert or watchlist or portfolio, change item name
         if (WatchlistHelper.isIteminWatchlist(this, item_name)) {
             btnWatchList.setText("Remove from Watchlist");
         } else {
@@ -140,6 +147,11 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         } else {
             btnPortfolio.setText("Customize Portfolio");
+        }
+        if (PriceAlertHelper.isItemInPriceAlert(this, item_name)) {
+            btnPriceAlert.setText("REMOVE FROM PRICE ALERT");
+        } else {
+            btnPriceAlert.setText("ADD TO PRICE ALERT");
         }
 
         getIntemDetail(item_name);
@@ -296,6 +308,59 @@ public class ItemDetailActivity extends AppCompatActivity {
         adb.setTitle("Select Graph Type");
         adb.setPositiveButton("Cancel", null);
         adb.show();
+    }
+
+
+    public void addRemovePriceAlert(View v) {
+        //If Item is already in price alert, remove it
+        if (PriceAlertHelper.isItemInPriceAlert(this, item_name)) {
+            PriceAlertHelper.deleteItem(this, item_name);
+            showToast("Item removed from price alert successfully");
+            recreate();
+        }
+
+        //Create The Builder
+        AlertDialog.Builder addPriceAlertDialogueBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View workingView = inflater.inflate(R.layout.pricealert_add_dialog, null);
+        addPriceAlertDialogueBuilder.setView(workingView);
+        final EditText tvhigh = workingView.findViewById(R.id.price_alert_high);
+        final EditText tvlow = workingView.findViewById(R.id.price_alert_low);
+
+
+        addPriceAlertDialogueBuilder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Check if the fields are blank
+                String highValue = tvhigh.getText().toString();
+                String lowValue = tvlow.getText().toString();
+                if (highValue.isEmpty() || lowValue.isEmpty()) {
+                    //If Blank, Show a error msg
+                    showToast("All values are required!");
+                    return;
+                }
+                //Check if the input numbers are correct
+                if (Double.parseDouble(highValue) <= Double.parseDouble(lowValue)) {
+                    showToast("High value can't be less than low value");
+                    return;
+                }
+                //All Corrcet
+
+                //Add to database
+                current_item.setHighPrice(highValue);
+                current_item.setLowPrice(lowValue);
+                PriceAlertHelper.addItemToPriceAlert(ItemDetailActivity.this, current_item);
+                showToast("Item Added To Price Alert Successfully");
+                recreate();
+
+
+            }
+        });
+
+
+        AlertDialog final_dialog = addPriceAlertDialogueBuilder.create();
+        final_dialog.show();
+
     }
 
 

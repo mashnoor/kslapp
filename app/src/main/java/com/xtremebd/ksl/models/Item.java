@@ -12,10 +12,10 @@ import java.text.DecimalFormat;
 
 public class Item {
 
-
-    @SerializedName("high")
+    //For Price Alert
+    @SerializedName("high_value")
     private String highPrice;
-    @SerializedName("low")
+    @SerializedName("low_value")
     private String lowPrice;
 
     //For Portfolio
@@ -174,41 +174,17 @@ public class Item {
         return amountTradedInBdt;
     }
 
-    public void setCloseprice(String closeprice) {
-        this.closeprice = closeprice;
-    }
-
-    public String getYcp() {
-        return ycp;
-    }
-
-    public void setYcp(String ycp) {
-        this.ycp = ycp;
-    }
-
     public String getOpenprice() {
         return openprice;
     }
 
-    public void setOpenprice(String openprice) {
-        this.openprice = openprice;
-    }
 
-    public String getAdjustopenprice() {
-        return adjustopenprice;
-    }
 
-    public void setAdjustopenprice(String adjustopenprice) {
-        this.adjustopenprice = adjustopenprice;
-    }
 
     public String getDaysrange() {
         return daysrange;
     }
 
-    public void setDaysrange(String daysrange) {
-        this.daysrange = daysrange;
-    }
 
 
     public void setVolume(String volume) {
@@ -219,323 +195,117 @@ public class Item {
         return totaltrade;
     }
 
-    public void setTotaltrade(String totaltrade) {
-        this.totaltrade = totaltrade;
-    }
 
-    public String getMarketcapital() {
-        return marketcapital;
-    }
-
-    public void setMarketcapital(String marketcapital) {
-        this.marketcapital = marketcapital;
-    }
 
     public String getAuthorizedcapital() {
         return authorizedcapital;
     }
 
-    public void setAuthorizedcapital(String authorizedcapital) {
-        this.authorizedcapital = authorizedcapital;
-    }
 
     public String getPaidupvalue() {
         return paidupvalue;
     }
 
-    public void setPaidupvalue(String paidupvalue) {
-        this.paidupvalue = paidupvalue;
-    }
+
 
     public String getFacevalue() {
         return facevalue;
     }
 
-    public void setFacevalue(String facevalue) {
-        this.facevalue = facevalue;
-    }
 
     public String getNoofsecurities() {
         return noofsecurities;
     }
 
-    public void setNoofsecurities(String noofsecurities) {
-        this.noofsecurities = noofsecurities;
-    }
 
     public String getWeekrange() {
         return weekrange;
-    }
-
-    public void setWeekrange(String weekrange) {
-        this.weekrange = weekrange;
     }
 
     public String getMarketlot() {
         return marketlot;
     }
 
-    public void setMarketlot(String marketlot) {
-        this.marketlot = marketlot;
-    }
 
-    public String getSegment() {
-        return segment;
-    }
-
-    public void setSegment(String segment) {
-        this.segment = segment;
-    }
 
     public String getRightissue() {
         return rightissue;
     }
 
-    public void setRightissue(String rightissue) {
-        this.rightissue = rightissue;
-    }
 
     public String getYearend() {
         return yearend;
     }
 
-    public void setYearend(String yearend) {
-        this.yearend = yearend;
-    }
 
     public String getReserveandsurplus() {
         return reserveandsurplus;
     }
 
-    public void setReserveandsurplus(String reserveandsurplus) {
-        this.reserveandsurplus = reserveandsurplus;
-    }
+
 
     public String getBonousissue() {
         return bonousissue;
     }
 
-    public void setBonousissue(String bonousissue) {
-        this.bonousissue = bonousissue;
-    }
 
-    public String getCompanyname() {
-        return companyname;
-    }
-
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname;
-    }
-
-
-    public void setLtp(String ltp) {
-        this.ltp = ltp;
-    }
-
-    public String getChangeval() {
-        return changeval;
-    }
-
-    public void setChangeval(String changeval) {
-        this.changeval = changeval;
-    }
 
     public String getChangepercentage() {
         return changepercentage;
     }
 
-    public void setChangepercentage(String changepercentage) {
-        this.changepercentage = changepercentage;
-    }
+
 
     public String getLastagm() {
         return lastagm;
     }
 
-    public void setLastagm(String lastagm) {
-        this.lastagm = lastagm;
-    }
+
 
     public String getPERatioBasic() {
         return pERatioBasic;
     }
 
-    public void setPERatioBasic(String pERatioBasic) {
-        this.pERatioBasic = pERatioBasic;
-    }
+
 
     public String getPERatioDiluted() {
         return pERatioDiluted;
     }
 
-    public void setPERatioDiluted(String pERatioDiluted) {
-        this.pERatioDiluted = pERatioDiluted;
-    }
+
 
     public String getMarketcatagory() {
         return marketcatagory;
     }
 
-    public void setMarketcatagory(String marketcatagory) {
-        this.marketcatagory = marketcatagory;
-    }
-
-    public String getFp2013Epscontinueoperation() {
-        return fp2013Epscontinueoperation;
-    }
-
-    public void setFp2013Epscontinueoperation(String fp2013Epscontinueoperation) {
-        this.fp2013Epscontinueoperation = fp2013Epscontinueoperation;
-    }
-
-    public String getFp2013NAV() {
-        return fp2013NAV;
-    }
-
-    public void setFp2013NAV(String fp2013NAV) {
-        this.fp2013NAV = fp2013NAV;
-    }
-
-    public String getFp2013NPATcontinueoperation() {
-        return fp2013NPATcontinueoperation;
-    }
-
-    public void setFp2013NPATcontinueoperation(String fp2013NPATcontinueoperation) {
-        this.fp2013NPATcontinueoperation = fp2013NPATcontinueoperation;
-    }
-
-    public String getFp2013NPATextraordinaryincome() {
-        return fp2013NPATextraordinaryincome;
-    }
-
-    public void setFp2013NPATextraordinaryincome(String fp2013NPATextraordinaryincome) {
-        this.fp2013NPATextraordinaryincome = fp2013NPATextraordinaryincome;
-    }
-
-    public String getFp2014Epscontinueoperation() {
-        return fp2014Epscontinueoperation;
-    }
-
-    public void setFp2014Epscontinueoperation(String fp2014Epscontinueoperation) {
-        this.fp2014Epscontinueoperation = fp2014Epscontinueoperation;
-    }
-
-    public String getFp2014NAV() {
-        return fp2014NAV;
-    }
-
-    public void setFp2014NAV(String fp2014NAV) {
-        this.fp2014NAV = fp2014NAV;
-    }
-
-    public String getFp2014NPATextraordinaryincome() {
-        return fp2014NPATextraordinaryincome;
-    }
-
-    public void setFp2014NPATextraordinaryincome(String fp2014NPATextraordinaryincome) {
-        this.fp2014NPATextraordinaryincome = fp2014NPATextraordinaryincome;
-    }
-
-    public String getFp2014NPATcontinueoperation() {
-        return fp2014NPATcontinueoperation;
-    }
-
-    public void setFp2014NPATcontinueoperation(String fp2014NPATcontinueoperation) {
-        this.fp2014NPATcontinueoperation = fp2014NPATcontinueoperation;
-    }
-
-    public String getFpcontinueDividend2009() {
-        return fpcontinueDividend2009;
-    }
-
-    public void setFpcontinueDividend2009(String fpcontinueDividend2009) {
-        this.fpcontinueDividend2009 = fpcontinueDividend2009;
-    }
-
-    public String getFpcontinueDividend2010() {
-        return fpcontinueDividend2010;
-    }
-
-    public void setFpcontinueDividend2010(String fpcontinueDividend2010) {
-        this.fpcontinueDividend2010 = fpcontinueDividend2010;
-    }
-
-    public String getFpcontinueDividend2011() {
-        return fpcontinueDividend2011;
-    }
-
-    public void setFpcontinueDividend2011(String fpcontinueDividend2011) {
-        this.fpcontinueDividend2011 = fpcontinueDividend2011;
-    }
-
-    public String getFpcontinueDividend2012() {
-        return fpcontinueDividend2012;
-    }
-
-    public void setFpcontinueDividend2012(String fpcontinueDividend2012) {
-        this.fpcontinueDividend2012 = fpcontinueDividend2012;
-    }
-
-    public String getFpcontinueDividend2013() {
-        return fpcontinueDividend2013;
-    }
-
-    public void setFpcontinueDividend2013(String fpcontinueDividend2013) {
-        this.fpcontinueDividend2013 = fpcontinueDividend2013;
-    }
-
-    public String getFpcontinueDividend2014() {
-        return fpcontinueDividend2014;
-    }
-
-    public void setFpcontinueDividend2014(String fpcontinueDividend2014) {
-        this.fpcontinueDividend2014 = fpcontinueDividend2014;
-    }
 
     public String getSpSponsorDirector() {
         return spSponsorDirector;
     }
 
-    public void setSpSponsorDirector(String spSponsorDirector) {
-        this.spSponsorDirector = spSponsorDirector;
-    }
+
 
     public String getSpGovt() {
         return spGovt;
     }
 
-    public void setSpGovt(String spGovt) {
-        this.spGovt = spGovt;
-    }
 
     public String getSpInstitute() {
         return spInstitute;
     }
 
-    public void setSpInstitute(String spInstitute) {
-        this.spInstitute = spInstitute;
-    }
+
 
     public String getSpForeign() {
         return spForeign;
     }
 
-    public void setSpForeign(String spForeign) {
-        this.spForeign = spForeign;
-    }
+
 
     public String getSpPublic() {
         return spPublic;
     }
 
-    public void setSpPublic(String spPublic) {
-        this.spPublic = spPublic;
-    }
-
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
 
     public String getBuyPrice() {
@@ -662,5 +432,13 @@ public class Item {
         if(Double.parseDouble(getNetProfit()) < 0)
             return Color.RED;
         return Color.GREEN;
+    }
+
+    public void setHighPrice(String highPrice) {
+        this.highPrice = highPrice;
+    }
+
+    public void setLowPrice(String lowPrice) {
+        this.lowPrice = lowPrice;
     }
 }

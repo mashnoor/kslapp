@@ -1011,6 +1011,7 @@
 
             <Button
 
+                android:id="@+id/btnPriceAlert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -1018,7 +1019,7 @@
 
                 android:background="@drawable/add_to_price_alert_gradient_button"
                 android:gravity="center"
-                android:onClick="btnPlaceOrder"
+                android:onClick="addRemovePriceAlert"
 
                 android:text="ADD TO PRICE ALERT"
                 android:textColor="@android:color/white"

@@ -127,4 +127,8 @@ public class WelcomeActivity extends AppCompatActivity {
     public void goAbout(View v) {
         startActivity(new Intent(this, AboutActivity.class));
     }
+
+    public void goPriceAlert(View v) {
+        startActivity(new Intent(this, PriceAlertActivity.class));
+    }
 }

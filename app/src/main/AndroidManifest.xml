@@ -73,7 +73,8 @@
         <activity
             android:name=".activities.CandleStickChartActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.AboutActivity"></activity>
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.PriceAlertActivity"></activity>
     </application>
 
 </manifest>
