@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,22 +13,29 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
+import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +52,7 @@ public class AllItems extends AppCompatActivity {
     EditText etSearch;
 
 
-    AlertDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -55,7 +63,8 @@ public class AllItems extends AppCompatActivity {
         ButterKnife.bind(this);
         TopBar.attach(this, "All Items");
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please wait...");
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         getItemLists();
@@ -64,8 +73,7 @@ public class AllItems extends AppCompatActivity {
 
     }
 
-    private void registerSwipeListener()
-    {
+    private void registerSwipeListener() {
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.layoutSwipe);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -78,19 +86,25 @@ public class AllItems extends AppCompatActivity {
 
 
     private void getItemLists() {
-        dialog.show();
-
-        ApiInterfaceGetter.getStaticInterface().getAllLatestItemUpdates().enqueue(new Callback<List<Item>>() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(AppURLS.GET_ALL_ITEMS_UPDATES, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
 
             @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                dialog.dismiss();
-                allItem = response.body();
-                allItemCopy = new ArrayList<>(allItem);
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                allItem = Arrays.asList(Geson.g().fromJson(response, Item[].class));
 
+                allItemCopy = new ArrayList<>();
+                allItemCopy.addAll(allItem);
 
                 adapter = new AllItemListAdapter(allItemCopy);
-                Logger.d(allItem.size());
+
+                Logger.d(allItemCopy.get(0).getItem());
 
                 etSearch.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -112,7 +126,7 @@ public class AllItems extends AppCompatActivity {
                             allItemCopy.addAll(allItem);
 
                         } else {
-                            Logger.d("Entering");
+
                             for (Item item : allItem) {
 
                                 if (item.getItem().toLowerCase().contains(searchText.toLowerCase())) {
@@ -121,13 +135,12 @@ public class AllItems extends AppCompatActivity {
                                 }
                             }
                         }
-                        Logger.d(allItem.size() + " - " + allItemCopy.size());
+
                         adapter.notifyDataSetChanged();
 
 
                     }
                 });
-
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -136,16 +149,23 @@ public class AllItems extends AppCompatActivity {
                         startActivity(i);
                     }
                 });
+
                 itemList.setAdapter(adapter);
+                dialog.dismiss();
+
+
             }
 
             @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(AllItems.this, "Error! Pull down to refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
-                Log.d("--------", "Error Occured");
 
             }
         });
+
+
     }
+
 
 }

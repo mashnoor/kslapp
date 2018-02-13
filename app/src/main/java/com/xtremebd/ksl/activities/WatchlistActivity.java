@@ -56,7 +56,7 @@ public class WatchlistActivity extends AppCompatActivity {
 
     private void updateWatchlistItems() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(AppURLS.GELL_ALL_ITEMS_UPDATES, new AsyncHttpResponseHandler() {
+        client.get(AppURLS.GET_ALL_ITEMS_UPDATES, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
                 super.onStart();

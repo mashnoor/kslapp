@@ -349,6 +349,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 //Add to database
                 current_item.setHighPrice(highValue);
                 current_item.setLowPrice(lowValue);
+                current_item.setLastValueForNotification(current_item.getLtp());
                 PriceAlertHelper.addItemToPriceAlert(ItemDetailActivity.this, current_item);
                 showToast("Item Added To Price Alert Successfully");
                 recreate();

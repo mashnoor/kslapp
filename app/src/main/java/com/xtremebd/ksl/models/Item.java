@@ -3,6 +3,7 @@ package com.xtremebd.ksl.models;
 import android.graphics.Color;
 
 import com.google.gson.annotations.SerializedName;
+import com.xtremebd.ksl.R;
 
 import java.text.DecimalFormat;
 
@@ -17,6 +18,8 @@ public class Item {
     private String highPrice;
     @SerializedName("low_value")
     private String lowPrice;
+    @SerializedName("last_value_for_notification")
+    private String lastValueForNotification;
 
     //For Portfolio
     private String buyPrice;
@@ -179,12 +182,9 @@ public class Item {
     }
 
 
-
-
     public String getDaysrange() {
         return daysrange;
     }
-
 
 
     public void setVolume(String volume) {
@@ -196,7 +196,6 @@ public class Item {
     }
 
 
-
     public String getAuthorizedcapital() {
         return authorizedcapital;
     }
@@ -205,7 +204,6 @@ public class Item {
     public String getPaidupvalue() {
         return paidupvalue;
     }
-
 
 
     public String getFacevalue() {
@@ -227,7 +225,6 @@ public class Item {
     }
 
 
-
     public String getRightissue() {
         return rightissue;
     }
@@ -243,11 +240,9 @@ public class Item {
     }
 
 
-
     public String getBonousissue() {
         return bonousissue;
     }
-
 
 
     public String getChangepercentage() {
@@ -255,11 +250,9 @@ public class Item {
     }
 
 
-
     public String getLastagm() {
         return lastagm;
     }
-
 
 
     public String getPERatioBasic() {
@@ -267,11 +260,9 @@ public class Item {
     }
 
 
-
     public String getPERatioDiluted() {
         return pERatioDiluted;
     }
-
 
 
     public String getMarketcatagory() {
@@ -284,7 +275,6 @@ public class Item {
     }
 
 
-
     public String getSpGovt() {
         return spGovt;
     }
@@ -295,17 +285,14 @@ public class Item {
     }
 
 
-
     public String getSpForeign() {
         return spForeign;
     }
 
 
-
     public String getSpPublic() {
         return spPublic;
     }
-
 
 
     public String getBuyPrice() {
@@ -427,9 +414,8 @@ public class Item {
         }
     }
 
-    public int getNetProfitColor()
-    {
-        if(Double.parseDouble(getNetProfit()) < 0)
+    public int getNetProfitColor() {
+        if (Double.parseDouble(getNetProfit()) < 0)
             return Color.RED;
         return Color.GREEN;
     }
@@ -440,5 +426,28 @@ public class Item {
 
     public void setLowPrice(String lowPrice) {
         this.lowPrice = lowPrice;
+    }
+
+    public int getStatusIcon() {
+        double highVal = Double.parseDouble(getHighPrice());
+        double lowVal = Double.parseDouble(getLowPrice());
+        double ltpVal = Double.parseDouble(getLtp());
+        if (ltpVal == lowVal || ltpVal == highVal) {
+            return R.drawable.stable_arrow;
+        } else if (ltpVal > lowVal && ltpVal < highVal) {
+            return R.drawable.stable_arrow;
+        } else if (ltpVal > highVal && ltpVal > lowVal) {
+            return R.drawable.up_arrow;
+        } else {
+            return R.drawable.down_arrow;
+        }
+    }
+
+    public String getLastValueForNotification() {
+        return lastValueForNotification;
+    }
+
+    public void setLastValueForNotification(String lastValueForNotification) {
+        this.lastValueForNotification = lastValueForNotification;
     }
 }

@@ -23,6 +23,7 @@ public class PriceAlertAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
         holder.setText(R.id.tvSymbol, item.getItem())
                 .setText(R.id.tvLtp, item.getLtp())
                 .setText(R.id.tvLow, item.getLowPrice())
-                .setText(R.id.tvHigh, item.getHighPrice());
+                .setText(R.id.tvHigh, item.getHighPrice())
+                .setImageResource(R.id.ivStatus, item.getStatusIcon());
     }
 }
