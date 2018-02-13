@@ -17,7 +17,6 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
-import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.PriceAlertHelper;
 
 import cz.msebera.android.httpclient.Header;
@@ -48,8 +47,7 @@ public class PriceAlertService extends Service {
 
     private void updateAndNotifyPriceAlert() {
         Logger.d("Checking Update");
-        if(PriceAlertHelper.getPriceAlertItems(context).size() == 0)
-        {
+        if (PriceAlertHelper.getPriceAlertItems(context).size() == 0) {
             Logger.d("returned");
             return;
         }
