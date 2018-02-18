@@ -26,6 +26,8 @@ public class AppURLS {
     public static final String GET_CSE_NEWS = BASE_URL + "/kslbackend/latest_news.txt";
     public static final String GET_ITEM_NEWS = BASE_URL + ":5003/getitemnews/";
     public static final String PASSWORD_RECOVER = BASE_URL + ":5003/recoverpassword";
+    public static final String MASTER_LOGIN = BASE_URL + ":5003/masterlogin";
+    public static final String SET_TOKEN = BASE_URL + ":5003/settoken";
 
 
 }

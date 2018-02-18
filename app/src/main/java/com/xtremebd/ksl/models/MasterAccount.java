@@ -22,8 +22,8 @@ public class MasterAccount {
         this.masterPass = masterPass;
     }
 
-    public MasterAccount() {
-
+    public String getToken() {
+        return token;
     }
 
     public void setToken(String token) {

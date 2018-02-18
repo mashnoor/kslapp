@@ -23,19 +23,11 @@ public class Account {
         this.mobile = mobile;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +13,19 @@ import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.interfaces.DynamicApiInterface;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.tvMasterPassword)
     EditText tvMasterPassword;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -42,7 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Connecting. Please wait... ");
         if (DBHelper.getMasterAccount(this) != null) {
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
@@ -51,20 +58,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendToken() {
-        Log.d("-------", "Called tolem");
-        ApiInterfaceGetter.getDynamicInterface().setToken(DBHelper.getMasterAccount(this)).enqueue(new Callback<String>() {
+        MasterAccount account = DBHelper.getMasterAccount(this);
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("masterid", account.getMasterId());
+        params.put("token", account.getToken());
+        client.post(AppURLS.SET_TOKEN, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d("------", response.body());
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                t.printStackTrace();
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
             }
         });
+
     }
 
     public void masterLogin(View v) {
@@ -79,13 +89,23 @@ public class LoginActivity extends AppCompatActivity {
             tvMasterPassword.setError("Master Password can't be empty");
             return;
         }
-        dialog.show();
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("masterid", masterId);
+        params.put("masterpass", masterPassword);
         final MasterAccount account = new MasterAccount(masterId, masterPassword);
-        ApiInterfaceGetter.getDynamicInterface().masterLogin(account).enqueue(new Callback<String>() {
+        client.post(AppURLS.MASTER_LOGIN, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d("--------", response.body());
-                if (response.body().equals("success")) {
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+
+                if (response.equals("success")) {
                     account.setToken(FirebaseInstanceId.getInstance().getToken());
 
 
@@ -97,15 +117,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     finish();
                 } else {
-                    showToast("Login info failed");
+                    showToast("Check login credentials");
                 }
+                dialog.dismiss();
+
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("--------", t.getMessage());
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                showToast("Something went wrong");
                 dialog.dismiss();
-                showToast("Couldn't connect to KSL server.");
 
             }
         });
