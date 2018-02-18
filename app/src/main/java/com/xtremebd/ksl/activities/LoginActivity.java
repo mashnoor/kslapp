@@ -120,4 +120,8 @@ public class LoginActivity extends AppCompatActivity {
     private void showToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
+
+    public void goRecover(View v) {
+        startActivity(new Intent(this, PasswordRecoveryActivity.class));
+    }
 }

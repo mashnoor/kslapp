@@ -25,6 +25,7 @@ public class AppURLS {
     public static final String GET_ALL_ITEMS_UPDATES = BASE_URL + "/kslbackend/all_items_latest_update.txt";
     public static final String GET_CSE_NEWS = BASE_URL + "/kslbackend/latest_news.txt";
     public static final String GET_ITEM_NEWS = BASE_URL + ":5003/getitemnews/";
+    public static final String PASSWORD_RECOVER = BASE_URL + ":5003/recoverpassword";
 
 
 }
