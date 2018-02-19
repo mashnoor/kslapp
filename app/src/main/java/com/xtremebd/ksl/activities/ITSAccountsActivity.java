@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.ITSAccountAdapter;
 import com.xtremebd.ksl.models.ITSAccount;
@@ -25,8 +28,11 @@ import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +53,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
     @BindView(R.id.rvItsAccounts)
     RecyclerView rvitsAccounts;
 
-    SpotsDialog progressDialog;
+    ProgressDialog progressDialog;
     ITSAccountAdapter adapter;
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -60,47 +66,66 @@ public class ITSAccountsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itsaccounts);
         ButterKnife.bind(this);
+        TopBar.attach(this, "ITS ACCOUNTS");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        progressDialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading. Please Wait...");
         rvitsAccounts.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        Logger.addLogAdapter(new AndroidLogAdapter());
         getItsAccounts();
 
 
     }
 
     private void getItsAccounts() {
-        progressDialog.show();
-        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(ITSAccountsActivity.this)).enqueue(new Callback<List<ITSAccount>>() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        MasterAccount acc = DBHelper.getMasterAccount(this);
+        params.put("masterid", acc.getMasterId());
+        params.put("masterpass", acc.getMasterPass());
+        client.post(AppURLS.GET_ITS_ACCOUNTS, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                adapter = new ITSAccountAdapter(response.body());
-                final List<ITSAccount> itsAccs = response.body();
+            public void onStart() {
+                super.onStart();
+                progressDialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                final List<ITSAccount> itsAccounts = Arrays.asList(Geson.g().fromJson(response, ITSAccount[].class));
+                adapter = new ITSAccountAdapter(itsAccounts);
+
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.btnDelete) {
-                            trydeletingaccout(itsAccs.get(position).getItsAccountNo());
+                            trydeletingaccout(itsAccounts.get(position).getItsAccountNo());
                         } else if (view.getId() == R.id.btnEdit) {
                             Toast.makeText(ITSAccountsActivity.this, "Edit", Toast.LENGTH_LONG).show();
 
                         }
 
 
-                        Toast.makeText(ITSAccountsActivity.this, "" + position + " " + view.getId(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ITSAccountsActivity.this, "" + position + " " + view.getId(), Toast.LENGTH_LONG).show();
                     }
                 });
+
                 rvitsAccounts.setAdapter(adapter);
                 progressDialog.dismiss();
-
             }
 
             @Override
-            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
-                showToast("Couldn't connect KSL network");
-                progressDialog.dismiss();
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                showToast("Error! Refresh to try again");
+                progressDialog.dismiss();
+                Logger.d(error.getMessage());
             }
         });
+
+
     }
 
     private void trydeletingaccout(final String itsAccNo) {
@@ -112,7 +137,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
         portfolioAddDialouge.setView(dialougeView);
         portfolioAddDialouge.setPositiveButton("Confirm Delete", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(final DialogInterface dialog, int which) {
                 EditText etMasterPassword = dialougeView.findViewById(R.id.etMasterPass);
                 String masterPassword = etMasterPassword.getText().toString();
                 if (masterPassword.isEmpty()) {
@@ -169,29 +194,43 @@ public class ITSAccountsActivity extends AppCompatActivity {
             etItsaccountPass.setError("Password can't be empty");
             return;
         }
-        ITSAccount account = new ITSAccount(itsaccno, itsaccpass);
+
         MasterAccount masterAccount = DBHelper.getMasterAccount(ITSAccountsActivity.this);
-        progressDialog.show();
-        ApiInterfaceGetter.getDynamicInterface().addItsAccount(masterAccount.getMasterId(), account).enqueue(new Callback<String>() {
+
+
+        showToast("Account added successfully");
+        getItsAccounts();
+        progressDialog.dismiss();
+        etItsaccountPass.setText("");
+        etItsAccountNo.setText("");
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("masterid", masterAccount.getMasterId());
+        params.put("itsaccno", itsaccno);
+        params.put("itsaccpass", itsaccpass);
+        client.post(AppURLS.ADD_ITS_ACCOUNT, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body().equals("success")) {
-                    showToast("Account added successfully");
-                    getItsAccounts();
-                    progressDialog.dismiss();
-                    etItsaccountPass.setText("");
-                    etItsAccountNo.setText("");
-                } else {
-                    showToast("Couldn't connect KSL network");
-                }
+            public void onStart() {
+                super.onStart();
+                progressDialog.show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                showToast("Account added successfully");
                 progressDialog.dismiss();
-                showToast("Couldn't connect KSL network");
+                getItsAccounts();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                showToast("Something went wrong. Try again");
+                progressDialog.dismiss();
+
             }
         });
+
 
     }
 }

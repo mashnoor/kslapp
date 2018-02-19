@@ -46,9 +46,9 @@ public class PriceAlertService extends Service {
     }
 
     private void updateAndNotifyPriceAlert() {
-        Logger.d("Checking Update");
+        //Logger.d("Checking Update");
         if (PriceAlertHelper.getPriceAlertItems(context).size() == 0) {
-            Logger.d("returned");
+            //Logger.d("returned");
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();

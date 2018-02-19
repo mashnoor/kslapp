@@ -19,12 +19,17 @@ import com.loopj.android.http.RequestParams;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.models.ITSAccount;
+import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.Resp;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -63,23 +68,8 @@ public class PortfolioStatement extends AppCompatActivity {
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
         dialog.show();
+        getItsAccounts();
 
-        ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
-            @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                Log.d("-------", response.body().toString());
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PortfolioStatement.this, android.R.layout.simple_spinner_item, response.body());
-                spnrClientIDs.setAdapter(adapter);
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
-                Log.d("--------", t.getMessage());
-                dialog.dismiss();
-
-            }
-        });
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -113,6 +103,36 @@ public class PortfolioStatement extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void getItsAccounts() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        MasterAccount acc = DBHelper.getMasterAccount(this);
+        params.put("masterid", acc.getMasterId());
+        params.put("masterpass", acc.getMasterPass());
+        client.post(AppURLS.GET_ITS_ACCOUNTS, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                ITSAccount[] itsAccounts = Geson.g().fromJson(response, ITSAccount[].class);
+                List<String> accountNos = new ArrayList<>();
+                for (ITSAccount acc : itsAccounts) {
+                    accountNos.add(acc.getItsAccountNo());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(PortfolioStatement.this, android.R.layout.simple_spinner_item, accountNos);
+                spnrClientIDs.setAdapter(adapter);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+
     }
 
     public void viewPortfolioStatement(View v) {

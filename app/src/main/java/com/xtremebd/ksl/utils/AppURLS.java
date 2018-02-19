@@ -28,6 +28,8 @@ public class AppURLS {
     public static final String PASSWORD_RECOVER = BASE_URL + ":5003/recoverpassword";
     public static final String MASTER_LOGIN = BASE_URL + ":5003/masterlogin";
     public static final String SET_TOKEN = BASE_URL + ":5003/settoken";
+    public static final String GET_ITS_ACCOUNTS = BASE_URL + ":5003/itsaccounts";
+    public static final String ADD_ITS_ACCOUNT = BASE_URL + ":5003/additsaccountmobile";
 
 
 }
