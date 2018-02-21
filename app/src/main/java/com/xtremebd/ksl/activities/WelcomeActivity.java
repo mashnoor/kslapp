@@ -25,7 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Hawk.init(this).build();
-        TopBar.attach(this, "HOME");
+        TopBar.attach(this, "Welcome, " + DBHelper.getMasterAccount(this).getName());
         Log.d("--------", "-" + Hawk.count());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 

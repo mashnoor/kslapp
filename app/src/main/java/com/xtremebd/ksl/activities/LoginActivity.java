@@ -22,6 +22,7 @@ import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("masterid", masterId);
         params.put("masterpass", masterPassword);
-        final MasterAccount account = new MasterAccount(masterId, masterPassword);
+
         client.post(AppURLS.MASTER_LOGIN, params, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -105,7 +106,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
 
-                if (response.equals("success")) {
+                if (!response.equals("failed")) {
+                    MasterAccount account = Geson.g().fromJson(response, MasterAccount.class);
+
                     account.setToken(FirebaseInstanceId.getInstance().getToken());
 
 

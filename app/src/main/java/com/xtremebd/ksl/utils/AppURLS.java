@@ -34,6 +34,9 @@ public class AppURLS {
     public static final String REQUEST_FUND_REQUISITION = BASE_URL + ":5003/requestrequisition";
     public static final String GET_NOTIFICATIONS = BASE_URL + ":5003/getnotifications";
     public static final String REQUEST_ACCOUNT = BASE_URL + ":5003/requestaccount";
+    public static final String GET_MARKET_MOVERS_BY_TRADE = BASE_URL + "/kslbackend/marketmovers/top_twenty_by_trade.txt";
+    public static final String GET_MARKET_MOVERS_BY_VOLUME = BASE_URL + "/kslbackend/marketmovers/top_twenty_by_volume.txt";
+    public static final String GET_MARKET_MOVERS_BY_VALUE = BASE_URL + "/kslbackend/marketmovers/top_twenty_by_value.txt";
 
 
 }

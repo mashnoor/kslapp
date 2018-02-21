@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.MarketMoversAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Geson;
 
+import java.util.Arrays;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +33,7 @@ public class MarketMoversFragment extends Fragment {
 
     RecyclerView rvlistMarketMovers;
     MarketMoversAdapter adapter;
+    AsyncHttpClient client;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,21 +45,24 @@ public class MarketMoversFragment extends Fragment {
         rvlistMarketMovers.setLayoutManager(new LinearLayoutManager(getContext()));
         int position = getArguments().getInt("position");
 
+
         switch (position) {
             case 0:
                 //By Value
                 tvsubject.setText("Value");
-                ApiInterfaceGetter.getStaticInterface().getTopTwentyByValueMaerketMover().enqueue(new Callback<List<Item>>() {
+                client = new AsyncHttpClient();
+                client.get(AppURLS.GET_MARKET_MOVERS_BY_VALUE, new AsyncHttpResponseHandler() {
                     @Override
-                    public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-
-                        adapter = new MarketMoversAdapter(response.body(), 0);
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String response = new String(responseBody);
+                        List<Item> valueMovers = Arrays.asList(Geson.g().fromJson(response, Item[].class));
+                        adapter = new MarketMoversAdapter(valueMovers, 0);
                         rvlistMarketMovers.setAdapter(adapter);
                     }
 
                     @Override
-                    public void onFailure(Call<List<Item>> call, Throwable t) {
-                        Log.d("-------- Err", t.getMessage());
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                     }
                 });
 
@@ -59,37 +70,41 @@ public class MarketMoversFragment extends Fragment {
                 break;
             case 1:
                 tvsubject.setText("Volume");
-                ApiInterfaceGetter.getStaticInterface().getTopTwentyByVolumeMaerketMover().enqueue(new Callback<List<Item>>() {
+                client = new AsyncHttpClient();
+                client.get(AppURLS.GET_MARKET_MOVERS_BY_VOLUME, new AsyncHttpResponseHandler() {
                     @Override
-                    public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-
-                        adapter = new MarketMoversAdapter(response.body(), 1);
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String response = new String(responseBody);
+                        List<Item> valueMovers = Arrays.asList(Geson.g().fromJson(response, Item[].class));
+                        adapter = new MarketMoversAdapter(valueMovers, 1);
                         rvlistMarketMovers.setAdapter(adapter);
                     }
 
                     @Override
-                    public void onFailure(Call<List<Item>> call, Throwable t) {
-                        Log.d("-------- Err", t.getMessage());
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                     }
                 });
+
 
                 break;
             case 2:
                 tvsubject.setText("Trade");
-                ApiInterfaceGetter.getStaticInterface().getTopTwentyByTradeMaerketMover().enqueue(new Callback<List<Item>>() {
+                client = new AsyncHttpClient();
+                client.get(AppURLS.GET_MARKET_MOVERS_BY_TRADE, new AsyncHttpResponseHandler() {
                     @Override
-                    public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-
-                        adapter = new MarketMoversAdapter(response.body(), 2);
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String response = new String(responseBody);
+                        List<Item> valueMovers = Arrays.asList(Geson.g().fromJson(response, Item[].class));
+                        adapter = new MarketMoversAdapter(valueMovers, 2);
                         rvlistMarketMovers.setAdapter(adapter);
                     }
 
                     @Override
-                    public void onFailure(Call<List<Item>> call, Throwable t) {
-                        Log.d("-------- Err", t.getMessage());
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                     }
                 });
-
                 break;
 
         }

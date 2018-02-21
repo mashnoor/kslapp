@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
@@ -55,7 +57,7 @@ public class PortfolioStatement extends AppCompatActivity {
     EditText etPsDate;
 
     AsyncHttpClient client;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -66,9 +68,10 @@ public class PortfolioStatement extends AppCompatActivity {
         TopBar.attach(this, "PORTFOLIO STATEMENT");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please wait...");
         dialog.show();
-        getItsAccounts();
+
 
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -103,31 +106,38 @@ public class PortfolioStatement extends AppCompatActivity {
 
             }
         });
+
+        getClientIds();
     }
 
-    private void getItsAccounts() {
-
+    private void getClientIds() {
         AsyncHttpClient client = new AsyncHttpClient();
+        MasterAccount account = DBHelper.getMasterAccount(this);
         RequestParams params = new RequestParams();
-        MasterAccount acc = DBHelper.getMasterAccount(this);
-        params.put("masterid", acc.getMasterId());
-        params.put("masterpass", acc.getMasterPass());
-        client.post(AppURLS.GET_ITS_ACCOUNTS, params, new AsyncHttpResponseHandler() {
+        params.put("masterid", account.getMasterId());
+        params.put("masterpass", account.getMasterPass());
+        client.post(AppURLS.GET_CLIENT_ID, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
-                ITSAccount[] itsAccounts = Geson.g().fromJson(response, ITSAccount[].class);
-                List<String> accountNos = new ArrayList<>();
-                for (ITSAccount acc : itsAccounts) {
-                    accountNos.add(acc.getItsAccountNo());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(PortfolioStatement.this, android.R.layout.simple_spinner_item, accountNos);
+                List<String> clientIds = Arrays.asList(Geson.g().fromJson(response, String[].class));
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(PortfolioStatement.this, android.R.layout.simple_spinner_item, clientIds);
                 spnrClientIDs.setAdapter(adapter);
                 dialog.dismiss();
+
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(PortfolioStatement.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
 
             }
         });
