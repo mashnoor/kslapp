@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,17 +14,25 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.xtremebd.ksl.R;
+import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.models.Requisition;
 import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,13 +40,13 @@ import retrofit2.Response;
 
 public class FundRequisitionActivity extends AppCompatActivity {
 
-    @BindView(R.id.spnrItsAccounts)
-    Spinner spnrItsAcc;
+    @BindView(R.id.spnrClientIds)
+    Spinner spnrClientIds;
     @BindView(R.id.etAmount)
     EditText etAmount;
     @BindView(R.id.etDate)
     EditText etDate;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -47,8 +56,8 @@ public class FundRequisitionActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         TopBar.attach(this, "FUND REQUISITION");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
-        dialog.show();
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please wait...");
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -82,21 +91,43 @@ public class FundRequisitionActivity extends AppCompatActivity {
 
             }
         });
-        ApiInterfaceGetter.getDynamicInterface().getClientIds(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<String>>() {
+        getClientIds();
+
+    }
+
+    private void getClientIds() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        MasterAccount account = DBHelper.getMasterAccount(this);
+        RequestParams params = new RequestParams();
+        params.put("masterid", account.getMasterId());
+        params.put("masterpass", account.getMasterPass());
+        client.post(AppURLS.GET_CLIENT_ID, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, response.body());
-                //ArrayAdapter<String> adapter = new ArrayAdapter<String>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, accountNos);
-                spnrItsAcc.setAdapter(adapter);
-                dialog.dismiss();
+            public void onStart() {
+                super.onStart();
+                dialog.show();
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                List<String> clientIds = Arrays.asList(Geson.g().fromJson(response, String[].class));
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(FundRequisitionActivity.this, android.R.layout.simple_spinner_item, clientIds);
+                spnrClientIds.setAdapter(adapter);
+                dialog.dismiss();
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(FundRequisitionActivity.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
 
             }
         });
+
+
     }
 
     private void showToast(String s) {
@@ -104,8 +135,8 @@ public class FundRequisitionActivity extends AppCompatActivity {
     }
 
     public void submitRequest(View v) {
-        String itsAccno = spnrItsAcc.getSelectedItem().toString();
-        String amount = etAmount.getText().toString().trim();
+        String itsAccno = spnrClientIds.getSelectedItem().toString();
+        final String amount = etAmount.getText().toString().trim();
         String date = etDate.getText().toString().trim();
 
         if (TextUtils.isEmpty(amount)) {
@@ -116,16 +147,32 @@ public class FundRequisitionActivity extends AppCompatActivity {
             etDate.setError("Date can't be empty");
             return;
         }
-        Requisition requisition = new Requisition(itsAccno, amount, date);
-        ApiInterfaceGetter.getDynamicInterface().submitFundRequisitionRequest(requisition).enqueue(new Callback<String>() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("itsaccno", itsAccno);
+        params.put("amount", amount);
+        params.put("date", date);
+        client.post(AppURLS.REQUEST_FUND_REQUISITION, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                showToast("Successfully requested");
+            public void onStart() {
+                super.onStart();
+                dialog.show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                showToast("Some error occured");
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                etAmount.setText("");
+                etDate.setText("");
+                showToast("Requisition requested successfully");
+                dialog.dismiss();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                showToast("Something went wrong. Please try again");
+                dialog.show();
+
             }
         });
     }

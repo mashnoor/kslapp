@@ -30,6 +30,10 @@ public class AppURLS {
     public static final String SET_TOKEN = BASE_URL + ":5003/settoken";
     public static final String GET_ITS_ACCOUNTS = BASE_URL + ":5003/itsaccounts";
     public static final String ADD_ITS_ACCOUNT = BASE_URL + ":5003/additsaccountmobile";
+    public static final String GET_CLIENT_ID = BASE_URL + ":5003/clientids";
+    public static final String REQUEST_FUND_REQUISITION = BASE_URL + ":5003/requestrequisition";
+    public static final String GET_NOTIFICATIONS = BASE_URL + ":5003/getnotifications";
+    public static final String REQUEST_ACCOUNT = BASE_URL + ":5003/requestaccount";
 
 
 }
