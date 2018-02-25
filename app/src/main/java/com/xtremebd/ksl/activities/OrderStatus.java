@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,14 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.beardedhen.androidbootstrap.BootstrapDropDown;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.ITSAccount;
-import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.models.MasterAccount;
+import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
 import java.util.ArrayList;
@@ -27,10 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dmax.dialog.SpotsDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import cz.msebera.android.httpclient.Header;
 
 public class OrderStatus extends AppCompatActivity {
 
@@ -44,7 +47,7 @@ public class OrderStatus extends AppCompatActivity {
     EditText etitsAccountPass;
 
     int which;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -53,7 +56,8 @@ public class OrderStatus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_status);
         ButterKnife.bind(this);
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please Wait...");
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         TopBar.attach(this, "ORDER STATUS");
@@ -108,24 +112,47 @@ public class OrderStatus extends AppCompatActivity {
 
         dialog.show();
 
-        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
-            @Override
-            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                List<ITSAccount> itsAccounts = response.body();
-                List<String> accountNos = new ArrayList<String>();
-                for (int i = 0; i < itsAccounts.size(); i++) {
-                    accountNos.add(itsAccounts.get(i).getItsAccountNo());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderStatus.this, android.R.layout.simple_spinner_item, accountNos);
-                spnrItsAccounts.setAdapter(adapter);
+        getItsAccounts();
 
-                dialog.dismiss();
+    }
+
+
+    private void getItsAccounts() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        MasterAccount acc = DBHelper.getMasterAccount(this);
+        params.put("masterid", acc.getMasterId());
+        params.put("masterpass", acc.getMasterPass());
+        client.post(AppURLS.GET_ITS_ACCOUNTS, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+                Logger.d("Getting its");
             }
 
             @Override
-            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                List<ITSAccount> itsAccounts = Arrays.asList(Geson.g().fromJson(response, ITSAccount[].class));
+                List<String> accountNos = new ArrayList<>();
+                for (int i = 0; i < itsAccounts.size(); i++) {
+                    accountNos.add(itsAccounts.get(i).getItsAccountNo());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(OrderStatus.this, android.R.layout.simple_spinner_item, accountNos);
+                spnrItsAccounts.setAdapter(adapter);
                 dialog.dismiss();
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                showToast("Error! Refresh to try again");
+                dialog.dismiss();
+                Logger.d(error.getMessage());
             }
         });
 
@@ -148,5 +175,9 @@ public class OrderStatus extends AppCompatActivity {
 
         startActivity(i);
 
+    }
+
+    private void showToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 }

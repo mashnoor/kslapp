@@ -25,7 +25,7 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import dmax.dialog.SpotsDialog;
+
 
 public class OrderSearcResult extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class OrderSearcResult extends AppCompatActivity {
     @BindView(R.id.rvOrderStatus)
     RecyclerView rvOrderStatus;
 
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -48,7 +48,8 @@ public class OrderSearcResult extends AppCompatActivity {
         rvOrderStatus.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Logger.addLogAdapter(new AndroidLogAdapter());
         getOrderStatus();
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please Wait...");
 
     }
 

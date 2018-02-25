@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import dmax.dialog.SpotsDialog;
+
 
 public class TopGainerLoserActivity extends AppCompatActivity {
 

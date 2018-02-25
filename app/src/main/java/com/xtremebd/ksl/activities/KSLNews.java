@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,14 +23,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import dmax.dialog.SpotsDialog;
+
 
 public class KSLNews extends AppCompatActivity {
 
     AsyncHttpClient client;
     @BindView(R.id.rvKslNewsList)
     RecyclerView rvKslNewsList;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
     NewsAdapter adapter;
 
     @Override
@@ -39,7 +40,8 @@ public class KSLNews extends AppCompatActivity {
         ButterKnife.bind(this);
         TopBar.attach(this, "KSL NEWS");
         client = new AsyncHttpClient();
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please Wait...");
         rvKslNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getKslNews();
     }

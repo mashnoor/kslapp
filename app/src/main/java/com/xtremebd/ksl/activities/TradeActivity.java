@@ -22,7 +22,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.MarketDepthAdapter;
 import com.xtremebd.ksl.models.ITSAccount;
 import com.xtremebd.ksl.models.MarketDepth;
-import com.xtremebd.ksl.utils.ApiInterfaceGetter;
+import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
@@ -36,9 +36,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.util.TextUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class TradeActivity extends AppCompatActivity {
 
@@ -51,7 +48,6 @@ public class TradeActivity extends AppCompatActivity {
     @BindView(R.id.spnrItsAccounts)
     Spinner spnrItsAccounts;
     AsyncHttpClient client;
-    ProgressDialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
     List<ITSAccount> itsAccounts;
 
@@ -64,6 +60,8 @@ public class TradeActivity extends AppCompatActivity {
     @BindView(R.id.etPrice)
     EditText etPrice;
 
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +69,8 @@ public class TradeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         TopBar.attach(this, "TRADE");
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please Wait...");
 
         Intent i = getIntent();
 
@@ -88,22 +88,47 @@ public class TradeActivity extends AppCompatActivity {
         dialog.setMessage("Connecting with server. Please wait...");
 
 
-        ApiInterfaceGetter.getDynamicInterface().getItsAccounts(DBHelper.getMasterAccount(this)).enqueue(new Callback<List<ITSAccount>>() {
+        getBuyMarketDepth(itemName);
+        getItsAccounts();
+
+    }
+
+    private void getItsAccounts() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        MasterAccount acc = DBHelper.getMasterAccount(this);
+        params.put("masterid", acc.getMasterId());
+        params.put("masterpass", acc.getMasterPass());
+        client.post(AppURLS.GET_ITS_ACCOUNTS, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onResponse(Call<List<ITSAccount>> call, Response<List<ITSAccount>> response) {
-                itsAccounts = response.body();
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+                Logger.d("Getting its");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                itsAccounts = Arrays.asList(Geson.g().fromJson(response, ITSAccount[].class));
                 List<String> accountNos = new ArrayList<>();
                 for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(TradeActivity.this, android.R.layout.simple_spinner_item, accountNos);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeActivity.this, android.R.layout.simple_spinner_item, accountNos);
                 spnrItsAccounts.setAdapter(adapter);
-                getBuyMarketDepth(itemName);
+                dialog.dismiss();
+
             }
 
             @Override
-            public void onFailure(Call<List<ITSAccount>> call, Throwable t) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                showToast("Error! Refresh to try again");
+                dialog.dismiss();
+                Logger.d(error.getMessage());
             }
         });
 

@@ -1,11 +1,9 @@
 package com.xtremebd.ksl.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.MarketMoversAdapter;
 import com.xtremebd.ksl.models.Item;
-import com.xtremebd.ksl.utils.ApiInterfaceGetter;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.Geson;
 
@@ -24,9 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MarketMoversFragment extends Fragment {
 

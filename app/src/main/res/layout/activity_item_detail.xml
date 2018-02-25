@@ -1035,18 +1035,9 @@
                 android:background="@drawable/add_to_portfolio_gradient_button"
                 android:gravity="center"
                 android:onClick="actionPortfolio"
-                android:textColor="@android:color/white"
-                android:text="ADD TO PORTFOLIO" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/market_depth_gradient_button"
-                android:gravity="center"
-                android:text="MARKET DEPTH"
+                android:text="ADD TO PORTFOLIO"
                 android:textColor="@android:color/white" />
+
 
             <Button
                 android:layout_width="match_parent"
@@ -1055,8 +1046,8 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/news_archive_gradient_button"
                 android:gravity="center"
-                android:text="NEWS ARCHIVE"
                 android:onClick="goNews"
+                android:text="NEWS ARCHIVE"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -1076,7 +1067,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:layout_marginBottom="8dp"
 
                 android:background="@drawable/add_to_watchlist_gradient_button"
                 android:gravity="center"
@@ -1085,11 +1076,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp_14" />
 
-
         </LinearLayout>
 
-
     </LinearLayout>
-
-
 </ScrollView>

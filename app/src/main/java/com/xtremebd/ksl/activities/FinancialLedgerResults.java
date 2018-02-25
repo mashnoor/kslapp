@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,14 +24,14 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import dmax.dialog.SpotsDialog;
+
 
 public class FinancialLedgerResults extends AppCompatActivity {
 
 
     @BindView(R.id.rvFinancialLedger)
     RecyclerView rvFinancialLedger;
-    SpotsDialog dialog;
+    ProgressDialog dialog;
 
     AsyncHttpClient client;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -42,7 +43,8 @@ public class FinancialLedgerResults extends AppCompatActivity {
         ButterKnife.bind(this);
         TopBar.attach(this, "FINANCIAL LEDGER RESULTS");
 
-        dialog = new SpotsDialog(this, R.style.CustomLoadingDialog);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading. Please Wait...");
         rvFinancialLedger.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getFinancialLedger();
     }
