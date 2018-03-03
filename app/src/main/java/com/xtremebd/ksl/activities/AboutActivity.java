@@ -14,4 +14,10 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         TopBar.attach(this, "ABOUT APP");
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

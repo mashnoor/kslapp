@@ -111,6 +111,12 @@ public class FinancialLedgerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getClientIds() {
         AsyncHttpClient client = new AsyncHttpClient();
         MasterAccount account = DBHelper.getMasterAccount(this);

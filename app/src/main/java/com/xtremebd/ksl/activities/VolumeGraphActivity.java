@@ -66,6 +66,12 @@ public class VolumeGraphActivity extends AppCompatActivity {
         registerCalenderListener();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void registerCalenderListener() {
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

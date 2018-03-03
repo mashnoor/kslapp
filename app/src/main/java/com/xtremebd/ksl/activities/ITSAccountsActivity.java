@@ -175,6 +175,12 @@ public class ITSAccountsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void addItsAccount(View v) {
         String itsaccno = etItsAccountNo.getText().toString().trim();
         String itsaccpass = etItsaccountPass.getText().toString().trim();

@@ -94,4 +94,10 @@ public class FinancialLedgerResults extends AppCompatActivity {
         super.onPause();
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

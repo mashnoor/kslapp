@@ -43,13 +43,19 @@ public class DiscussionActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance()
                         .getReference()
                         .push()
-                        .setValue(new Message(input.getText().toString(), DBHelper.getMasterAccount(DiscussionActivity.this).getMasterId())
+                        .setValue(new Message(input.getText().toString(), DBHelper.getMasterAccount(DiscussionActivity.this).getName())
                         );
 
                 // Clear the input
                 input.setText("");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void displayMessages()

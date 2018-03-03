@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 
-public class OrderSearcResult extends AppCompatActivity {
+public class OrderStatusResult extends AppCompatActivity {
 
     AsyncHttpClient client;
 

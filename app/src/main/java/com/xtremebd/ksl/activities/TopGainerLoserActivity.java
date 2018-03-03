@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -47,7 +48,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         String which = getIntent().getStringExtra("which");
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Connecting to server...");
+        dialog.setMessage("Loading. Please Wait...");
         if (which.equals(Constants.TOP_GAINER)) {
             getTopGainerLoser(AppURLS.GET_TOP_GAINERS);
         } else {
@@ -58,6 +59,12 @@ public class TopGainerLoserActivity extends AppCompatActivity {
     private void getTopGainerLoser(String url) {
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 Logger.d(response);
@@ -65,14 +72,15 @@ public class TopGainerLoserActivity extends AppCompatActivity {
                 Logger.d(topGainerLoserItems.size());
                 adapter = new TopGainerLoserAdapter(topGainerLoserItems);
                 rvTopGainerLoser.setAdapter(adapter);
+                dialog.dismiss();
 
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(error.getMessage());
-                Logger.d(responseBody);
+                Toast.makeText(TopGainerLoserActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 

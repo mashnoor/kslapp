@@ -178,7 +178,11 @@ public class CandleStickChartActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

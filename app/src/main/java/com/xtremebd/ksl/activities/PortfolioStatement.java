@@ -136,6 +136,12 @@ public class PortfolioStatement extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void viewPortfolioStatement(View v) {
         String clientId = spnrClientIDs.getSelectedItem().toString();
         String psDate = etPsDate.getText().toString();

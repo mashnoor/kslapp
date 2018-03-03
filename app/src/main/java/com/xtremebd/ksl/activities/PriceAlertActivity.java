@@ -32,6 +32,12 @@ public class PriceAlertActivity extends AppCompatActivity {
         updatePriceAlert();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void updatePriceAlert()
     {
         showPriceAlert();

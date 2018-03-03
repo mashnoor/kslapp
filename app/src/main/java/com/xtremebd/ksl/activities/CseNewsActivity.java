@@ -49,6 +49,12 @@ public class CseNewsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getNews() {
         /***
          *  In which, the activity is requested for shwoing whihc type of news. If ALL,

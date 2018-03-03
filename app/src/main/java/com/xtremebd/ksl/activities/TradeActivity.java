@@ -135,6 +135,12 @@ public class TradeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getBuyMarketDepth(final String itemName) {
         AsyncHttpClient client = new AsyncHttpClient();
         Logger.d(AppURLS.GET_BUY_MARKET_DEPTH + itemName);

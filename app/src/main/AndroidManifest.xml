@@ -63,7 +63,7 @@
         <activity android:name=".activities.NotificationsActivity" />
         <activity android:name=".activities.PortfolioStatement" />
         <activity android:name=".activities.OrderStatus" />
-        <activity android:name=".activities.OrderSearcResult" />
+        <activity android:name=".activities.OrderStatusResult" />
         <activity android:name=".activities.FinancialLedgerActivity" />
         <activity android:name=".activities.FinancialLedgerResults" />
         <activity android:name=".activities.KSLNews" />

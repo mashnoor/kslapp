@@ -252,6 +252,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void actionPortfolio(View v) {
         if (!PortfolioHelper.isIteminPortfolio(ItemDetailActivity.this, item_name)) {
             AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(

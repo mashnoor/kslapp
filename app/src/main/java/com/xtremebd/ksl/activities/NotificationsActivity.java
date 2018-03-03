@@ -48,6 +48,12 @@ public class NotificationsActivity extends AppCompatActivity {
         showNotifications();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void showNotifications() {
 
         AsyncHttpClient client = new AsyncHttpClient();

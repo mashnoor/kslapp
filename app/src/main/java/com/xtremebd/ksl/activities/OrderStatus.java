@@ -159,13 +159,19 @@ public class OrderStatus extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void submitOrderStatus(View v) {
         String itsAccount = spnrItsAccounts.getSelectedItem().toString();
         String fromDate = etFromDate.getText().toString();
         String toDate = etTodate.getText().toString();
         String itsAccountPass = etitsAccountPass.getText().toString();
 
-        Intent i = new Intent(this, OrderSearcResult.class);
+        Intent i = new Intent(this, OrderStatusResult.class);
 
         i.putExtra("itsaccount", itsAccount);
 

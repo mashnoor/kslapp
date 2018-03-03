@@ -97,7 +97,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="3dp"
-            android:background="#ff33b5e5" />
+            android:background="#f44242" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:layout_weight="1"
                 android:text="Total"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#ff33b5e5" />
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/tvTotalPriceOnPurchase"
@@ -123,8 +123,8 @@
                 android:layout_weight="1.5"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="#ff33b5e5"
-                android:textSize="12dp" />
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvTotalPriceOnLtp"
@@ -134,19 +134,19 @@
                 android:layout_weight="1.25"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="#ff33b5e5"
-                android:textSize="12dp" />
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvNetProfit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
+                android:layout_gravity="center|end"
                 android:layout_weight="1.25"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:text="0"
-                android:textColor="#ff33b5e5"
-                android:textSize="12dp" />
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 

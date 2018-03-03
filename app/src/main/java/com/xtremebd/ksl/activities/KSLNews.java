@@ -46,6 +46,12 @@ public class KSLNews extends AppCompatActivity {
         getKslNews();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getKslNews() {
         client.get(AppURLS.GET_KSL_NEWS, new AsyncHttpResponseHandler() {
             @Override

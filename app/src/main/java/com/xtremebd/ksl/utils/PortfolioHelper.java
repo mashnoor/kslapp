@@ -20,6 +20,18 @@ public class PortfolioHelper {
         return Hawk.get("portfolio", new ArrayList<Item>());
     }
 
+    public static Item getItem(Activity activity,String itemName)
+    {
+        List<Item> portfolioItems = getPortfolioItems(activity);
+        for (Item currItem : portfolioItems) {
+            if (currItem.getItem().equals(itemName)) {
+                return currItem;
+            }
+
+        }
+        return null;
+    }
+
     public static void addIteminPortfolio(Activity activity, Item item)
     {
         Hawk.init(activity).build();

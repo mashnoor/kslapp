@@ -52,6 +52,12 @@ public class OpenaccountActivity extends AppCompatActivity {
         Toast.makeText(OpenaccountActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void submitRequest(View v) {
         String accountName = etAccountName.getText().toString().trim();
 
