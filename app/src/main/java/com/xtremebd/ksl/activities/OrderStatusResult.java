@@ -40,7 +40,7 @@ public class OrderStatusResult extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_searc_result);
+        setContentView(R.layout.activity_order_search_result);
         ButterKnife.bind(this);
         TopBar.attach(this, "ORDER STATUS RESULT");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

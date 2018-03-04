@@ -271,8 +271,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Watchlist
-" />
+                        android:text="Watchlist" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -367,19 +366,20 @@
                     android:layout_weight="1"
                     android:background="@drawable/home_menu_border"
                     android:gravity="center"
+                    android:onClick="goItrade"
                     android:orientation="vertical"
                     android:padding="20dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/historicalgraph" />
+                        android:src="@drawable/itrade" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Historical Graph" />
+                        android:text="iTrade" />
                 </LinearLayout>
 
                 <LinearLayout

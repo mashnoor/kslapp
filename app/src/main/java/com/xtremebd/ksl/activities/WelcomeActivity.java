@@ -1,5 +1,7 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,17 +37,27 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    public void showPlaceOrderActivity(View v) {
-        startActivity(new Intent(WelcomeActivity.this, TradeActivity.class));
-    }
-
     public void showAllItems(View v) {
         startActivity(new Intent(WelcomeActivity.this, AllItems.class));
 
     }
 
     public void goHome(View v) {
-        startActivity(new Intent(WelcomeActivity.this, MarketSummaryActivity.class));
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        CharSequence items[] = new CharSequence[]{"CSE Market Summary", "DSE Market Summary"};
+        adb.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0)
+                    startActivity(new Intent(WelcomeActivity.this, CSEMarketSummaryActivity.class));
+                else
+                    startActivity(new Intent(WelcomeActivity.this, DSEMarketSummary.class));
+            }
+        });
+        adb.setTitle("Select Market");
+        adb.setPositiveButton("Cancel", null);
+        adb.show();
+
     }
 
     public void goFundRequisition(View v) {
@@ -130,5 +142,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void goPriceAlert(View v) {
         startActivity(new Intent(this, PriceAlertActivity.class));
+    }
+
+    public void goItrade(View v) {
+        startActivity(new Intent(this, TradeActivity.class));
     }
 }

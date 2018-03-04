@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class TradeActivity extends AppCompatActivity {
 
     @BindView(R.id.spnrItsAccounts)
     Spinner spnrItsAccounts;
-    AsyncHttpClient client;
+
     private FirebaseAnalytics mFirebaseAnalytics;
     List<ITSAccount> itsAccounts;
 
@@ -62,6 +63,8 @@ public class TradeActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    final private int SEARCH_CODE = 11;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,22 +77,40 @@ public class TradeActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
+
         final String itemName = i.getStringExtra("itemname");
         txtItemName.setFocusable(false);
-        txtItemName.setText(itemName);
+
         rvBuyMarketDepth.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvSellMarketDepth.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
         Logger.addLogAdapter(new AndroidLogAdapter());
 
-        client = new AsyncHttpClient();
+
         dialog = new ProgressDialog(this);
         dialog.setMessage("Connecting with server. Please wait...");
 
 
-        getBuyMarketDepth(itemName);
         getItsAccounts();
+
+        if (itemName != null) {
+            getBuyMarketDepth(itemName);
+            getSellMarketDepth(itemName);
+            txtItemName.setText(itemName);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEARCH_CODE && resultCode == Activity.RESULT_OK) {
+            String itemName = data.getStringExtra("itemname");
+            getBuyMarketDepth(itemName);
+            getSellMarketDepth(itemName);
+            txtItemName.setText(itemName);
+        }
 
     }
 
@@ -153,7 +174,6 @@ public class TradeActivity extends AppCompatActivity {
                 List<MarketDepth> buyMarketDepth = Arrays.asList(Geson.g().fromJson(response, MarketDepth[].class));
                 MarketDepthAdapter adapter = new MarketDepthAdapter(buyMarketDepth);
                 rvBuyMarketDepth.setAdapter(adapter);
-                getSellMarketDepth(itemName);
             }
 
             @Override
@@ -185,61 +205,38 @@ public class TradeActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
-    }
+
 
     private void showToast(String s) {
         Toast.makeText(TradeActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
-
-    public void getLtp() {
-        String itemName = txtItemName.getText().toString().trim();
-        if (TextUtils.isEmpty(itemName)) {
-            txtItemName.setError("Enter item name");
-            return;
-        }
-        client.get(AppURLS.GET_LTP_URL + itemName, new AsyncHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                dialog.show();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String response = new String(responseBody);
-                if (response.equals("null")) {
-                    showToast("Item Name Error. Please check item name");
-
-                } else {
-                    //tvLtp.setText(response);
-                }
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                showToast("Error occur. Please try again");
-                dialog.dismiss();
-
-            }
-        });
-
+    public void goSelectItem(View v) {
+        Intent i = new Intent(this, SelectItemForTradeActivity.class);
+        startActivityForResult(i, SEARCH_CODE);
     }
 
+
     private void doTrade(String verb) {
+
+        String symbol = txtItemName.getText().toString().trim();
+        String quantity = txtQty.getText().toString().trim();
+        String price = etPrice.getText().toString().trim();
+
+        if (symbol.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
+            showToast("All fields are required!");
+            return;
+        }
+
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams trading_params = new RequestParams();
         trading_params.put("loginid", spnrItsAccounts.getSelectedItem().toString());
         trading_params.put("password", itsAccounts.get(spnrItsAccounts.getSelectedItemPosition()).getItsAccountPass());
-        trading_params.put("symbol", txtItemName.getText().toString().trim());
-        trading_params.put("qty", txtQty.getText().toString().trim());
+        trading_params.put("symbol", symbol);
+        trading_params.put("qty", quantity);
         trading_params.put("verb", verb);
-        trading_params.put("price", etPrice.getText().toString().trim());
+        trading_params.put("price", price);
 
         client.post(AppURLS.TRADE_URL, trading_params, new AsyncHttpResponseHandler() {
 

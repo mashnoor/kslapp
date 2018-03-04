@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class MarketSummaryActivity extends AppCompatActivity {
+public class CSEMarketSummaryActivity extends AppCompatActivity {
 
     @BindView(R.id.tvCse30value)
     TextView tvcse30value;
@@ -71,10 +71,10 @@ public class MarketSummaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_market_summary);
+        setContentView(R.layout.activity_cse_market_summary);
         ButterKnife.bind(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        TopBar.attach(this, "MARKET SUMMARY");
+        TopBar.attach(this, "CSE MARKET SUMMARY");
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new ProgressDialog(this);
         dialog.setMessage("Getting data from server...");
@@ -112,7 +112,7 @@ public class MarketSummaryActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                Toast.makeText(MarketSummaryActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                Toast.makeText(CSEMarketSummaryActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -142,7 +142,7 @@ public class MarketSummaryActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                Toast.makeText(MarketSummaryActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                Toast.makeText(CSEMarketSummaryActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 Logger.d(error.getMessage());
 
             }

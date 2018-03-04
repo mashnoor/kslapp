@@ -31,7 +31,7 @@
         <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.AllItems" />
         <activity
-            android:name=".activities.MarketSummaryActivity"
+            android:name=".activities.CSEMarketSummaryActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -82,7 +82,9 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activities.PasswordRecoveryActivity"></activity>
+        <activity android:name=".activities.PasswordRecoveryActivity" />
+        <activity android:name=".activities.SelectItemForTradeActivity" />
+        <activity android:name=".activities.DSEMarketSummary"></activity>
     </application>
 
 </manifest>
