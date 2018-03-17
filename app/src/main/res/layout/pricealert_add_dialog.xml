@@ -2,50 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingBottom="6dp"
-        android:text="Add Price Alert"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#ff33b5e5" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2.5dp"
-        android:background="#00CCCF" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="High Price:" />
-
-    <EditText
-        android:id="@+id/price_alert_high"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="@drawable/dialog_header_backgroud_gradient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:maxLength="6">
+        android:padding="10dp"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="6dp"
+            android:text="Add Price Alert"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
 
-        <requestFocus />
-    </EditText>
+    </LinearLayout>
 
-    <TextView
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Low Price:" />
 
-    <EditText
-        android:id="@+id/price_alert_low"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:maxLength="6" />
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:padding="10dp"
+
+      android:layout_height="wrap_content">
+      <TextView
+          android:id="@+id/textView2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="High Price:" />
+
+      <EditText
+          android:id="@+id/price_alert_high"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"
+          android:background="@drawable/round_edittext_login_page"
+          android:padding="10dp"
+          android:textSize="14sp"
+          android:maxLength="6">
+
+          <requestFocus />
+      </EditText>
+
+      <TextView
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Low Price:" />
+
+      <EditText
+          android:id="@+id/price_alert_low"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"
+          android:background="@drawable/round_edittext_login_page"
+          android:padding="10dp"
+          android:textSize="14sp"
+          android:maxLength="6" />
+
+  </LinearLayout>
+
 
 </LinearLayout>

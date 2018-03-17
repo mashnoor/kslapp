@@ -121,57 +121,32 @@ public class ITSAccountsActivity extends AppCompatActivity {
     }
 
     private void trydeletingaccout(final String itsAccNo) {
-        AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
-                this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialougeView = inflater.inflate(
-                R.layout.dialog_masterpass, null);
-        portfolioAddDialouge.setView(dialougeView);
-        portfolioAddDialouge.setPositiveButton("Confirm Delete", new DialogInterface.OnClickListener() {
+
+        String masterId = DBHelper.getMasterAccount(ITSAccountsActivity.this).getMasterId();
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("masterid", masterId);
+        params.put("itsid", itsAccNo);
+        client.post(AppURLS.DELETE_ITS_ACCOUNT, params, new AsyncHttpResponseHandler() {
             @Override
-            public void onClick(final DialogInterface dialog, int which) {
-                EditText etMasterPassword = dialougeView.findViewById(R.id.etMasterPass);
-                String masterPassword = etMasterPassword.getText().toString();
-                if (masterPassword.isEmpty()) {
-                    Toast.makeText(ITSAccountsActivity.this, "Please enter your master password", Toast.LENGTH_LONG).show();
-                    return;
-
-                }
-                if (!masterPassword.equals(DBHelper.getMasterAccount(ITSAccountsActivity.this))) {
-                    showToast("Master password didn't match");
-                    dialog.dismiss();
-                    return;
-                }
-
-                String masterId = DBHelper.getMasterAccount(ITSAccountsActivity.this).getMasterId();
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                params.put("masterid", masterId);
-                params.put("masterpass", masterPassword);
-                params.put("itsid", itsAccNo);
-                client.post(AppURLS.DELETE_ITS_ACCOUNT, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        progressDialog.show();
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        progressDialog.dismiss();
-                        recreate();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        showToast("Something went wrong");
-                        progressDialog.dismiss();
-                    }
-                });
-
-
+            public void onStart() {
+                super.onStart();
+                progressDialog.show();
             }
-        }).show();
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progressDialog.dismiss();
+                recreate();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                showToast("Something went wrong");
+                progressDialog.dismiss();
+            }
+        });
+
 
     }
 

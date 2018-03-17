@@ -1,14 +1,22 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -27,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 public class PortfolioActivity extends AppCompatActivity {
@@ -49,12 +58,14 @@ public class PortfolioActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+
     double totalBuyPrice = 0.0, totalPriceOnLtp = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
+
         ButterKnife.bind(this);
         TopBar.attach(this, "PORTFOLIO");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -66,9 +77,17 @@ public class PortfolioActivity extends AppCompatActivity {
     }
 
     private void viewPortfolioItems() {
-        List<Item> portfolioItems = PortfolioHelper.getPortfolioItems(this);
+        final List<Item> portfolioItems = PortfolioHelper.getPortfolioItems(this);
         rvPortfolioList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new PortfolioListAdapter(portfolioItems);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                showCustomizeDialog(portfolioItems.get(position));
+            }
+        });
+
         rvPortfolioList.setAdapter(adapter);
 
         //Show The Calculation
@@ -83,6 +102,107 @@ public class PortfolioActivity extends AppCompatActivity {
         }
 
     }
+
+    private void showCustomizeDialog(final Item item) {
+        final AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
+                this);
+
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialougeView = inflater.inflate(
+                R.layout.dialog_customize_portfolio, null);
+
+        portfolioAddDialouge.setView(dialougeView);
+
+        final AlertDialog alert = portfolioAddDialouge.create();
+
+
+        TextView tveditStock = dialougeView.findViewById(R.id.tvEditStock);
+        TextView removeStock = dialougeView.findViewById(R.id.tvRemoveItem);
+        TextView seeItemDetail = dialougeView.findViewById(R.id.tvSeeItemDetail);
+
+
+        ///Add to stock
+        tveditStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editStock(item);
+                alert.dismiss();
+
+            }
+        });
+
+
+        //Remove Stock
+        removeStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                PortfolioHelper.deleteItemFromPortfolio(PortfolioActivity.this, item.getItem());
+                updatePortfolioItems();
+
+            }
+        });
+
+        //Item Details
+        seeItemDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                Intent i = new Intent(PortfolioActivity.this, ItemDetailActivity.class);
+                i.putExtra("item", item.getItem());
+                startActivity(i);
+
+            }
+        });
+
+
+        alert.show();
+
+
+    }
+
+    private void editStock(final Item item) {
+        AlertDialog.Builder editStockDialog = new AlertDialog.Builder(
+                this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialougeView = inflater.inflate(
+                R.layout.edit_stock_dialog, null);
+
+        final EditText etNoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
+
+        etNoOfStock.setText(item.getNoOfStock());
+        etNoOfStock.setSelection(etNoOfStock.getText().length());
+
+
+        editStockDialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String noOfStock = etNoOfStock.getText().toString().trim();
+                if (noOfStock.isEmpty()) {
+                    showToast("No of stock can't be empty");
+                    return;
+                }
+
+
+                PortfolioHelper.deleteItemFromPortfolio(PortfolioActivity.this, item.getItem());
+                item.setNoOfStock(noOfStock);
+                PortfolioHelper.addIteminPortfolio(PortfolioActivity.this, item);
+                updatePortfolioItems();
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        editStockDialog.setView(dialougeView);
+
+        editStockDialog.show();
+
+    }
+
 
     private void updatePortfolioItems() {
         AsyncHttpClient client = new AsyncHttpClient();
