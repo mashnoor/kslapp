@@ -38,6 +38,7 @@ public class AppURLS {
     public static final String GET_MARKET_MOVERS_BY_VOLUME = BASE_URL + "/kslbackend/marketmovers/top_twenty_by_volume.txt";
     public static final String GET_MARKET_MOVERS_BY_VALUE = BASE_URL + "/kslbackend/marketmovers/top_twenty_by_value.txt";
     public static final String GET_DSE_MARKET_SUMMARY = BASE_URL + "/kslbackend/homedatas/dse_data.txt";
+    public static final String UPDATE_ITS_PASSWORD = BASE_URL + ":5003/updateitspassword";
 
 
 }

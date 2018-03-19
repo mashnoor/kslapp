@@ -59,6 +59,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_itsaccounts);
         ButterKnife.bind(this);
         TopBar.attach(this, "ITS ACCOUNTS");
+        Logger.addLogAdapter(new AndroidLogAdapter());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading. Please Wait...");
@@ -95,12 +96,9 @@ public class ITSAccountsActivity extends AppCompatActivity {
                         if (view.getId() == R.id.btnDelete) {
                             trydeletingaccout(itsAccounts.get(position).getItsAccountNo());
                         } else if (view.getId() == R.id.btnEdit) {
-                            Toast.makeText(ITSAccountsActivity.this, "Edit", Toast.LENGTH_LONG).show();
+                            updateItsPassword(itsAccounts.get(position).getItsAccountNo());
 
                         }
-
-
-                        //Toast.makeText(ITSAccountsActivity.this, "" + position + " " + view.getId(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -120,6 +118,72 @@ public class ITSAccountsActivity extends AppCompatActivity {
 
     }
 
+    private void updateItsPassword(final String itsAccountNo) {
+        final AlertDialog.Builder newItsPassDialog = new AlertDialog.Builder(
+                this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialougeView = inflater.inflate(
+                R.layout.dialog_newitspass, null);
+
+        newItsPassDialog.setView(dialougeView);
+        final EditText etNewPass = dialougeView.findViewById(R.id.etNewPassword);
+
+        newItsPassDialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                String newPassword = etNewPass.getText().toString();
+                if (newPassword.isEmpty()) {
+                    showToast("Password can't be empty");
+                    return;
+                }
+
+                RequestParams params = new RequestParams();
+                params.put("masterid", DBHelper.getMasterAccount(ITSAccountsActivity.this).getMasterId());
+                params.put("itsid", itsAccountNo);
+                params.put("newitspass", newPassword);
+
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.post(AppURLS.UPDATE_ITS_PASSWORD, params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        progressDialog.show();
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String response = new String(responseBody);
+                        progressDialog.dismiss();
+                        if (response.equals("success")) {
+                            showToast("Password updated successfully");
+                            recreate();
+                        } else {
+                            showToast("Something went wrong. Try again");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Logger.d(new String(responseBody));
+                        showToast("Something went wrong. Try again");
+                        progressDialog.dismiss();
+
+                    }
+                });
+
+
+            }
+        });
+        newItsPassDialog.show();
+
+
+    }
+
+
     private void trydeletingaccout(final String itsAccNo) {
 
         String masterId = DBHelper.getMasterAccount(ITSAccountsActivity.this).getMasterId();
@@ -136,6 +200,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                showToast("Account deleted successfully");
                 progressDialog.dismiss();
                 recreate();
             }

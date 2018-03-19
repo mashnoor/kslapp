@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Client ID:"
-            android:textColor="@color/black_overlay" />
+            android:textColor="@android:color/black" />
 
         <Spinner
             android:id="@+id/spnrClientIds"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="Amount"
-            android:textColor="@color/black_overlay" />
+            android:textColor="@android:color/black" />
 
 
         <EditText
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="Date"
-            android:textColor="@color/black_overlay" />
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/etDate"

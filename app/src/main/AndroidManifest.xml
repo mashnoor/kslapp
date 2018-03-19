@@ -45,7 +45,9 @@
         <activity android:name=".activities.OpenaccountActivity" />
         <activity android:name=".activities.FundRequisitionActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.ITSAccountsActivity" />
+        <activity
+            android:name=".activities.ITSAccountsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.PortfolioActivity" />
         <activity android:name=".activities.DiscussionActivity" />
 
@@ -84,7 +86,7 @@
 
         <activity android:name=".activities.PasswordRecoveryActivity" />
         <activity android:name=".activities.SelectItemForTradeActivity" />
-        <activity android:name=".activities.DSEMarketSummary"></activity>
+        <activity android:name=".activities.DSEMarketSummary" />
     </application>
 
 </manifest>
