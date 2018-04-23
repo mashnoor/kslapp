@@ -146,7 +146,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             btnPortfolio.setText("Add to Portfolio");
 
         } else {
-            btnPortfolio.setText("Customize Portfolio");
+            btnPortfolio.setText("Delete from Portfolio");
         }
         if (PriceAlertHelper.isItemInPriceAlert(this, item_name)) {
             btnPriceAlert.setText("REMOVE FROM PRICE ALERT");
@@ -270,10 +270,11 @@ public class ItemDetailActivity extends AppCompatActivity {
             portfolioAddDialouge.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    TextView tvnoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
-                    TextView tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
-                    current_item.setBuyPrice(tvbuyPrice.getText().toString());
-                    current_item.setNoOfStock(tvnoOfStock.getText().toString());
+                    EditText tvnoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
+                    EditText tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
+                    current_item.setBuyPrice(tvbuyPrice.getText().toString().trim());
+                    Logger.d(tvbuyPrice.getText().toString().trim() + " " + tvnoOfStock.getText().toString().trim());
+                    current_item.setNoOfStock(tvnoOfStock.getText().toString().trim());
                     PortfolioHelper.addIteminPortfolio(ItemDetailActivity.this, current_item);
                     showToast("Added to portfolio");
                     recreate();
@@ -285,9 +286,15 @@ public class ItemDetailActivity extends AppCompatActivity {
                 }
             }).show();
 
+        } else {
+            PortfolioHelper.deleteItemFromPortfolio(this, current_item.getItem());
+            showToast("Successfully deleted from portfolio");
+            recreate();
+
         }
 
     }
+
 
     private void showToast(String s) {
         Toast.makeText(ItemDetailActivity.this, s, Toast.LENGTH_LONG).show();
@@ -305,10 +312,18 @@ public class ItemDetailActivity extends AppCompatActivity {
         adb.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0)
-                    startActivity(new Intent(ItemDetailActivity.this, VolumeGraphActivity.class));
-                else
-                    startActivity(new Intent(ItemDetailActivity.this, CandleStickChartActivity.class));
+                if (i == 0) {
+                    Intent intent = new Intent(ItemDetailActivity.this, VolumeGraphActivity.class);
+                    intent.putExtra("company", item_name);
+
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ItemDetailActivity.this, CandleStickChartActivity.class);
+                    intent.putExtra("company", item_name);
+
+                    startActivity(intent);
+                }
+
             }
         });
         adb.setTitle("Select Graph Type");

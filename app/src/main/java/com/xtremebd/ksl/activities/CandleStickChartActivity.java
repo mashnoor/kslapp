@@ -3,6 +3,7 @@ package com.xtremebd.ksl.activities;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,8 @@ public class CandleStickChartActivity extends AppCompatActivity {
 
     int which;
 
+    String companyName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class CandleStickChartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
+        companyName = getIntent().getStringExtra("company");
         dialog.setMessage("Loading and drawing graph...");
         Logger.addLogAdapter(new AndroidLogAdapter());
         registerCalenderListener();
@@ -111,6 +115,14 @@ public class CandleStickChartActivity extends AppCompatActivity {
             }
         });
     }
+    public void goVolumeGraph(View v)
+    {
+        Intent intent = new Intent(this, VolumeGraphActivity.class);
+        intent.putExtra("company", companyName);
+
+        startActivity(intent);
+
+    }
 
     public void viewGraph(final View v) {
         String[] fromDate = etFromDate.getText().toString().split("-");
@@ -124,7 +136,7 @@ public class CandleStickChartActivity extends AppCompatActivity {
         params.put("toyear", toDate[0]);
         params.put("tomonth", toDate[1]);
         params.put("todays", toDate[2]);
-        params.put("company", "ACI");
+        params.put("company", companyName);
         client.post(AppURLS.GET_DAY_END_DATA, params, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {

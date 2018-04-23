@@ -3,6 +3,7 @@ package com.xtremebd.ksl.activities;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,8 @@ public class VolumeGraphActivity extends AppCompatActivity {
     ProgressDialog dialog;
     int which;
 
+
+    String companyName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
+        companyName = getIntent().getStringExtra("company");
         dialog.setMessage("Loading and drawing graph...");
         TopBar.attach(this, "VOLUME CHART");
         Logger.addLogAdapter(new AndroidLogAdapter());
@@ -122,10 +126,25 @@ public class VolumeGraphActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    public void goCandleStickGraph(View v) {
+        Intent intent = new Intent(this, CandleStickChartActivity.class);
+        intent.putExtra("company", companyName);
+
+        startActivity(intent);
+
+    }
+
 
     public void viewGraph(final View v) {
         String[] fromDate = etFromDate.getText().toString().split("-");
         String[] toDate = etTodate.getText().toString().split("-");
+
 
         RequestParams params = new RequestParams();
         params.put("fromyear", fromDate[0]);
@@ -135,7 +154,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
         params.put("toyear", toDate[0]);
         params.put("tomonth", toDate[1]);
         params.put("todays", toDate[2]);
-        params.put("company", "ACI");
+        params.put("company", companyName);
         client.post(AppURLS.GET_DAY_END_DATA, params, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -152,7 +171,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
                 List<BarEntry> entries = new ArrayList<>();
                 for (DayEndData dayEndData : datas) {
                     entries.add(new BarEntry(dayEndData.getDifference(), dayEndData.getVolume()));
-                    Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
+                    //Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
                 }
                 BarDataSet dataSet = new BarDataSet(entries, "Volume");
                 dataSet.setColor(Color.RED);
