@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.fragments.MarketMoversFragment;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MarketMoversActivity extends AppCompatActivity {
 
 
@@ -35,6 +38,10 @@ public class MarketMoversActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

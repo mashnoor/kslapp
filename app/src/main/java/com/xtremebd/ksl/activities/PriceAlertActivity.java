@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import com.xtremebd.ksl.utils.TopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PriceAlertActivity extends AppCompatActivity {
 
@@ -20,6 +22,10 @@ public class PriceAlertActivity extends AppCompatActivity {
 
     PriceAlertAdapter adapter;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

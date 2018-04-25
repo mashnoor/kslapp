@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class TopGainerLoserActivity extends AppCompatActivity {
@@ -37,6 +39,10 @@ public class TopGainerLoserActivity extends AppCompatActivity {
     RecyclerView rvTopGainerLoser;
     TopGainerLoserAdapter adapter;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

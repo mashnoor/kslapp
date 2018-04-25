@@ -2,6 +2,7 @@ package com.xtremebd.ksl.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import com.xtremebd.ksl.utils.WatchlistHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -121,6 +123,10 @@ public class ItemDetailActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
 
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

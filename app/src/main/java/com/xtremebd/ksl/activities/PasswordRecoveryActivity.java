@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.xtremebd.ksl.utils.TopBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PasswordRecoveryActivity extends AppCompatActivity {
 
@@ -28,6 +30,10 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

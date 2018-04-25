@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.xtremebd.ksl.utils.TopBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class OpenaccountActivity extends AppCompatActivity {
@@ -37,6 +39,10 @@ public class OpenaccountActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
