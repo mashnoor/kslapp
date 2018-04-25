@@ -16,7 +16,7 @@ public class KSLApp extends Application {
         super.onCreate();
         TypefaceProvider.registerDefaultIconSets();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Meta-Bold-Lf-Caps.ttf")
+                .setDefaultFontPath("fonts/Meta-Bold-Lf.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

@@ -45,13 +45,13 @@ public class OrderStatus extends AppCompatActivity {
     EditText etFromDate;
     @BindView(R.id.etToDate)
     EditText etTodate;
-    @BindView(R.id.etItsAccountPass)
-    EditText etitsAccountPass;
 
     int which;
     ProgressDialog dialog;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    List<ITSAccount> itsAccounts;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -142,7 +142,7 @@ public class OrderStatus extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 Logger.d(response);
-                List<ITSAccount> itsAccounts = Arrays.asList(Geson.g().fromJson(response, ITSAccount[].class));
+                itsAccounts = Arrays.asList(Geson.g().fromJson(response, ITSAccount[].class));
                 List<String> accountNos = new ArrayList<>();
                 for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());
@@ -175,13 +175,13 @@ public class OrderStatus extends AppCompatActivity {
         String itsAccount = spnrItsAccounts.getSelectedItem().toString();
         String fromDate = etFromDate.getText().toString();
         String toDate = etTodate.getText().toString();
-        String itsAccountPass = etitsAccountPass.getText().toString();
+
 
         Intent i = new Intent(this, OrderStatusResult.class);
 
         i.putExtra("itsaccount", itsAccount);
 
-        i.putExtra("itsaccountpass", itsAccountPass);
+        i.putExtra("itsaccountpass", itsAccounts.get(spnrItsAccounts.getSelectedItemPosition()).getItsAccountPass());
         i.putExtra("fromdate", fromDate);
         i.putExtra("todate", toDate);
 
