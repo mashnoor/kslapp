@@ -57,6 +57,7 @@ public class OrderStatus extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class OrderStatus extends AppCompatActivity {
         ButterKnife.bind(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
-
+        dialog.setCancelable(false);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         TopBar.attach(this, "ORDER STATUS");
 
@@ -156,6 +157,7 @@ public class OrderStatus extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                finish();
                 showToast("Error! Refresh to try again");
                 dialog.dismiss();
                 Logger.d(error.getMessage());
@@ -175,6 +177,11 @@ public class OrderStatus extends AppCompatActivity {
         String itsAccount = spnrItsAccounts.getSelectedItem().toString();
         String fromDate = etFromDate.getText().toString();
         String toDate = etTodate.getText().toString();
+
+        if (itsAccount.isEmpty() || fromDate.isEmpty()) {
+            showToast("Enter dates!");
+            return;
+        }
 
 
         Intent i = new Intent(this, OrderStatusResult.class);

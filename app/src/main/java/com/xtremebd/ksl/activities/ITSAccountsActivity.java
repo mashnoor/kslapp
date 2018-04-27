@@ -69,6 +69,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading. Please Wait...");
+        progressDialog.setCancelable(false);
         rvitsAccounts.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Logger.addLogAdapter(new AndroidLogAdapter());
         getItsAccounts();
@@ -118,6 +119,7 @@ public class ITSAccountsActivity extends AppCompatActivity {
                 showToast("Error! Refresh to try again");
                 progressDialog.dismiss();
                 Logger.d(error.getMessage());
+                finish();
             }
         });
 

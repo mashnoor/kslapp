@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
@@ -56,6 +57,7 @@ public class OrderStatusResult extends AppCompatActivity {
         getOrderStatus();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
 
     }
 
@@ -89,7 +91,9 @@ public class OrderStatusResult extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(new String(responseBody));
+                Toast.makeText(OrderStatusResult.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                finish();
+
                 dialog.dismiss();
 
             }

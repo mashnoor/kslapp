@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
@@ -52,6 +53,7 @@ public class FinancialLedgerResults extends AppCompatActivity {
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
         rvFinancialLedger.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getFinancialLedger();
     }
@@ -87,8 +89,10 @@ public class FinancialLedgerResults extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                com.orhanobut.logger.Logger.d(new String(responseBody));
+                Toast.makeText(FinancialLedgerResults.this, "Somethins went wrong", Toast.LENGTH_LONG).show();
+
                 dialog.dismiss();
+                finish();
 
             }
         });

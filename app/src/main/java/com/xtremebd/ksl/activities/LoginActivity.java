@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
         dialog.setMessage("Connecting. Please wait... ");
         if (DBHelper.getMasterAccount(this) != null) {
             startActivity(new Intent(this, WelcomeActivity.class));

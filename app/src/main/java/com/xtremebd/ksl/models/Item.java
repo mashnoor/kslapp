@@ -173,6 +173,20 @@ public class Item {
     @SerializedName("amounttradedinbdt")
     private String amountTradedInBdt;
 
+    //For Top Gainer Loser
+    @SerializedName("high")
+    private String high;
+    @SerializedName("low")
+    private String low;
+
+    public String getHigh() {
+        return high;
+    }
+
+    public String getLow() {
+        return low;
+    }
+
     public String getAmountTradedInBdt() {
         return amountTradedInBdt;
     }

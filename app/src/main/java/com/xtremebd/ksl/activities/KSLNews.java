@@ -48,6 +48,7 @@ public class KSLNews extends AppCompatActivity {
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
         rvKslNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getKslNews();
     }
@@ -79,8 +80,10 @@ public class KSLNews extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                 dialog.dismiss();
                 Toast.makeText(KSLNews.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                finish();
 
             }
         });

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.data.CandleData;
@@ -132,6 +133,12 @@ public class CandleStickChartActivity extends AppCompatActivity {
     }
 
     public void viewGraph(final View v) {
+        if(etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty())
+        {
+            Toast.makeText(this, "Enter dates!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         String[] fromDate = etFromDate.getText().toString().split("-");
         String[] toDate = etTodate.getText().toString().split("-");
 

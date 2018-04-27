@@ -55,6 +55,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
         if (which.equals(Constants.TOP_GAINER)) {
             getTopGainerLoser(AppURLS.GET_TOP_GAINERS);
         } else {
@@ -85,6 +86,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                dialog.dismiss();
                 Toast.makeText(TopGainerLoserActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 finish();
             }

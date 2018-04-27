@@ -57,6 +57,7 @@ public class PortfolioStatement extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +68,8 @@ public class PortfolioStatement extends AppCompatActivity {
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
         dialog.show();
-
 
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -133,8 +134,10 @@ public class PortfolioStatement extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                 Toast.makeText(PortfolioStatement.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });
@@ -151,6 +154,11 @@ public class PortfolioStatement extends AppCompatActivity {
     public void viewPortfolioStatement(View v) {
         String clientId = spnrClientIDs.getSelectedItem().toString();
         String psDate = etPsDate.getText().toString();
+
+        if (psDate.isEmpty()) {
+            Toast.makeText(this, "Select date!", Toast.LENGTH_LONG).show();
+            return;
+        }
         com.xtremebd.ksl.models.PortfolioStatement statement = new com.xtremebd.ksl.models.PortfolioStatement(clientId, psDate);
         Logger.d(statement.toString());
         client = new AsyncHttpClient();
@@ -173,6 +181,7 @@ public class PortfolioStatement extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(PortfolioStatement.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 Logger.d(new String(responseBody));
                 dialog.dismiss();
             }

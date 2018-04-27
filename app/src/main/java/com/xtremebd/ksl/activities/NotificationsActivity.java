@@ -51,6 +51,7 @@ public class NotificationsActivity extends AppCompatActivity {
         rvNotifications.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
         showNotifications();
     }
 
@@ -87,6 +88,7 @@ public class NotificationsActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(NotificationsActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });

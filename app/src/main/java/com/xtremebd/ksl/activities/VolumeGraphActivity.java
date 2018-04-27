@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -58,10 +59,12 @@ public class VolumeGraphActivity extends AppCompatActivity {
 
 
     String companyName;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +151,11 @@ public class VolumeGraphActivity extends AppCompatActivity {
 
 
     public void viewGraph(final View v) {
+
+        if (etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Enter dates!", Toast.LENGTH_LONG).show();
+            return;
+        }
         String[] fromDate = etFromDate.getText().toString().split("-");
         String[] toDate = etTodate.getText().toString().split("-");
 

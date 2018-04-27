@@ -66,6 +66,7 @@ public class SelectItemForTradeActivity extends AppCompatActivity {
         itemList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         getItemLists();
@@ -162,6 +163,7 @@ public class SelectItemForTradeActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(SelectItemForTradeActivity.this, "Error! Pull down to refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });

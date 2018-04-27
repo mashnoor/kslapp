@@ -42,6 +42,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         TopBar.attach(this, "RECOVER PASSWORD");
         dialog = new ProgressDialog(this);
         dialog.setMessage("Connecting... Please Wait...");
+        dialog.setCancelable(false);
     }
 
     @Override

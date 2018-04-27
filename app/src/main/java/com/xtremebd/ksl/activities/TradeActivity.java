@@ -155,7 +155,7 @@ public class TradeActivity extends AppCompatActivity {
 
                 showToast("Error! Refresh to try again");
                 dialog.dismiss();
-                Logger.d(error.getMessage());
+                finish();
             }
         });
 

@@ -71,6 +71,7 @@ public class DSEMarketSummary extends AppCompatActivity {
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Getting Data. Please Wait...");
+        dialog.setCancelable(false);
         getDseMarketSummary();
     }
 
@@ -119,6 +120,7 @@ public class DSEMarketSummary extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(DSEMarketSummary.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });

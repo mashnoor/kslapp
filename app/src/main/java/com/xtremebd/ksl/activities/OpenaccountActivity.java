@@ -52,6 +52,7 @@ public class OpenaccountActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
     }
 
     private void showToast(String s) {

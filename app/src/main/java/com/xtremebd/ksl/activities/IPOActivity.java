@@ -40,6 +40,7 @@ public class IPOActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please Wait...");
+        dialog.setCancelable(false);
         getIpo();
     }
 
@@ -61,6 +62,7 @@ public class IPOActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                finish();
                 dialog.dismiss();
                 Toast.makeText(IPOActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 

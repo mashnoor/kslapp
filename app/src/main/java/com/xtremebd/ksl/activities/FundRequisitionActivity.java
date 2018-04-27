@@ -58,6 +58,7 @@ public class FundRequisitionActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -121,8 +122,10 @@ public class FundRequisitionActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                 Toast.makeText(FundRequisitionActivity.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });

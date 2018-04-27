@@ -84,6 +84,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
         TopBar.attach(this, "CSE MARKET SUMMARY");
         Logger.addLogAdapter(new AndroidLogAdapter());
         dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
         dialog.setMessage("Getting data from server...");
 
         getMarketSummary();
@@ -120,6 +121,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
                 Toast.makeText(CSEMarketSummaryActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 

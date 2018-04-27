@@ -19,12 +19,14 @@ import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.services.PriceAlertService;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
+import com.xtremebd.ksl.utils.HelperFunctions;
 
 import cz.msebera.android.httpclient.Header;
 
 public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -55,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                Toast.makeText(SplashActivity.this, "Couldn't connect to server", Toast.LENGTH_LONG).show();
+                Toast.makeText(SplashActivity.this, "Couldn't connect to server!", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -70,6 +72,12 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
+
+        if (!HelperFunctions.isNetworkAvailable(this)) {
+            Toast.makeText(this, "Please connect to the internet first!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (!isMyServiceRunning(PriceAlertService.class)) {
             startService(new Intent(this, PriceAlertService.class));
             Logger.d("Called Service Starter!");
@@ -81,7 +89,7 @@ public class SplashActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
+                    /* Create an Intent that will start the Menu-Activity. */
                     Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(mainIntent);
                     finish();

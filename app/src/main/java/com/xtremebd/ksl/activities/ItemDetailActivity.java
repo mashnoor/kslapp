@@ -127,6 +127,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,6 +238,8 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Logger.d(new String(responseBody));
                 Logger.d(error.getMessage());
                 dialog.dismiss();
+                showToast("Something went wrong");
+                finish();
 
             }
         });
@@ -278,6 +281,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EditText tvnoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
                     EditText tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
+
+                    if (tvnoOfStock.getText().toString().trim().isEmpty() || tvbuyPrice.getText().toString().trim().isEmpty()) {
+                        showToast("All fields must be filled!");
+                        return;
+                    }
                     current_item.setBuyPrice(tvbuyPrice.getText().toString().trim());
                     Logger.d(tvbuyPrice.getText().toString().trim() + " " + tvnoOfStock.getText().toString().trim());
                     current_item.setNoOfStock(tvnoOfStock.getText().toString().trim());
@@ -371,7 +379,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     showToast("High value can't be less than low value");
                     return;
                 }
-                //All Corrcet
+                //All Correct
 
                 //Add to database
                 current_item.setHighPrice(highValue);

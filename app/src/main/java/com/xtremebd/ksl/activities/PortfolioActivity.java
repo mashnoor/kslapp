@@ -77,6 +77,7 @@ public class PortfolioActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
 
         updatePortfolioItems();
 

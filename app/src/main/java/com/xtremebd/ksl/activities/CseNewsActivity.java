@@ -49,6 +49,7 @@ public class CseNewsActivity extends AppCompatActivity {
         rvNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dialog = new ProgressDialog(this);
         dialog.setMessage("Getting data from server...");
+        dialog.setCancelable(false);
 
         getNews();
 
@@ -97,6 +98,7 @@ public class CseNewsActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(CseNewsActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });

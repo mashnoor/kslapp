@@ -52,6 +52,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
 
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -151,6 +153,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(FinancialLedgerActivity.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+                finish();
 
             }
         });
@@ -162,6 +165,11 @@ public class FinancialLedgerActivity extends AppCompatActivity {
         String clientID = spnrClientIds.getSelectedItem().toString();
         String fromDate = etFromDate.getText().toString();
         String todate = etTodate.getText().toString();
+
+        if (fromDate.isEmpty() || todate.isEmpty()) {
+            Toast.makeText(this, "Enter dates perfectly", Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent i = new Intent(this, FinancialLedgerResults.class);
         i.putExtra("client_id", clientID);
         i.putExtra("from_date", fromDate);
