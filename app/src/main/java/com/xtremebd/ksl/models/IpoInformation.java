@@ -61,4 +61,7 @@ public class IpoInformation {
         this.netRefundAmount = netRefundAmount;
     }
 
+
+
+
 }

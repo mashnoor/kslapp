@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -125,7 +126,7 @@ public class PortfolioStatement extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 List<String> clientIds = Arrays.asList(Geson.g().fromJson(response, String[].class));
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(PortfolioStatement.this, android.R.layout.simple_spinner_item, clientIds);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(PortfolioStatement.this, android.R.layout.simple_spinner_dropdown_item, clientIds);
                 spnrClientIDs.setAdapter(adapter);
                 dialog.dismiss();
 
@@ -174,8 +175,12 @@ public class PortfolioStatement extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Logger.d(new String(responseBody));
-                tvPortfolioStatement.setText(new String(responseBody));
+
+                String response = new String(responseBody);
+                tvPortfolioStatement.setText(response);
+                Intent i = new Intent(PortfolioStatement.this, PortfolioStatementResult.class);
+                i.putExtra("response", response);
+                startActivity(i);
                 dialog.dismiss();
             }
 

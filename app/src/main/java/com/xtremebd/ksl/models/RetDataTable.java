@@ -14,13 +14,13 @@ public class RetDataTable {
     private String fahFullName;
     @SerializedName("comm_email")
     
-    private Object commEmail;
+    private String commEmail;
     @SerializedName("bo_id")
     
     private String boId;
     @SerializedName("terminal_id")
     
-    private Object terminalId;
+    private String terminalId;
     @SerializedName("account_type_const")
     
     private String accountTypeConst;
@@ -44,7 +44,7 @@ public class RetDataTable {
     private Integer bonusRcvd;
     @SerializedName("portfolio_detail")
     
-    private Object portfolioDetail;
+    private String portfolioDetail;
     @SerializedName("total_deposit")
     
     private Integer totalDeposit;
@@ -62,7 +62,7 @@ public class RetDataTable {
     private Double otherCharge;
     @SerializedName("ipo_information")
     
-    private List<IpoInformation> ipoInformation = null;
+    private List<IpoInformation> ipoInformation;
     @SerializedName("stock_value")
     
     private Integer stockValue;
@@ -110,11 +110,11 @@ public class RetDataTable {
         this.fahFullName = fahFullName;
     }
 
-    public Object getCommEmail() {
+    public String getCommEmail() {
         return commEmail;
     }
 
-    public void setCommEmail(Object commEmail) {
+    public void setCommEmail(String commEmail) {
         this.commEmail = commEmail;
     }
 
@@ -126,11 +126,11 @@ public class RetDataTable {
         this.boId = boId;
     }
 
-    public Object getTerminalId() {
+    public String getTerminalId() {
         return terminalId;
     }
 
-    public void setTerminalId(Object terminalId) {
+    public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
 
@@ -190,11 +190,11 @@ public class RetDataTable {
         this.bonusRcvd = bonusRcvd;
     }
 
-    public Object getPortfolioDetail() {
+    public String getPortfolioDetail() {
         return portfolioDetail;
     }
 
-    public void setPortfolioDetail(Object portfolioDetail) {
+    public void setPortfolioDetail(String portfolioDetail) {
         this.portfolioDetail = portfolioDetail;
     }
 
