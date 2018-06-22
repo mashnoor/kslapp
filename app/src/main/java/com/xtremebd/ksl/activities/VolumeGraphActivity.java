@@ -77,6 +77,11 @@ public class VolumeGraphActivity extends AppCompatActivity {
         TopBar.attach(this, "VOLUME CHART");
         Logger.addLogAdapter(new AndroidLogAdapter());
         registerCalenderListener();
+        String fromDate = getIntent().getStringExtra("fromdate");
+        String toDate = getIntent().getStringExtra("todate");
+
+        etFromDate.setText(fromDate);
+        etTodate.setText(toDate);
     }
 
     @Override
@@ -143,6 +148,8 @@ public class VolumeGraphActivity extends AppCompatActivity {
 
     public void goCandleStickGraph(View v) {
         Intent intent = new Intent(this, CandleStickChartActivity.class);
+        intent.putExtra("fromdate", etFromDate.getText().toString());
+        intent.putExtra("todate", etTodate.getText().toString());
         intent.putExtra("company", companyName);
 
         startActivity(intent);

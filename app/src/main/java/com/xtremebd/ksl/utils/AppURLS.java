@@ -5,7 +5,7 @@ package com.xtremebd.ksl.utils;
  */
 
 public class AppURLS {
-    private final static String BASE_URL = "http://128.199.157.233";
+    private final static String BASE_URL = "http://103.115.24.4";
     public static final String GET_LTP_URL = BASE_URL + ":5003/getltp/";
     public static final String TRADE_URL = BASE_URL + ":5003/trade";
     public static final String IPO_URL = BASE_URL + "/kslbackend/ipo.txt";

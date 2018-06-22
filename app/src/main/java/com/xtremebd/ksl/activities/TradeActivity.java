@@ -144,7 +144,7 @@ public class TradeActivity extends AppCompatActivity {
                 for (int i = 0; i < itsAccounts.size(); i++) {
                     accountNos.add(itsAccounts.get(i).getItsAccountNo());
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeActivity.this, android.R.layout.simple_spinner_item, accountNos);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeActivity.this, android.R.layout.simple_spinner_dropdown_item, accountNos);
                 spnrItsAccounts.setAdapter(adapter);
                 dialog.dismiss();
 

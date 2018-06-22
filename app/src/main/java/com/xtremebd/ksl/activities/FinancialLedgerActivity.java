@@ -142,7 +142,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 List<String> clientIds = Arrays.asList(Geson.g().fromJson(response, String[].class));
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(FinancialLedgerActivity.this, android.R.layout.simple_spinner_item, clientIds);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(FinancialLedgerActivity.this, android.R.layout.simple_spinner_dropdown_item, clientIds);
                 spnrClientIds.setAdapter(adapter);
                 dialog.dismiss();
 

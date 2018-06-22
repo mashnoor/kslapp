@@ -15,11 +15,14 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.MasterAccount;
 import com.xtremebd.ksl.utils.AppURLS;
 import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         dialog = new ProgressDialog(this);
@@ -128,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 showToast("Something went wrong");
+                Logger.d(error.getMessage());
+
                 dialog.dismiss();
 
             }

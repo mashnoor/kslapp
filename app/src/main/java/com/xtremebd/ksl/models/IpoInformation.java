@@ -7,57 +7,57 @@ public class IpoInformation {
 
     @SerializedName("application_amount")
     
-    private Integer applicationAmount;
+    private String applicationAmount;
     @SerializedName("allotment_amount")
     
-    private Integer allotmentAmount;
+    private String allotmentAmount;
     @SerializedName("allotment_quantity")
     
-    private Integer allotmentQuantity;
+    private String allotmentQuantity;
     @SerializedName("forfeit_amount")
     
-    private Integer forfeitAmount;
+    private String forfeitAmount;
     @SerializedName("net_refund_amount")
     
-    private Integer netRefundAmount;
+    private String netRefundAmount;
 
-    public Integer getApplicationAmount() {
+    public String getApplicationAmount() {
         return applicationAmount;
     }
 
-    public void setApplicationAmount(Integer applicationAmount) {
+    public void setApplicationAmount(String applicationAmount) {
         this.applicationAmount = applicationAmount;
     }
 
-    public Integer getAllotmentAmount() {
+    public String getAllotmentAmount() {
         return allotmentAmount;
     }
 
-    public void setAllotmentAmount(Integer allotmentAmount) {
+    public void setAllotmentAmount(String allotmentAmount) {
         this.allotmentAmount = allotmentAmount;
     }
 
-    public Integer getAllotmentQuantity() {
+    public String getAllotmentQuantity() {
         return allotmentQuantity;
     }
 
-    public void setAllotmentQuantity(Integer allotmentQuantity) {
+    public void setAllotmentQuantity(String allotmentQuantity) {
         this.allotmentQuantity = allotmentQuantity;
     }
 
-    public Integer getForfeitAmount() {
+    public String getForfeitAmount() {
         return forfeitAmount;
     }
 
-    public void setForfeitAmount(Integer forfeitAmount) {
+    public void setForfeitAmount(String forfeitAmount) {
         this.forfeitAmount = forfeitAmount;
     }
 
-    public Integer getNetRefundAmount() {
+    public String getNetRefundAmount() {
         return netRefundAmount;
     }
 
-    public void setNetRefundAmount(Integer netRefundAmount) {
+    public void setNetRefundAmount(String netRefundAmount) {
         this.netRefundAmount = netRefundAmount;
     }
 

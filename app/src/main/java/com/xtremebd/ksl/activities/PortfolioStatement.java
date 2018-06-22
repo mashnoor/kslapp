@@ -177,7 +177,6 @@ public class PortfolioStatement extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                 String response = new String(responseBody);
-                tvPortfolioStatement.setText(response);
                 Intent i = new Intent(PortfolioStatement.this, PortfolioStatementResult.class);
                 i.putExtra("response", response);
                 startActivity(i);

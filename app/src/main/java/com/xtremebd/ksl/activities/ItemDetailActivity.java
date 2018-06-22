@@ -329,11 +329,15 @@ public class ItemDetailActivity extends AppCompatActivity {
                 if (i == 0) {
                     Intent intent = new Intent(ItemDetailActivity.this, VolumeGraphActivity.class);
                     intent.putExtra("company", item_name);
+                    intent.putExtra("fromdate", "");
+                    intent.putExtra("todate", "");
 
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(ItemDetailActivity.this, CandleStickChartActivity.class);
                     intent.putExtra("company", item_name);
+                    intent.putExtra("fromdate", "");
+                    intent.putExtra("todate", "");
 
                     startActivity(intent);
                 }

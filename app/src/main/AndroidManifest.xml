@@ -88,7 +88,7 @@
         <activity android:name=".activities.PasswordRecoveryActivity" />
         <activity android:name=".activities.SelectItemForTradeActivity" />
         <activity android:name=".activities.DSEMarketSummary" />
-        <activity android:name=".activities.PortfolioStatementResult"></activity>
+        <activity android:name=".activities.PortfolioStatementResult"/>
     </application>
 
 </manifest>

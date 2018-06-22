@@ -85,6 +85,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (DBHelper.getMasterAccount(this) != null) {
             sendToken();
+            Logger.d("Sending token");
         } else {
             new Handler().postDelayed(new Runnable() {
                 @Override

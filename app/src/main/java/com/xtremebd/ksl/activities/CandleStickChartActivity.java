@@ -60,18 +60,26 @@ public class CandleStickChartActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candle_stick_chart);
         ButterKnife.bind(this);
+        TopBar.attach(this, "CANDLE STICK CHART");
+
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
         companyName = getIntent().getStringExtra("company");
         dialog.setMessage("Loading and drawing graph...");
         Logger.addLogAdapter(new AndroidLogAdapter());
         registerCalenderListener();
-        TopBar.attach(this, "CANDLE STICK CHART");
+
+        String fromDate = getIntent().getStringExtra("fromdate");
+        String toDate = getIntent().getStringExtra("todate");
+
+        etFromDate.setText(fromDate);
+        etTodate.setText(toDate);
     }
 
     private void registerCalenderListener() {
@@ -123,18 +131,19 @@ public class CandleStickChartActivity extends AppCompatActivity {
             }
         });
     }
-    public void goVolumeGraph(View v)
-    {
+
+    public void goVolumeGraph(View v) {
         Intent intent = new Intent(this, VolumeGraphActivity.class);
         intent.putExtra("company", companyName);
+        intent.putExtra("fromdate", etFromDate.getText().toString());
+        intent.putExtra("todate", etTodate.getText().toString());
 
         startActivity(intent);
 
     }
 
     public void viewGraph(final View v) {
-        if(etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty())
-        {
+        if (etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Enter dates!", Toast.LENGTH_LONG).show();
             return;
         }
