@@ -1,6 +1,6 @@
 package com.xtremebd.ksl.models;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 import java.util.Date;
 

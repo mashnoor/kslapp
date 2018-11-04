@@ -1,11 +1,10 @@
 package com.xtremebd.ksl.adapters;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.models.News;
 import com.xtremebd.ksl.models.Notification;
 
 import java.util.List;

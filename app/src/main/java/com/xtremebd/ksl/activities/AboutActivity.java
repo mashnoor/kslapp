@@ -1,7 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.xtremebd.ksl.R;

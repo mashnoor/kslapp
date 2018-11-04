@@ -5,7 +5,7 @@ package com.xtremebd.ksl.utils;
  */
 
 public class AppURLS {
-    private final static String BASE_URL = "http://103.115.24.4";
+    private final static String BASE_URL = "http://103.115.24.9";
     public static final String GET_LTP_URL = BASE_URL + ":5003/getltp/";
     public static final String TRADE_URL = BASE_URL + ":5003/trade";
     public static final String IPO_URL = BASE_URL + "/kslbackend/ipo.txt";
@@ -20,8 +20,7 @@ public class AppURLS {
     public static final String GET_ITEM_DETAIL = BASE_URL + ":5003/getitemdetail/";
     public static final String GET_MARKET_SUMMARY = BASE_URL + "/kslbackend/homedatas/market_summary.txt";
     public static final String GET_INDEX = BASE_URL + "/kslbackend/homedatas/all_indexes.txt";
-    public static final String GET_BUY_MARKET_DEPTH = BASE_URL + ":5003/getbuymarketdepth/";
-    public static final String GET_SELL_MARKET_DEPTH = BASE_URL + ":5003/getsellmarketdepth/";
+    public static final String GET_MARKET_DEPTH = BASE_URL + ":5003/getmarketdepth/";
     public static final String GET_ALL_ITEMS_UPDATES = BASE_URL + "/kslbackend/all_items_latest_update.txt";
     public static final String GET_CSE_NEWS = BASE_URL + "/kslbackend/latest_news.txt";
     public static final String GET_ITEM_NEWS = BASE_URL + ":5003/getitemnews/";

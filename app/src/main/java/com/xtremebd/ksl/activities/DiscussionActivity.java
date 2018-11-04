@@ -1,8 +1,8 @@
 package com.xtremebd.ksl.activities;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 
+import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.FirebaseApp;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.Query;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Message;
 import com.xtremebd.ksl.utils.DBHelper;
@@ -32,6 +34,7 @@ public class DiscussionActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +70,22 @@ public class DiscussionActivity extends AppCompatActivity {
         finish();
     }
 
-    private void displayMessages()
-    {
-        ListView listOfMessages =findViewById(R.id.list_of_messages);
+    private void displayMessages() {
+        ListView listOfMessages = findViewById(R.id.list_of_messages);
+
+        Query query = FirebaseDatabase.getInstance()
+                .getReference("messages");
+
+        FirebaseListOptions<Message> options = new FirebaseListOptions.Builder<Message>()
+                .setLayout(R.layout.message)//Note: The guide doesn't mention this method, without it an exception is thrown that the layout has to be set.
+                .setQuery(query, Message.class)
+                .build();
 
 
-
-        adapter = new FirebaseListAdapter<Message>(this, Message.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+        adapter = new FirebaseListAdapter<Message>(options) {
             @Override
             protected void populateView(View v, Message model, int position) {
-                // Get references to the views of message.xml
+// Get references to the views of message.xml
                 TextView messageText = v.findViewById(R.id.message_text);
                 TextView messageUser = v.findViewById(R.id.message_user);
                 TextView messageTime = v.findViewById(R.id.message_time);
@@ -91,6 +99,27 @@ public class DiscussionActivity extends AppCompatActivity {
                         model.getMessageTime()));
             }
         };
+
+
+        /***
+         adapter = new FirebaseListAdapter<Message>(this, Message.class,
+         R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+        @Override protected void populateView(View v, Message model, int position) {
+        // Get references to the views of message.xml
+        TextView messageText = v.findViewById(R.id.message_text);
+        TextView messageUser = v.findViewById(R.id.message_user);
+        TextView messageTime = v.findViewById(R.id.message_time);
+
+        // Set their text
+        messageText.setText(model.getMessageText());
+        messageUser.setText(model.getMessageUser());
+
+        // Format the date before showing it
+        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+        model.getMessageTime()));
+        }
+        };
+         ***/
 
 
         listOfMessages.setAdapter(adapter);

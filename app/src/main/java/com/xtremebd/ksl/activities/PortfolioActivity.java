@@ -6,13 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,17 +25,14 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.PortfolioListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
-import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.TopBar;
-import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

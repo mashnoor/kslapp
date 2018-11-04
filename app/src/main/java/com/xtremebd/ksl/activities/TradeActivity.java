@@ -5,9 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -30,6 +30,9 @@ import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +40,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.util.TextUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TradeActivity extends AppCompatActivity {
@@ -101,8 +103,7 @@ public class TradeActivity extends AppCompatActivity {
         getItsAccounts();
 
         if (itemName != null) {
-            getBuyMarketDepth(itemName);
-            getSellMarketDepth(itemName);
+            getMarketDepth(itemName);
             txtItemName.setText(itemName);
         }
 
@@ -113,8 +114,7 @@ public class TradeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SEARCH_CODE && resultCode == Activity.RESULT_OK) {
             String itemName = data.getStringExtra("itemname");
-            getBuyMarketDepth(itemName);
-            getSellMarketDepth(itemName);
+            getMarketDepth(itemName);
             txtItemName.setText(itemName);
         }
 
@@ -168,18 +168,39 @@ public class TradeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getBuyMarketDepth(final String itemName) {
+    private void getMarketDepth(final String itemName) {
         AsyncHttpClient client = new AsyncHttpClient();
-        Logger.d(AppURLS.GET_BUY_MARKET_DEPTH + itemName);
-        client.get(AppURLS.GET_BUY_MARKET_DEPTH + itemName, new AsyncHttpResponseHandler() {
+
+        client.get(AppURLS.GET_MARKET_DEPTH + itemName, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                 String response = new String(responseBody);
-                Logger.d(response);
-                List<MarketDepth> buyMarketDepth = Arrays.asList(Geson.g().fromJson(response, MarketDepth[].class));
-                MarketDepthAdapter adapter = new MarketDepthAdapter(buyMarketDepth);
-                rvBuyMarketDepth.setAdapter(adapter);
+                JSONArray buyMarketDepthJsonArray, sellMarketDepthJsonArray;
+
+                try {
+                    JSONObject motherObj = new JSONObject(response);
+                    buyMarketDepthJsonArray = motherObj.getJSONArray("buy");
+                    sellMarketDepthJsonArray = motherObj.getJSONArray("sell");
+
+                    List<MarketDepth> buyMarketDepth = Arrays.asList(Geson.g().fromJson(buyMarketDepthJsonArray.toString(), MarketDepth[].class));
+                    List<MarketDepth> sellMarketDepth = Arrays.asList(Geson.g().fromJson(sellMarketDepthJsonArray.toString(), MarketDepth[].class));
+                    MarketDepthAdapter buyAdapter = new MarketDepthAdapter(buyMarketDepth);
+                    rvBuyMarketDepth.setAdapter(buyAdapter);
+
+                    MarketDepthAdapter sellAdapter = new MarketDepthAdapter(sellMarketDepth);
+                    rvSellMarketDepth.setAdapter(sellAdapter);
+
+                }
+                catch (Exception e)
+                {
+                    showToast("Error");
+                    e.printStackTrace();
+
+                }
+
+
+
             }
 
             @Override
@@ -189,27 +210,6 @@ public class TradeActivity extends AppCompatActivity {
         });
     }
 
-    private void getSellMarketDepth(String itemName) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        Logger.d(AppURLS.GET_SELL_MARKET_DEPTH + itemName);
-        client.get(AppURLS.GET_SELL_MARKET_DEPTH + itemName, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                String response = new String(responseBody);
-                Logger.d(response);
-                List<MarketDepth> sellMarketDepth = Arrays.asList(Geson.g().fromJson(response, MarketDepth[].class));
-                MarketDepthAdapter adapter = new MarketDepthAdapter(sellMarketDepth);
-                rvSellMarketDepth.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(error.getMessage());
-            }
-        });
-    }
 
 
 

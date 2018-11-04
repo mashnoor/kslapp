@@ -79,7 +79,7 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
             android:padding="5dp"
             android:background="#F8F6FB"

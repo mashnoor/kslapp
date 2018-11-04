@@ -1,6 +1,6 @@
 package com.xtremebd.ksl.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -15,7 +15,6 @@ import com.xtremebd.ksl.utils.TopBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.protocol.ResponseDate;
 
 public class PortfolioStatementResult extends AppCompatActivity {
 
