@@ -88,7 +88,10 @@
         <activity android:name=".activities.PasswordRecoveryActivity" />
         <activity android:name=".activities.SelectItemForTradeActivity" />
         <activity android:name=".activities.DSEMarketSummary" />
-        <activity android:name=".activities.PortfolioStatementResult"/>
+        <activity android:name=".activities.PortfolioStatementResult" />
+        <activity
+            android:name=".activities.GraphActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

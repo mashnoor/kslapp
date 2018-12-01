@@ -20,18 +20,19 @@ public class LedgerAdapter extends BaseQuickAdapter<Ledger, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder holder, Ledger item) {
-        holder.setText(R.id.tvTransactionType, "Transaction Type: "+ item.getTransactionType());
-        holder.setText(R.id.tvscrip_quantity, "Scrip Quantity: " + item.getScripQuantity());
-        holder.setText(R.id.tvscrip_rate, "Scrip Rate: " + item.getScripRate());
-        holder.setText(R.id.tvdocumnet_number, "Document Number: " + item.getDocumnetNumber());
-        holder.setText(R.id.tvdr_total, "Dr Total: " + item.getDrTotal());
-        holder.setText(R.id.tvbrokerage, "Brokerage: " + item.getBrokerage());
-        holder.setText(R.id.tvdr, "Dr: " + item.getDr());
-        holder.setText(R.id.tvbalance, "Balance: " + item.getBalance());
-        holder.setText(R.id.tvcr, "Cr: " + item.getCr());
-        holder.setText(R.id.tvdocumnet_date, "Document Date: " + item.getDocumnetDate());
+        holder.setText(R.id.tvdocumnet_date, "Date: " + item.getDocumnetDate());
         holder.setText(R.id.tvexplanation, "Explanation: " + item.getExplanation());
-        holder.setText(R.id.tvcr_total, "Cr Total: " + item.getCrTotal());
+        holder.setText(R.id.tvTransactionType, "Transaction Type: "+ item.getTransactionType());
+        holder.setText(R.id.tvscrip_quantity, "Scrip QTY: " + item.getScripQuantity());
+        holder.setText(R.id.tvscrip_rate, "Rate: " + item.getScripRate());
+        holder.setText(R.id.tvdr, "Dr: " + item.getDr());
+        holder.setText(R.id.tvcr, "Cr: " + item.getCr());
+        holder.setText(R.id.tvbalance, "Balance: " + item.getBalance());
+
+        //holder.setText(R.id.tvdocumnet_number, "Document Number: " + item.getDocumnetNumber());
+        //holder.setText(R.id.tvdr_total, "Dr Total: " + item.getDrTotal());
+        //holder.setText(R.id.tvbrokerage, "Brokerage: " + item.getBrokerage());
+       // holder.setText(R.id.tvcr_total, "Cr Total: " + item.getCrTotal());
 
     }
 }

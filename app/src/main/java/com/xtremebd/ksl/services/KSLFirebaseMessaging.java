@@ -1,5 +1,6 @@
 package com.xtremebd.ksl.services;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -33,28 +34,31 @@ public class KSLFirebaseMessaging extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Title: " + title);
         Log.d(TAG, "Body: " + message);
         Log.d(TAG, "Token: " + FirebaseInstanceId.getInstance().getToken());
-        showNotification(title, message, 9);
+        showNotification(title, message);
 
     }
-    private void showNotification(String title, String message, int id) {
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+    public void showNotification(String title, String body) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        int notificationId = 1;
+        String channelId = "channel-01";
+        String channelName = "RadioRUET";
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+                .setContentText(body);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(id /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(notificationId, mBuilder.build());
     }
 
 

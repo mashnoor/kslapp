@@ -55,12 +55,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
     TextView tvContractNumber;
     @BindView(R.id.tvIssuedTraded)
     TextView tvIssuedTraded;
-    @BindView(R.id.tvIssuedAdvanced)
-    TextView tvIssuedAdvanced;
-    @BindView(R.id.tvIssuesDeclined)
-    TextView tvIssuesDeclined;
-    @BindView(R.id.tvIssuesUnchanged)
-    TextView tvIssuesUnchanged;
+
     @BindView(R.id.tvIssuedCapital)
     TextView tvIssuedCapital;
     @BindView(R.id.tvClosingMarketCapitalization)
@@ -109,9 +104,9 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
                 tvVolume.setText(summary.getVolume());
                 tvContractNumber.setText(summary.getContractNumber());
                 tvIssuedTraded.setText(summary.getIssuesTraded());
-                tvIssuedAdvanced.setText(summary.getIssuesAdvanced());
-                tvIssuesDeclined.setText(summary.getIssuesDeclined());
-                tvIssuesUnchanged.setText(summary.getIssuesUnchanged());
+//                tvIssuedAdvanced.setText(summary.getIssuesAdvanced());
+//                tvIssuesDeclined.setText(summary.getIssuesDeclined());
+//                tvIssuesUnchanged.setText(summary.getIssuesUnchanged());
                 tvIssuedCapital.setText(summary.getIssuedCapital());
                 tvClosingMarketCapitalization.setText(summary.getClosingMarketCapitalization());
                 getIndexes();

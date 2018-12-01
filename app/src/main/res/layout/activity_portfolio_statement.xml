@@ -11,82 +11,61 @@
         layout="@layout/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:background="@drawable/home_menu_container_drawble"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client ID:" />
+
+        <Spinner
+            android:id="@+id/spnrClientIds"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/home_menu_container_drawble"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:background="@drawable/select_its_acc_spinner_drawable" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Client ID:" />
-
-            <Spinner
-                android:id="@+id/spnrClientIds"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_its_acc_spinner_drawable" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:text="Statement Date:" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Statement Date:" />
 
 
-            <EditText
-                android:id="@+id/etPsDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_edittext_search"
-                android:focusable="false"
-                android:inputType="date"
-                android:padding="13dp"
-                android:textColor="@android:color/black"
-                android:textSize="13sp" />
+        <EditText
+            android:id="@+id/etPsDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_edittext_search"
+            android:focusable="false"
+            android:inputType="date"
+            android:padding="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/sell_now_gradient_button"
-                android:gravity="center"
-                android:onClick="viewPortfolioStatement"
-                android:text="Get Portfolio Statement"
-                android:textColor="@android:color/white"
-                android:textSize="13sp" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Statement"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tvPortfolioStatement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Data" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sell_now_gradient_button"
+            android:gravity="center"
+            android:onClick="viewPortfolioStatement"
+            android:text="Get Portfolio Statement"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
 
 
-        </LinearLayout>
-
-
-    </ScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>

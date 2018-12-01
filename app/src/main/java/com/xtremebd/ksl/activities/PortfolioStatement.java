@@ -44,8 +44,6 @@ public class PortfolioStatement extends AppCompatActivity {
     @BindView(R.id.spnrClientIds)
     Spinner spnrClientIDs;
 
-    @BindView(R.id.tvPortfolioStatement)
-    TextView tvPortfolioStatement;
 
     @BindView(R.id.etPsDate)
     EditText etPsDate;
@@ -186,7 +184,6 @@ public class PortfolioStatement extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(PortfolioStatement.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                Logger.d(new String(responseBody));
                 dialog.dismiss();
             }
         });

@@ -3,10 +3,15 @@ package com.xtremebd.ksl.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -34,6 +39,17 @@ public class FinancialLedgerResults extends AppCompatActivity {
 
     @BindView(R.id.rvFinancialLedger)
     RecyclerView rvFinancialLedger;
+
+    @BindView(R.id.tvClientId)
+    TextView tvClientId;
+
+    @BindView(R.id.tvFromDate)
+    TextView tvFromDate;
+
+    @BindView(R.id.tvToDate)
+    TextView tvToDate;
+
+
     ProgressDialog dialog;
 
     AsyncHttpClient client;
@@ -43,6 +59,7 @@ public class FinancialLedgerResults extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +75,16 @@ public class FinancialLedgerResults extends AppCompatActivity {
         getFinancialLedger();
     }
 
-    private void getFinancialLedger()
-    {
+    private void getFinancialLedger() {
         Intent i = getIntent();
-        String clientid= i.getStringExtra("client_id");
+        String clientid = i.getStringExtra("client_id");
         String fromDate = i.getStringExtra("from_date");
         String todate = i.getStringExtra("to_date");
         com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter());
+
+        tvClientId.setText(clientid);
+        tvFromDate.setText(fromDate);
+        tvToDate.setText(todate);
         client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("client_id", clientid);

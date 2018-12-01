@@ -2,29 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="3dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/tvdocumnet_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Body"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvexplanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Body"
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvTransactionType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="Title"
-                android:textColor="#000000"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvscrip_quantity"
@@ -33,34 +50,14 @@
                 android:padding="5dp"
                 android:text="Body"
                 android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvscrip_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvdocumnet_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvdr_total"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvbrokerage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
+                android:text="Body" />
+
             <TextView
                 android:id="@+id/tvdr"
                 android:layout_width="match_parent"
@@ -68,13 +65,7 @@
                 android:padding="5dp"
                 android:text="Body"
                 android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvbalance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvcr"
                 android:layout_width="match_parent"
@@ -82,27 +73,15 @@
                 android:padding="5dp"
                 android:text="Body"
                 android:textSize="14sp" />
+
             <TextView
-                android:id="@+id/tvdocumnet_date"
+                android:id="@+id/tvbalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Body"
                 android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvexplanation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/tvcr_total"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Body"
-                android:textSize="14sp" />
+
 
         </LinearLayout>
 
