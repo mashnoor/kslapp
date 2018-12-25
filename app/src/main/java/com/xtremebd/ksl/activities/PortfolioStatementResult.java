@@ -1,6 +1,7 @@
 package com.xtremebd.ksl.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -23,15 +24,15 @@ public class PortfolioStatementResult extends AppCompatActivity {
 
     @BindView(R.id.tvClientName)
     TextView tvClientName;
-
-    @BindView(R.id.tvBoId)
-    TextView tvBoID;
-
-    @BindView(R.id.tvLedgerbalance)
-    TextView tvLedgerBalance;
-
-    @BindView(R.id.tvMarginType)
-    TextView tvMarginType;
+//
+//    @BindView(R.id.tvBoId)
+//    TextView tvBoID;
+//
+//    @BindView(R.id.tvLedgerbalance)
+//    TextView tvLedgerBalance;
+//
+//    @BindView(R.id.tvMarginType)
+//    TextView tvMarginType;
 
     @BindView(R.id.tvTotalDeposit)
     TextView tvTotalDeposit;
@@ -39,17 +40,23 @@ public class PortfolioStatementResult extends AppCompatActivity {
     @BindView(R.id.tvTotalWithdrawal)
     TextView tvTotalWithdrawal;
 
-    @BindView(R.id.tvNetRefundAmount)
-    TextView tvNetRefundAmount;
+    @BindView(R.id.tvTerminal)
+    TextView tvTerminal;
 
-    @BindView(R.id.tvAllotmentAmount)
-    TextView tvAllotmentAmount;
+    @BindView(R.id.tvPortfolioDate)
+    TextView tvPortfolioDate;
 
-    @BindView(R.id.tvAllotmentQuantity)
-    TextView tvAllotmentQuantity;
-
-    @BindView(R.id.tvApplicationAmount)
-    TextView tvApplicationAmount;
+//    @BindView(R.id.tvNetRefundAmount)
+//    TextView tvNetRefundAmount;
+//
+//    @BindView(R.id.tvAllotmentAmount)
+//    TextView tvAllotmentAmount;
+//
+//    @BindView(R.id.tvAllotmentQuantity)
+//    TextView tvAllotmentQuantity;
+//
+//    @BindView(R.id.tvApplicationAmount)
+//    TextView tvApplicationAmount;
 
     @BindView(R.id.tvStockValue)
     TextView tvStockValue;
@@ -66,14 +73,14 @@ public class PortfolioStatementResult extends AppCompatActivity {
     @BindView(R.id.tvOwnersEquity)
     TextView tvOwnersEquity;
 
-    @BindView(R.id.tvShareReceivedIn)
-    TextView tvShareReceivedIn;
-
-    @BindView(R.id.tvRealisedGainLoss)
-    TextView tvRealisedGainLoss;
-
-    @BindView(R.id.tvNetRealizedGainLoss)
-    TextView tvNetRealisedGainLoss;
+//    @BindView(R.id.tvShareReceivedIn)
+//    TextView tvShareReceivedIn;
+//
+//    @BindView(R.id.tvRealisedGainLoss)
+//    TextView tvRealisedGainLoss;
+//
+//    @BindView(R.id.tvNetRealizedGainLoss)
+//    TextView tvNetRealisedGainLoss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +99,19 @@ public class PortfolioStatementResult extends AppCompatActivity {
 
         tvClientId.setText(mainData.getClientId());
         tvClientName.setText(mainData.getFahFullName());
-        tvMarginType.setText(mainData.getAccountTypeConst());
-        tvLedgerBalance.setText(mainData.getLedgerBalance() + "");
+
         tvTotalDeposit.setText(mainData.getTotalDeposit());
         tvTotalWithdrawal.setText(mainData.getTotalWithdrawal());
-        tvNetRefundAmount.setText(ipoInformation.getNetRefundAmount());
-        tvAllotmentAmount.setText(ipoInformation.getAllotmentAmount());
-        tvAllotmentQuantity.setText(ipoInformation.getAllotmentQuantity());
-
-        tvApplicationAmount.setText(ipoInformation.getApplicationAmount());
+//        tvNetRefundAmount.setText(ipoInformation.getNetRefundAmount());
+//        tvAllotmentAmount.setText(ipoInformation.getAllotmentAmount());
+//        tvAllotmentQuantity.setText(ipoInformation.getAllotmentQuantity());
+//
+//        tvApplicationAmount.setText(ipoInformation.getApplicationAmount());
+//        tvMarginType.setText(mainData.getAccountTypeConst());
+//        tvLedgerBalance.setText(mainData.getLedgerBalance() + "");
+//        tvShareReceivedIn.setText(mainData.getTransferIn());
+//        tvRealisedGainLoss.setText(mainData.getRealizedGainLoss() + "");
+//        tvNetRealisedGainLoss.setText(mainData.getNetRealizedGainLoss() + "");
 
         tvStockValue.setText(mainData.getStockValue());
 
@@ -109,9 +120,8 @@ public class PortfolioStatementResult extends AppCompatActivity {
         //tvMarketValueCurrentBalance.setText();
 
         tvOwnersEquity.setText(mainData.getOwnersEquity() + "");
-        tvShareReceivedIn.setText(mainData.getTransferIn());
-        tvRealisedGainLoss.setText(mainData.getRealizedGainLoss() + "");
-        tvNetRealisedGainLoss.setText(mainData.getNetRealizedGainLoss() + "");
+        tvTerminal.setText(mainData.getTerminalId());
+        tvPortfolioDate.setText(mainData.getLedgerDate());
 
 
     }
