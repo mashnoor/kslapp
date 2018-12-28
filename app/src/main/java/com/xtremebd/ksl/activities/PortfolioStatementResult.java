@@ -100,8 +100,8 @@ public class PortfolioStatementResult extends AppCompatActivity {
         tvClientId.setText(mainData.getClientId());
         tvClientName.setText(mainData.getFahFullName());
 
-        tvTotalDeposit.setText(mainData.getTotalDeposit());
-        tvTotalWithdrawal.setText(mainData.getTotalWithdrawal());
+        tvTotalDeposit.setText(mainData.getTotalDeposit() + "");
+        tvTotalWithdrawal.setText(mainData.getTotalWithdrawal() + "");
 //        tvNetRefundAmount.setText(ipoInformation.getNetRefundAmount());
 //        tvAllotmentAmount.setText(ipoInformation.getAllotmentAmount());
 //        tvAllotmentQuantity.setText(ipoInformation.getAllotmentQuantity());
@@ -113,14 +113,14 @@ public class PortfolioStatementResult extends AppCompatActivity {
 //        tvRealisedGainLoss.setText(mainData.getRealizedGainLoss() + "");
 //        tvNetRealisedGainLoss.setText(mainData.getNetRealizedGainLoss() + "");
 
-        tvStockValue.setText(mainData.getStockValue());
+        tvStockValue.setText(mainData.getStockValue() + "");
 
         //tvStockCurrentBalance.setText(mainData.getbal);
-        tvMarketValue.setText(mainData.getMarketValue());
+        tvMarketValue.setText(mainData.getMarketValue() + "");
         //tvMarketValueCurrentBalance.setText();
 
         tvOwnersEquity.setText(mainData.getOwnersEquity() + "");
-        tvTerminal.setText(mainData.getTerminalId());
+        tvTerminal.setText(mainData.getTerminalId() + "");
         tvPortfolioDate.setText(mainData.getLedgerDate());
 
 

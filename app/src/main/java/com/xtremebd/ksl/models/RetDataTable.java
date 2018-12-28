@@ -14,7 +14,7 @@ public class RetDataTable {
     private String fahFullName;
     @SerializedName("comm_email")
     
-    private String commEmail;
+    private Object commEmail;
     @SerializedName("bo_id")
     
     private String boId;
@@ -29,70 +29,70 @@ public class RetDataTable {
     private String ledgerDate;
     @SerializedName("matured_balance")
     
-    private String maturedBalance;
+    private Double maturedBalance;
     @SerializedName("immatured_balance")
     
-    private String immaturedBalance;
+    private Integer immaturedBalance;
     @SerializedName("ipo_balance")
     
-    private String ipoBalance;
+    private Integer ipoBalance;
     @SerializedName("realized_gain_loss")
     
-    private String realizedGainLoss;
+    private Double realizedGainLoss;
     @SerializedName("bonus_rcvd")
     
-    private String bonusRcvd;
+    private Integer bonusRcvd;
     @SerializedName("portfolio_detail")
     
-    private String portfolioDetail;
+    private List<PortfolioDetail> portfolioDetail = null;
     @SerializedName("total_deposit")
     
-    private String totalDeposit;
+    private Integer totalDeposit;
     @SerializedName("total_withdrawal")
     
-    private String totalWithdrawal;
+    private Integer totalWithdrawal;
     @SerializedName("transfer_in")
     
-    private String transferIn;
+    private Integer transferIn;
     @SerializedName("transfer_out")
     
-    private String transferOut;
+    private Double transferOut;
     @SerializedName("other_charge")
     
-    private String otherCharge;
+    private Double otherCharge;
     @SerializedName("ipo_information")
     
-    private List<IpoInformation> ipoInformation;
+    private List<IpoInformation> ipoInformation = null;
     @SerializedName("stock_value")
     
-    private String stockValue;
+    private Integer stockValue;
     @SerializedName("accumulated_interest")
     
-    private String accumulatedInterest;
+    private Integer accumulatedInterest;
     @SerializedName("margin_limit")
     
-    private String marginLimit;
+    private Integer marginLimit;
     @SerializedName("margin_ratio")
     
-    private String marginRatio;
+    private Integer marginRatio;
     @SerializedName("ledger_balance")
     
-    private String ledgerBalance;
+    private Double ledgerBalance;
     @SerializedName("net_realized_gain_loss")
     
-    private String netRealizedGainLoss;
+    private Double netRealizedGainLoss;
     @SerializedName("total_buy_cost")
     
-    private String totalBuyCost;
+    private Integer totalBuyCost;
     @SerializedName("market_value")
     
-    private String marketValue;
+    private Integer marketValue;
     @SerializedName("owners_equity")
     
-    private String ownersEquity;
+    private Double ownersEquity;
     @SerializedName("current_balance")
     
-    private String currentBalance;
+    private Double currentBalance;
 
     public String getClientId() {
         return clientId;
@@ -110,11 +110,11 @@ public class RetDataTable {
         this.fahFullName = fahFullName;
     }
 
-    public String getCommEmail() {
+    public Object getCommEmail() {
         return commEmail;
     }
 
-    public void setCommEmail(String commEmail) {
+    public void setCommEmail(Object commEmail) {
         this.commEmail = commEmail;
     }
 
@@ -150,91 +150,91 @@ public class RetDataTable {
         this.ledgerDate = ledgerDate;
     }
 
-    public String getMaturedBalance() {
+    public Double getMaturedBalance() {
         return maturedBalance;
     }
 
-    public void setMaturedBalance(String maturedBalance) {
+    public void setMaturedBalance(Double maturedBalance) {
         this.maturedBalance = maturedBalance;
     }
 
-    public String getImmaturedBalance() {
+    public Integer getImmaturedBalance() {
         return immaturedBalance;
     }
 
-    public void setImmaturedBalance(String immaturedBalance) {
+    public void setImmaturedBalance(Integer immaturedBalance) {
         this.immaturedBalance = immaturedBalance;
     }
 
-    public String getIpoBalance() {
+    public Integer getIpoBalance() {
         return ipoBalance;
     }
 
-    public void setIpoBalance(String ipoBalance) {
+    public void setIpoBalance(Integer ipoBalance) {
         this.ipoBalance = ipoBalance;
     }
 
-    public String getRealizedGainLoss() {
+    public Double getRealizedGainLoss() {
         return realizedGainLoss;
     }
 
-    public void setRealizedGainLoss(String realizedGainLoss) {
+    public void setRealizedGainLoss(Double realizedGainLoss) {
         this.realizedGainLoss = realizedGainLoss;
     }
 
-    public String getBonusRcvd() {
+    public Integer getBonusRcvd() {
         return bonusRcvd;
     }
 
-    public void setBonusRcvd(String bonusRcvd) {
+    public void setBonusRcvd(Integer bonusRcvd) {
         this.bonusRcvd = bonusRcvd;
     }
 
-    public String getPortfolioDetail() {
+    public List<PortfolioDetail> getPortfolioDetail() {
         return portfolioDetail;
     }
 
-    public void setPortfolioDetail(String portfolioDetail) {
+    public void setPortfolioDetail(List<PortfolioDetail> portfolioDetail) {
         this.portfolioDetail = portfolioDetail;
     }
 
-    public String getTotalDeposit() {
+    public Integer getTotalDeposit() {
         return totalDeposit;
     }
 
-    public void setTotalDeposit(String totalDeposit) {
+    public void setTotalDeposit(Integer totalDeposit) {
         this.totalDeposit = totalDeposit;
     }
 
-    public String getTotalWithdrawal() {
+    public Integer getTotalWithdrawal() {
         return totalWithdrawal;
     }
 
-    public void setTotalWithdrawal(String totalWithdrawal) {
+    public void setTotalWithdrawal(Integer totalWithdrawal) {
         this.totalWithdrawal = totalWithdrawal;
     }
 
-    public String getTransferIn() {
+    public Integer getTransferIn() {
         return transferIn;
     }
 
-    public void setTransferIn(String transferIn) {
+    public void setTransferIn(Integer transferIn) {
         this.transferIn = transferIn;
     }
 
-    public String getTransferOut() {
+    public Double getTransferOut() {
         return transferOut;
     }
 
-    public void setTransferOut(String transferOut) {
+    public void setTransferOut(Double transferOut) {
         this.transferOut = transferOut;
     }
 
-    public String getOtherCharge() {
+    public Double getOtherCharge() {
         return otherCharge;
     }
 
-    public void setOtherCharge(String otherCharge) {
+    public void setOtherCharge(Double otherCharge) {
         this.otherCharge = otherCharge;
     }
 
@@ -246,83 +246,83 @@ public class RetDataTable {
         this.ipoInformation = ipoInformation;
     }
 
-    public String getStockValue() {
+    public Integer getStockValue() {
         return stockValue;
     }
 
-    public void setStockValue(String stockValue) {
+    public void setStockValue(Integer stockValue) {
         this.stockValue = stockValue;
     }
 
-    public String getAccumulatedInterest() {
+    public Integer getAccumulatedInterest() {
         return accumulatedInterest;
     }
 
-    public void setAccumulatedInterest(String accumulatedInterest) {
+    public void setAccumulatedInterest(Integer accumulatedInterest) {
         this.accumulatedInterest = accumulatedInterest;
     }
 
-    public String getMarginLimit() {
+    public Integer getMarginLimit() {
         return marginLimit;
     }
 
-    public void setMarginLimit(String marginLimit) {
+    public void setMarginLimit(Integer marginLimit) {
         this.marginLimit = marginLimit;
     }
 
-    public String getMarginRatio() {
+    public Integer getMarginRatio() {
         return marginRatio;
     }
 
-    public void setMarginRatio(String marginRatio) {
+    public void setMarginRatio(Integer marginRatio) {
         this.marginRatio = marginRatio;
     }
 
-    public String getLedgerBalance() {
+    public Double getLedgerBalance() {
         return ledgerBalance;
     }
 
-    public void setLedgerBalance(String ledgerBalance) {
+    public void setLedgerBalance(Double ledgerBalance) {
         this.ledgerBalance = ledgerBalance;
     }
 
-    public String getNetRealizedGainLoss() {
+    public Double getNetRealizedGainLoss() {
         return netRealizedGainLoss;
     }
 
-    public void setNetRealizedGainLoss(String netRealizedGainLoss) {
+    public void setNetRealizedGainLoss(Double netRealizedGainLoss) {
         this.netRealizedGainLoss = netRealizedGainLoss;
     }
 
-    public String getTotalBuyCost() {
+    public Integer getTotalBuyCost() {
         return totalBuyCost;
     }
 
-    public void setTotalBuyCost(String totalBuyCost) {
+    public void setTotalBuyCost(Integer totalBuyCost) {
         this.totalBuyCost = totalBuyCost;
     }
 
-    public String getMarketValue() {
+    public Integer getMarketValue() {
         return marketValue;
     }
 
-    public void setMarketValue(String marketValue) {
+    public void setMarketValue(Integer marketValue) {
         this.marketValue = marketValue;
     }
 
-    public String getOwnersEquity() {
+    public Double getOwnersEquity() {
         return ownersEquity;
     }
 
-    public void setOwnersEquity(String ownersEquity) {
+    public void setOwnersEquity(Double ownersEquity) {
         this.ownersEquity = ownersEquity;
     }
 
-    public String getCurrentBalance() {
+    public Double getCurrentBalance() {
         return currentBalance;
     }
 
-    public void setCurrentBalance(String currentBalance) {
+    public void setCurrentBalance(Double currentBalance) {
         this.currentBalance = currentBalance;
     }
 

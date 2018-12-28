@@ -1,20 +1,19 @@
-
 package com.xtremebd.ksl.models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class Resp {
 
     @SerializedName("_ret_data_table")
-    
     private List<RetDataTable> retDataTable = null;
+
     @SerializedName("_ret_val")
-    
     private String retVal;
+
     @SerializedName("_ret_msg")
-    
     private String retMsg;
 
     public List<RetDataTable> getRetDataTable() {
