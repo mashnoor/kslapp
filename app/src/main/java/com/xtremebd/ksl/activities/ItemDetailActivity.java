@@ -327,7 +327,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    Intent intent = new Intent(ItemDetailActivity.this, GraphActivity.class);
+                    Intent intent = new Intent(ItemDetailActivity.this, VolumeGraphActivity.class);
                     intent.putExtra("company", item_name);
                     intent.putExtra("fromdate", "");
                     intent.putExtra("todate", "");

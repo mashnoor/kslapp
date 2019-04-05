@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarData;
@@ -43,97 +45,45 @@ import java.util.List;
 
 public class GraphActivity extends AppCompatActivity {
 
-    @BindView(R.id.fromDate)
-    EditText etFromDate;
-    @BindView(R.id.toDate)
-    EditText etTodate;
 
-    @BindView(R.id.chart)
-    CombinedChart graph;
+    @BindView(R.id.candleStickChart)
+    CandleStickChart candleStickChart;
 
-    AsyncHttpClient client;
-    ProgressDialog dialog;
+    @BindView(R.id.volumeChart)
+    BarChart volumeChart;
+
+
 
     int which;
-    String companyName;
-
+    String companyName, fDate = "", tDate = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
         ButterKnife.bind(this);
-        TopBar.attach(this, "GRAPH");
-        registerCalenderListener();
+
+        fDate = getIntent().getStringExtra("fromdate");
+        tDate = getIntent().getStringExtra("todate");
         companyName = getIntent().getStringExtra("company");
+        viewVolumeGraph();
+        viewCandleStickGraph();
+    }
+
+    public void viewVolumeGraph() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        ProgressDialog dialog;
+
+
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading and drawing graph...");
-        client = new AsyncHttpClient();
-        String fromDate = getIntent().getStringExtra("fromdate");
-        String toDate = getIntent().getStringExtra("todate");
 
-        etFromDate.setText(fromDate);
-        etTodate.setText(toDate);
-    }
+        String[] fromDate = fDate.split("-");
+        String[] toDate = tDate.split("-");
 
-    private void registerCalenderListener() {
-        final Calendar myCalendar = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                String month = String.valueOf(monthOfYear + 1);
-                String day = String.valueOf(dayOfMonth);
-                if (month.length() == 1)
-                    month = "0" + month;
-                // TODO Auto-generated method stub
-                if (day.length() == 1)
-                    day = "0" + day;
-                if (which == 0)
-                    etFromDate.setText(year + "-" + month + "-" + day);
 
-                else
-                    etTodate.setText(year + "-" + month + "-" + day);
-            }
 
-        };
-
-        etFromDate.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                which = 0;
-                new DatePickerDialog(GraphActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
-            }
-        });
-
-        etTodate.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                which = 1;
-                new DatePickerDialog(GraphActivity.this, AlertDialog.THEME_HOLO_LIGHT, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
-            }
-        });
-    }
-
-    public void viewGraph(final View v) {
-        if (etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Enter dates!", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        String[] fromDate = etFromDate.getText().toString().split("-");
-        String[] toDate = etTodate.getText().toString().split("-");
 
         RequestParams params = new RequestParams();
         params.put("fromyear", fromDate[0]);
@@ -157,66 +107,113 @@ public class GraphActivity extends AppCompatActivity {
                 Logger.d(response);
                 dialog.dismiss();
                 final DayEndData[] datas = Geson.g().fromJson(response, DayEndData[].class);
+                List<BarEntry> entries = new ArrayList<>();
+                for (DayEndData dayEndData : datas) {
+                    entries.add(new BarEntry(dayEndData.getDifference(), dayEndData.getVolume()));
+                    //Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
+                }
+                BarDataSet dataSet = new BarDataSet(entries, "Volume");
+                dataSet.setColor(Color.RED);
 
-                List<CandleEntry> candleEntries = new ArrayList<>();
-                List<BarEntry> barEntries = new ArrayList<>();
+
+                BarData data = new BarData(dataSet);
+
+                IAxisValueFormatter formatter = new IAxisValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, AxisBase axis) {
+
+                        for (DayEndData dayEndData : datas) {
+                            if (dayEndData.getDifference() == value) {
+                                return dayEndData.getDate();
+                            }
+                        }
+                        return "0";
+                    }
+                };
+
+
+                volumeChart.setData(data);
+                volumeChart.setScaleEnabled(true);
+                volumeChart.setTouchEnabled(true);
+                volumeChart.getXAxis().setGranularity(1f);
+                volumeChart.getXAxis().setValueFormatter(formatter);
+                volumeChart.invalidate();
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                dialog.dismiss();
+                Logger.d(error.getMessage());
+
+            }
+        });
+
+
+    }
+
+    public void viewCandleStickGraph() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading and drawing graph...");
+
+        String[] fromDate = fDate.split("-");
+        String[] toDate = tDate.split("-");
+
+        RequestParams params = new RequestParams();
+        params.put("fromyear", fromDate[0]);
+        params.put("frommonth", fromDate[1]);
+        params.put("fromday", fromDate[2]);
+
+        params.put("toyear", toDate[0]);
+        params.put("tomonth", toDate[1]);
+        params.put("todays", toDate[2]);
+        params.put("company", companyName);
+        client.post(AppURLS.GET_DAY_END_DATA, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                dialog.dismiss();
+                final DayEndData[] datas = Geson.g().fromJson(response, DayEndData[].class);
+                List<CandleEntry> entries = new ArrayList<>();
                 int i = 0;
 
                 for (DayEndData dayEndData : datas) {
-                    candleEntries.add(new CandleEntry(i, dayEndData.getHighPrice(), dayEndData.getLowPrice(), dayEndData.getOpenPrice(), dayEndData.getClosePrice()));
-                    barEntries.add(new BarEntry(i, dayEndData.getVolume()));
-                    //Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
+                    entries.add(new CandleEntry((float) i, dayEndData.getHighPrice(), dayEndData.getLowPrice(), dayEndData.getOpenPrice(), dayEndData.getClosePrice()));
+                    Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
                     i++;
                 }
 
 
-                // ***************** SETTING CANDLE STICK DATA ************************
-                CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "Candle Stick");
-                candleDataSet.setColor(Color.rgb(80, 80, 80));
-                candleDataSet.setShadowColor(Color.DKGRAY);
-                candleDataSet.setShadowWidth(0.7f);
-                candleDataSet.setDecreasingColor(Color.RED);
-                candleDataSet.setDecreasingPaintStyle(Paint.Style.FILL);
-                candleDataSet.setIncreasingColor(Color.rgb(122, 242, 84));
-                candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
-                candleDataSet.setNeutralColor(Color.BLUE);
-                candleDataSet.setValueTextColor(Color.RED);
+                CandleDataSet dataSet = new CandleDataSet(entries, "Candle Stick");
+                dataSet.setColor(Color.rgb(80, 80, 80));
+                dataSet.setShadowColor(Color.DKGRAY);
+                dataSet.setShadowWidth(0.7f);
+                dataSet.setDecreasingColor(Color.RED);
+                dataSet.setDecreasingPaintStyle(Paint.Style.FILL);
+                dataSet.setIncreasingColor(Color.rgb(122, 242, 84));
+                dataSet.setIncreasingPaintStyle(Paint.Style.FILL);
+                dataSet.setNeutralColor(Color.BLUE);
+                dataSet.setValueTextColor(Color.RED);
 
 
-                CandleData candleData = new CandleData(candleDataSet);
-                //*************** DONE WITH CANDLE DATA ********************/
+                CandleData data = new CandleData(dataSet);
 
-                //*************** STARTING BAR DATA ************************/
 
-                BarDataSet barDataSet = new BarDataSet(barEntries, "Volume");
-                barDataSet.setColor(Color.RED);
-                BarData barData = new BarData(barDataSet);
-//                IAxisValueFormatter formatter = new IAxisValueFormatter() {
-//                    @Override
-//                    public String getFormattedValue(float value, AxisBase axis) {
-//
-//                        for (DayEndData dayEndData : datas) {
-//                            if (dayEndData.getDifference() == value) {
-//                                return dayEndData.getDate();
-//                            }
-//                        }
-//                        return "0";
-//                    }
-//                };
+                candleStickChart.setData(data);
 
-                //************* DRAW GRAPH ******************
-                graph.setDrawOrder(new CombinedChart.DrawOrder[]{
-                        CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.CANDLE
-                });
 
-                //graph.getXAxis().setValueFormatter(formatter);
-                CombinedData data = new CombinedData();
-
-                data.setData(barData);
-                data.setData(candleData);
-
-                graph.setData(data);
-                graph.invalidate();
+                candleStickChart.invalidate();
 
 
             }
@@ -229,4 +226,6 @@ public class GraphActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

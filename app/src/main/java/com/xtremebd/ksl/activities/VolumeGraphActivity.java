@@ -143,7 +143,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
     }
 
     public void goCandleStickGraph(View v) {
-        Intent intent = new Intent(this, CandleStickChartActivity.class);
+        Intent intent = new Intent(this, GraphActivity.class);
         intent.putExtra("fromdate", etFromDate.getText().toString());
         intent.putExtra("todate", etTodate.getText().toString());
         intent.putExtra("company", companyName);

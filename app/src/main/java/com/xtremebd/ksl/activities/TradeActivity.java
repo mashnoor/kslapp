@@ -3,8 +3,12 @@ package com.xtremebd.ksl.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -268,11 +272,44 @@ public class TradeActivity extends AppCompatActivity {
     }
 
     public void goBuy(View v) {
-        doTrade("BUY");
+        getConfirmation("BUY");
+    }
+    private void getConfirmation(String verb) {
+        String symbol = txtItemName.getText().toString().trim();
+        String quantity = txtQty.getText().toString().trim();
+        String price = etPrice.getText().toString().trim();
+
+        if (symbol.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
+            showToast("All fields are required!");
+            return;
+        }
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Are you sure to " + verb + "?")
+                .setMessage("Item Name: " + symbol + "\n" +
+                        "Quantity: " + quantity + "\n" +
+                        "Price: " + price)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        doTrade(verb);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                    }
+                })
+                .show();
     }
 
     public void goSell(View v) {
-        doTrade("SELL");
+        getConfirmation("SELL");
     }
 
 
