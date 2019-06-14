@@ -3,7 +3,9 @@ package com.xtremebd.ksl.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,9 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
     @BindView(R.id.tvClosingMarketCapitalization)
     TextView tvClosingMarketCapitalization;
 
+    @BindView(R.id.tvDate)
+    TextView tvDate;
+
     private FirebaseAnalytics mFirebaseAnalytics;
 
     ProgressDialog dialog;
@@ -70,6 +75,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +115,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
 //                tvIssuesUnchanged.setText(summary.getIssuesUnchanged());
                 tvIssuedCapital.setText(summary.getIssuedCapital());
                 tvClosingMarketCapitalization.setText(summary.getClosingMarketCapitalization());
+                tvDate.setText(summary.getDate());
                 getIndexes();
             }
 
@@ -139,6 +146,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
                 tvcscxvalue.setText(idx.getCscxvalue());
                 tvcscxchange.setText(idx.getCscxchange());
                 tvcsivalue.setText(idx.getCsivalue());
+
                 dialog.dismiss();
 
             }

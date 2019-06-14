@@ -1,5 +1,7 @@
 package com.xtremebd.ksl.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import androidx.annotation.Keep;
 
 import java.util.Date;
@@ -10,11 +12,14 @@ import java.util.Date;
 
 public class Message {
     @Keep
+    @SerializedName("messageText")
     public String messageText;
     @Keep
-    public String messageUser;
+    @SerializedName("messageUser")
+    private String messageUser;
     @Keep
-    public long messageTime;
+    @SerializedName("messageTime")
+    private long messageTime;
 
     public Message(String messageText, String messageUser) {
         this.messageText = messageText;
@@ -23,6 +28,7 @@ public class Message {
         // Initialize to current time
         messageTime = new Date().getTime();
     }
+
     @Keep
     public Message()
     {

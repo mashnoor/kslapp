@@ -321,32 +321,14 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     public void goVolumeGraph(View v) {
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        CharSequence items[] = new CharSequence[]{"Volume", "Candle Stick"};
-        adb.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    Intent intent = new Intent(ItemDetailActivity.this, VolumeGraphActivity.class);
-                    intent.putExtra("company", item_name);
-                    intent.putExtra("fromdate", "");
-                    intent.putExtra("todate", "");
+        Intent intent = new Intent(ItemDetailActivity.this, CandleStickChartActivity.class);
+        intent.putExtra("company", item_name);
+        intent.putExtra("fromdate", "");
+        intent.putExtra("todate", "");
 
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(ItemDetailActivity.this, CandleStickChartActivity.class);
-                    intent.putExtra("company", item_name);
-                    intent.putExtra("fromdate", "");
-                    intent.putExtra("todate", "");
+        startActivity(intent);
 
-                    startActivity(intent);
-                }
 
-            }
-        });
-        adb.setTitle("Select Graph Type");
-        adb.setPositiveButton("Cancel", null);
-        adb.show();
     }
 
 

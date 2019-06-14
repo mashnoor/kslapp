@@ -72,11 +72,9 @@
         <activity android:name=".activities.KSLNews" />
         <activity android:name=".activities.TopGainerLoserActivity" />
         <activity
-            android:name=".activities.VolumeGraphActivity"
-            android:screenOrientation="landscape" />
+            android:name=".activities.VolumeGraphActivity" />
         <activity
-            android:name=".activities.CandleStickChartActivity"
-            android:screenOrientation="landscape" />
+            android:name=".activities.CandleStickChartActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.PriceAlertActivity" />
 

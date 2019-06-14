@@ -2,7 +2,9 @@ package com.xtremebd.ksl.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +57,9 @@ public class DSEMarketSummary extends AppCompatActivity {
     TextView tvIssueDeclined;
     @BindView(R.id.tvIssuesUnchanged)
     TextView tvIssuesUnchanged;
+    @BindView(R.id.tvDate)
+    TextView tvDate;
+
 
     ProgressDialog dialog;
 
@@ -62,6 +67,7 @@ public class DSEMarketSummary extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +117,9 @@ public class DSEMarketSummary extends AppCompatActivity {
                 tvIssueAdvanced.setText(dseData.getIssuesAdvanced());
                 tvIssueDeclined.setText(dseData.getIssuesDeclined());
                 tvIssuesUnchanged.setText(dseData.getIssuesUnchanged());
+
+                //Date
+                tvDate.setText(dseData.getDate());
 
                 dialog.dismiss();
 

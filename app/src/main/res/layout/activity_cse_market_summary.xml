@@ -24,6 +24,45 @@
             android:layout_marginTop="10dp" />
 
 
+
+        <!--Date -->
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="2">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Date"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="0"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
         <!-- Volume -->
         <androidx.cardview.widget.CardView
 

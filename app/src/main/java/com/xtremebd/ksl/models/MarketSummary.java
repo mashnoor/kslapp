@@ -25,6 +25,8 @@ public class MarketSummary {
     private String contractNumber;
     @SerializedName("value_in_taka")
     private String valueInTaka;
+    @SerializedName("date")
+    private String date;
 
     public String getIssuesTraded() {
         return issuesTraded;
@@ -60,5 +62,9 @@ public class MarketSummary {
 
     public String getValueInTaka() {
         return valueInTaka;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

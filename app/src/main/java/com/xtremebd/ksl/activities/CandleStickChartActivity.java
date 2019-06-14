@@ -66,7 +66,7 @@ public class CandleStickChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candle_stick_chart);
         ButterKnife.bind(this);
-        TopBar.attach(this, "CANDLE STICK CHART");
+        TopBar.attach(this, "SHOW CHART");
 
         client = new AsyncHttpClient();
         dialog = new ProgressDialog(this);
@@ -132,87 +132,14 @@ public class CandleStickChartActivity extends AppCompatActivity {
         });
     }
 
-    public void goVolumeGraph(View v) {
-        Intent intent = new Intent(this, VolumeGraphActivity.class);
-        intent.putExtra("company", companyName);
-        intent.putExtra("fromdate", etFromDate.getText().toString());
-        intent.putExtra("todate", etTodate.getText().toString());
-
-        startActivity(intent);
-
-    }
 
     public void viewGraph(final View v) {
-        if (etFromDate.getText().toString().trim().isEmpty() || etTodate.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Enter dates!", Toast.LENGTH_LONG).show();
-            return;
-        }
+        Intent intent = new Intent(this, GraphActivity.class);
+        intent.putExtra("fromdate", etFromDate.getText().toString());
+        intent.putExtra("todate", etTodate.getText().toString());
+        intent.putExtra("company", companyName);
 
-        String[] fromDate = etFromDate.getText().toString().split("-");
-        String[] toDate = etTodate.getText().toString().split("-");
-
-        RequestParams params = new RequestParams();
-        params.put("fromyear", fromDate[0]);
-        params.put("frommonth", fromDate[1]);
-        params.put("fromday", fromDate[2]);
-
-        params.put("toyear", toDate[0]);
-        params.put("tomonth", toDate[1]);
-        params.put("todays", toDate[2]);
-        params.put("company", companyName);
-        client.post(AppURLS.GET_DAY_END_DATA, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                dialog.show();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String response = new String(responseBody);
-                Logger.d(response);
-                dialog.dismiss();
-                final DayEndData[] datas = Geson.g().fromJson(response, DayEndData[].class);
-                List<CandleEntry> entries = new ArrayList<>();
-                int i = 0;
-
-                for (DayEndData dayEndData : datas) {
-                    entries.add(new CandleEntry((float) i, dayEndData.getHighPrice(), dayEndData.getLowPrice(), dayEndData.getOpenPrice(), dayEndData.getClosePrice()));
-                    Logger.d(dayEndData.getDifference() + " " + dayEndData.getVolume());
-                    i++;
-                }
-
-
-                CandleDataSet dataSet = new CandleDataSet(entries, "Candle Stick");
-                dataSet.setColor(Color.rgb(80, 80, 80));
-                dataSet.setShadowColor(Color.DKGRAY);
-                dataSet.setShadowWidth(0.7f);
-                dataSet.setDecreasingColor(Color.RED);
-                dataSet.setDecreasingPaintStyle(Paint.Style.FILL);
-                dataSet.setIncreasingColor(Color.rgb(122, 242, 84));
-                dataSet.setIncreasingPaintStyle(Paint.Style.FILL);
-                dataSet.setNeutralColor(Color.BLUE);
-                dataSet.setValueTextColor(Color.RED);
-
-
-                CandleData data = new CandleData(dataSet);
-
-
-                candlestickChart.setData(data);
-
-
-                candlestickChart.invalidate();
-
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                dialog.dismiss();
-                Logger.d(error.getMessage());
-
-            }
-        });
+        startActivity(intent);
     }
 
     @Override

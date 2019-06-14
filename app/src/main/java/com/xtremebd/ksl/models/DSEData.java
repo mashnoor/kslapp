@@ -9,45 +9,49 @@ public class DSEData {
 
     @SerializedName("dsex_data3")
     private String dsexData3;
+
     @SerializedName("dses_data3")
-
     private String dsesData3;
+
     @SerializedName("total_volume")
-
     private String totalVolume;
+
     @SerializedName("dses_data2")
-
     private String dsesData2;
+
     @SerializedName("ds30_data2")
-
     private String ds30Data2;
+
     @SerializedName("issues_unchanged")
-
     private String issuesUnchanged;
+
     @SerializedName("total_trade")
-
     private String totalTrade;
+
     @SerializedName("issues_advanced")
-
     private String issuesAdvanced;
+
     @SerializedName("dsex_data1")
-
     private String dsexData1;
+
     @SerializedName("ds30_data1")
-
     private String ds30Data1;
+
     @SerializedName("dses_data1")
-
     private String dsesData1;
+
     @SerializedName("total_value")
-
     private String totalValue;
+
     @SerializedName("dsex_data2")
-
     private String dsexData2;
-    @SerializedName("issues_declined")
 
+    @SerializedName("issues_declined")
     private String issuesDeclined;
+
+    @SerializedName("date")
+    private String date;
+
 
     public String getDs30Data3() {
         return ds30Data3;
@@ -169,4 +173,7 @@ public class DSEData {
         this.issuesDeclined = issuesDeclined;
     }
 
+    public String getDate() {
+        return date;
+    }
 }
