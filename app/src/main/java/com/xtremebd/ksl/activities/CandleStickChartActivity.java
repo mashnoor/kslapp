@@ -5,37 +5,24 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
-import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleDataSet;
-import com.github.mikephil.charting.data.CandleEntry;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
-import com.xtremebd.ksl.models.DayEndData;
-import com.xtremebd.ksl.utils.AppURLS;
-import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CandleStickChartActivity extends AppCompatActivity {

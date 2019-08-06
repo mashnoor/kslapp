@@ -57,12 +57,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".services.KSLFirebaseInstance">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity android:name=".activities.NotificationsActivity" />
         <activity android:name=".activities.PortfolioStatement" />
         <activity android:name=".activities.OrderStatus" />
@@ -90,9 +84,6 @@
         <activity
             android:name=".activities.GraphActivity"
             android:screenOrientation="landscape" />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="1febdef9320a33a31effcd944c9919d3f2806261" />
     </application>
 
 </manifest>

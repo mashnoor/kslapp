@@ -102,15 +102,9 @@ public class DiscussionActivity extends AppCompatActivity {
     }
 
     private void displayMessages() {
-
-        showToast("kkk");
-
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("messages");
-
-
-
 
         FirebaseListOptions<Message> options =
                 new FirebaseListOptions.Builder<Message>()
@@ -122,7 +116,6 @@ public class DiscussionActivity extends AppCompatActivity {
         adapter = new FirebaseListAdapter<Message>(options) {
             @Override
             protected void populateView(View v, Message model, int position) {
-                showToast(model.messageText);
 
 // Get references to the views of message.xml
                 TextView messageText = v.findViewById(R.id.message_text);
@@ -130,22 +123,17 @@ public class DiscussionActivity extends AppCompatActivity {
                 TextView messageTime = v.findViewById(R.id.message_time);
 
                 // Set their text
-                /**
+
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
 
                 // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                         model.getMessageTime()));
-                 ***/
             }
         };
 
-
-
-
         listOfMessages.setAdapter(adapter);
-        showToast(adapter.isEmpty() +  "");
 
     }
 }

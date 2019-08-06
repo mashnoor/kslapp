@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 
 
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.orhanobut.hawk.Hawk;
 import com.xtremebd.ksl.R;
@@ -19,7 +18,7 @@ import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.DBHelper;
 import com.xtremebd.ksl.utils.TopBar;
 
-import io.fabric.sdk.android.Fabric;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -36,7 +35,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Hawk.init(this).build();
-        Fabric.with(this, new Crashlytics());
         TopBar.attach(this, "Welcome, " + DBHelper.getMasterAccount(this).getName());
         Log.d("--------", "-" + Hawk.count());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
