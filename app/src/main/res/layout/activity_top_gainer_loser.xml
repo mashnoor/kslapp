@@ -10,8 +10,8 @@
         layout="@layout/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
 
     <LinearLayout
@@ -22,84 +22,49 @@
         android:orientation="horizontal"
         android:padding="10dp"
 
-        android:weightSum="4">
+        android:weightSum="5">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/tvSymbol"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center|start"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center|start"
-            android:orientation="vertical">
+            android:text="Symbol"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tvSymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Symbol"
-                android:textColor="@android:color/black"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tvChange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Changes"
-
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvLTP"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:text="LTP"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tvLow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Low"
-
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvHigh"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="High"
-
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center|end"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:text="Change"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tvClosePrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Close Price"
-                android:textSize="12sp" />
-
-            <TextView
-
-                android:id="@+id/tvYcp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="YCP"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvChangePercentage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="Change %"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
 
 
     </LinearLayout>

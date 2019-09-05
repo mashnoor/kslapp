@@ -1,6 +1,5 @@
 package com.xtremebd.ksl.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PortfolioDetail {
@@ -12,28 +11,28 @@ public class PortfolioDetail {
     private String isMarginAllowed;
 
     @SerializedName("quantity")
-    private Integer quantity;
+    private double quantity;
 
     @SerializedName("saleable_quantity")
-    private Integer saleableQuantity;
+    private double saleableQuantity;
 
     @SerializedName("rate")
-    private float rate;
+    private double rate;
 
     @SerializedName("bep")
-    private float bep;
+    private double bep;
 
     @SerializedName("total_buy_cost")
-    private Integer totalBuyCost;
+    private double totalBuyCost;
 
     @SerializedName("market_rate")
     private Object marketRate;
 
     @SerializedName("market_value")
-    private Integer marketValue;
+    private double marketValue;
 
     @SerializedName("unrealized_pl")
-    private Integer unrealizedPl;
+    private double unrealizedPl;
 
     public String getScripId() {
         return scripId;
@@ -51,43 +50,43 @@ public class PortfolioDetail {
         this.isMarginAllowed = isMarginAllowed;
     }
 
-    public Integer getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
-    public Integer getSaleableQuantity() {
+    public double getSaleableQuantity() {
         return saleableQuantity;
     }
 
-    public void setSaleableQuantity(Integer saleableQuantity) {
+    public void setSaleableQuantity(double saleableQuantity) {
         this.saleableQuantity = saleableQuantity;
     }
 
-    public float getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
-    public float getBep() {
+    public double getBep() {
         return bep;
     }
 
-    public void setBep(Integer bep) {
+    public void setBep(double bep) {
         this.bep = bep;
     }
 
-    public Integer getTotalBuyCost() {
+    public double getTotalBuyCost() {
         return totalBuyCost;
     }
 
-    public void setTotalBuyCost(Integer totalBuyCost) {
+    public void setTotalBuyCost(double totalBuyCost) {
         this.totalBuyCost = totalBuyCost;
     }
 
@@ -99,19 +98,19 @@ public class PortfolioDetail {
         this.marketRate = marketRate;
     }
 
-    public Integer getMarketValue() {
+    public double getMarketValue() {
         return marketValue;
     }
 
-    public void setMarketValue(Integer marketValue) {
+    public void setMarketValue(double marketValue) {
         this.marketValue = marketValue;
     }
 
-    public Integer getUnrealizedPl() {
+    public double getUnrealizedPl() {
         return unrealizedPl;
     }
 
-    public void setUnrealizedPl(Integer unrealizedPl) {
+    public void setUnrealizedPl(double unrealizedPl) {
         this.unrealizedPl = unrealizedPl;
     }
 

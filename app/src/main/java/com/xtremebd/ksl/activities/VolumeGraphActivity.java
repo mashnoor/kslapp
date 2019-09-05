@@ -223,7 +223,7 @@ public class VolumeGraphActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                Logger.d(error.getMessage());
+                Toast.makeText(VolumeGraphActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
             }
         });

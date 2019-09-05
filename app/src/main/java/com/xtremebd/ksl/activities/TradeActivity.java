@@ -12,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -73,6 +76,10 @@ public class TradeActivity extends AppCompatActivity {
 
     final private int SEARCH_CODE = 11;
 
+    Runnable runnable;
+    Handler handler;
+    String itemName;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -90,7 +97,7 @@ public class TradeActivity extends AppCompatActivity {
         Intent i = getIntent();
 
 
-        final String itemName = i.getStringExtra("itemname");
+        itemName = i.getStringExtra("itemname");
         txtItemName.setFocusable(false);
 
         rvBuyMarketDepth.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -107,18 +114,42 @@ public class TradeActivity extends AppCompatActivity {
         getItsAccounts();
 
         if (itemName != null) {
-            getMarketDepth(itemName);
+            registerHandler();
             txtItemName.setText(itemName);
         }
 
+    }
+
+    private void registerHandler()
+    {
+        final int delay = 10000;
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                getMarketDepth(itemName);
+                handler.postDelayed(this, delay);
+
+            }
+        };
+        handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable, delay);
+    }
+
+    private void releaseHandler()
+    {
+        if(handler!=null && runnable!=null)
+        {
+            handler.removeCallbacks(runnable);
+            handler = null;
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SEARCH_CODE && resultCode == Activity.RESULT_OK) {
-            String itemName = data.getStringExtra("itemname");
-            getMarketDepth(itemName);
+            itemName = data.getStringExtra("itemname");
+            registerHandler();
             txtItemName.setText(itemName);
         }
 
@@ -169,6 +200,7 @@ public class TradeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        releaseHandler();
         finish();
     }
 
@@ -226,6 +258,11 @@ public class TradeActivity extends AppCompatActivity {
         startActivityForResult(i, SEARCH_CODE);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releaseHandler();
+    }
 
     private void doTrade(String verb) {
 

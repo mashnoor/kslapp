@@ -61,6 +61,11 @@ public class OrderStatusResult extends AppCompatActivity {
 
     }
 
+    private void showToast(String s)
+    {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }
+
     private void getOrderStatus() {
         Intent i = getIntent();
         String itsaccoutnt = i.getStringExtra("itsaccount");
@@ -82,6 +87,16 @@ public class OrderStatusResult extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
+                if(response.equals("NOTOK"))
+                {
+                    showToast("ITS Account password error! Please update password");
+                    finish();
+                }
+                else if(response.equals("ERROR"))
+                {
+                    showToast("No data found!");
+                    finish();
+                }
                 com.xtremebd.ksl.models.OrderStatus[] statuses = Geson.g().fromJson(response, com.xtremebd.ksl.models.OrderStatus[].class);
                 OrderStatusAdapter adapter = new OrderStatusAdapter(Arrays.asList(statuses));
                 rvOrderStatus.setAdapter(adapter);

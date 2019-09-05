@@ -21,9 +21,8 @@ public class TopGainerLoserAdapter extends BaseQuickAdapter<Item, BaseViewHolder
     protected void convert(BaseViewHolder holder, Item item) {
         holder.setText(R.id.tvSymbol, item.getItem())
                 .setText(R.id.tvChange, item.getChange())
-                .setText(R.id.tvLow, item.getLow())
-                .setText(R.id.tvHigh, item.getLow())
-                .setText(R.id.tvClosePrice, item.getCloseprice())
-                .setText(R.id.tvYcp, item.getYesterdayClosePrice());
+                .setText(R.id.tvLTP, item.getLtp())
+                .setText(R.id.tvChange, item.getChange())
+                .setText(R.id.tvChangePercentage, item.getChangepercentage());
     }
 }

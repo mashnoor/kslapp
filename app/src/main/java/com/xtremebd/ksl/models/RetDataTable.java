@@ -32,28 +32,28 @@ public class RetDataTable {
     private Double maturedBalance;
     @SerializedName("immatured_balance")
     
-    private Integer immaturedBalance;
+    private double immaturedBalance;
     @SerializedName("ipo_balance")
     
-    private Integer ipoBalance;
+    private double ipoBalance;
     @SerializedName("realized_gain_loss")
     
     private Double realizedGainLoss;
     @SerializedName("bonus_rcvd")
     
-    private Integer bonusRcvd;
+    private double bonusRcvd;
     @SerializedName("portfolio_detail")
     
     private List<PortfolioDetail> portfolioDetail = null;
     @SerializedName("total_deposit")
     
-    private Integer totalDeposit;
+    private double totalDeposit;
     @SerializedName("total_withdrawal")
     
-    private Integer totalWithdrawal;
+    private double totalWithdrawal;
     @SerializedName("transfer_in")
     
-    private Integer transferIn;
+    private double transferIn;
     @SerializedName("transfer_out")
     
     private Double transferOut;
@@ -65,16 +65,16 @@ public class RetDataTable {
     private List<IpoInformation> ipoInformation = null;
     @SerializedName("stock_value")
     
-    private Integer stockValue;
+    private double stockValue;
     @SerializedName("accumulated_interest")
     
-    private Integer accumulatedInterest;
+    private double accumulatedInterest;
     @SerializedName("margin_limit")
     
-    private Integer marginLimit;
+    private double marginLimit;
     @SerializedName("margin_ratio")
     
-    private Integer marginRatio;
+    private double marginRatio;
     @SerializedName("ledger_balance")
     
     private Double ledgerBalance;
@@ -83,10 +83,10 @@ public class RetDataTable {
     private Double netRealizedGainLoss;
     @SerializedName("total_buy_cost")
     
-    private Integer totalBuyCost;
+    private double totalBuyCost;
     @SerializedName("market_value")
     
-    private Integer marketValue;
+    private double marketValue;
     @SerializedName("owners_equity")
     
     private Double ownersEquity;
@@ -158,19 +158,19 @@ public class RetDataTable {
         this.maturedBalance = maturedBalance;
     }
 
-    public Integer getImmaturedBalance() {
+    public double getImmaturedBalance() {
         return immaturedBalance;
     }
 
-    public void setImmaturedBalance(Integer immaturedBalance) {
+    public void setImmaturedBalance(double immaturedBalance) {
         this.immaturedBalance = immaturedBalance;
     }
 
-    public Integer getIpoBalance() {
+    public double getIpoBalance() {
         return ipoBalance;
     }
 
-    public void setIpoBalance(Integer ipoBalance) {
+    public void setIpoBalance(double ipoBalance) {
         this.ipoBalance = ipoBalance;
     }
 
@@ -182,11 +182,11 @@ public class RetDataTable {
         this.realizedGainLoss = realizedGainLoss;
     }
 
-    public Integer getBonusRcvd() {
+    public double getBonusRcvd() {
         return bonusRcvd;
     }
 
-    public void setBonusRcvd(Integer bonusRcvd) {
+    public void setBonusRcvd(double bonusRcvd) {
         this.bonusRcvd = bonusRcvd;
     }
 
@@ -198,27 +198,27 @@ public class RetDataTable {
         this.portfolioDetail = portfolioDetail;
     }
 
-    public Integer getTotalDeposit() {
+    public double getTotalDeposit() {
         return totalDeposit;
     }
 
-    public void setTotalDeposit(Integer totalDeposit) {
+    public void setTotalDeposit(double totalDeposit) {
         this.totalDeposit = totalDeposit;
     }
 
-    public Integer getTotalWithdrawal() {
+    public double getTotalWithdrawal() {
         return totalWithdrawal;
     }
 
-    public void setTotalWithdrawal(Integer totalWithdrawal) {
+    public void setTotalWithdrawal(double totalWithdrawal) {
         this.totalWithdrawal = totalWithdrawal;
     }
 
-    public Integer getTransferIn() {
+    public double getTransferIn() {
         return transferIn;
     }
 
-    public void setTransferIn(Integer transferIn) {
+    public void setTransferIn(double transferIn) {
         this.transferIn = transferIn;
     }
 
@@ -246,35 +246,35 @@ public class RetDataTable {
         this.ipoInformation = ipoInformation;
     }
 
-    public Integer getStockValue() {
+    public double getStockValue() {
         return stockValue;
     }
 
-    public void setStockValue(Integer stockValue) {
+    public void setStockValue(double stockValue) {
         this.stockValue = stockValue;
     }
 
-    public Integer getAccumulatedInterest() {
+    public double getAccumulatedInterest() {
         return accumulatedInterest;
     }
 
-    public void setAccumulatedInterest(Integer accumulatedInterest) {
+    public void setAccumulatedInterest(double accumulatedInterest) {
         this.accumulatedInterest = accumulatedInterest;
     }
 
-    public Integer getMarginLimit() {
+    public double getMarginLimit() {
         return marginLimit;
     }
 
-    public void setMarginLimit(Integer marginLimit) {
+    public void setMarginLimit(double marginLimit) {
         this.marginLimit = marginLimit;
     }
 
-    public Integer getMarginRatio() {
+    public double getMarginRatio() {
         return marginRatio;
     }
 
-    public void setMarginRatio(Integer marginRatio) {
+    public void setMarginRatio(double marginRatio) {
         this.marginRatio = marginRatio;
     }
 
@@ -294,19 +294,19 @@ public class RetDataTable {
         this.netRealizedGainLoss = netRealizedGainLoss;
     }
 
-    public Integer getTotalBuyCost() {
+    public double getTotalBuyCost() {
         return totalBuyCost;
     }
 
-    public void setTotalBuyCost(Integer totalBuyCost) {
+    public void setTotalBuyCost(double totalBuyCost) {
         this.totalBuyCost = totalBuyCost;
     }
 
-    public Integer getMarketValue() {
+    public double getMarketValue() {
         return marketValue;
     }
 
-    public void setMarketValue(Integer marketValue) {
+    public void setMarketValue(double marketValue) {
         this.marketValue = marketValue;
     }
 

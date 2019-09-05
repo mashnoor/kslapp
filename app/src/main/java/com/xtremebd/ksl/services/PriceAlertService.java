@@ -85,8 +85,10 @@ public class PriceAlertService extends Service {
                         currItem.setLowPrice(savedItem.getLowPrice());
                         PriceAlertHelper.addItemToPriceAlert(context, currItem);
 
+
                     }
                 }
+                Logger.d("updated");
             }
 
             @Override

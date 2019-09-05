@@ -48,7 +48,7 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_gainer_loser);
         ButterKnife.bind(this);
-        TopBar.attach(this, "TOP GAINER/LOSER");
+
         Logger.addLogAdapter(new AndroidLogAdapter());
         rvTopGainerLoser.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         String which = getIntent().getStringExtra("which");
@@ -58,8 +58,10 @@ public class TopGainerLoserActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         if (which.equals(Constants.TOP_GAINER)) {
             getTopGainerLoser(AppURLS.GET_TOP_GAINERS);
+            TopBar.attach(this, "TOP GAINERS");
         } else {
             getTopGainerLoser(AppURLS.GET_TOP_LOSERS);
+            TopBar.attach(this, "TOP LOSERS");
         }
     }
 

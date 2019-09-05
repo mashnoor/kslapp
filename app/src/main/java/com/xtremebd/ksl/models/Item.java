@@ -416,12 +416,14 @@ public class Item {
         try
 
         {
-            double change = Double.parseDouble(getChange());
-            if (change < 0) {
-                return Color.RED;
-            } else {
-                return Color.GREEN;
-            }
+           if(getChangepercentage().contains("-"))
+           {
+               return Color.RED;
+           }
+           else
+           {
+               return Color.GREEN;
+           }
 
         } catch (Exception e) {
             return Color.RED;

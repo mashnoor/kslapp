@@ -151,7 +151,7 @@ public class FinancialLedgerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(FinancialLedgerActivity.this, "Something went wrong. Refresh", Toast.LENGTH_LONG).show();
+                Toast.makeText(FinancialLedgerActivity.this, "Something went wrong.", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
                 finish();
 

@@ -235,10 +235,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(new String(responseBody));
-                Logger.d(error.getMessage());
                 dialog.dismiss();
-                showToast("Something went wrong");
+                showToast("Couldn't load data. Try again");
                 finish();
 
             }

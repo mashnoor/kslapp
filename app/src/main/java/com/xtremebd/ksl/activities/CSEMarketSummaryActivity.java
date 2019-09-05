@@ -136,6 +136,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
+                Logger.d(response);
                 Index idx = Geson.g().fromJson(response, Index.class);
                 tvcse30value.setText(idx.getCse30value());
                 tvcse30change.setText(idx.getCse30change());
