@@ -1,13 +1,19 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -24,6 +30,7 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.TopBar;
 
@@ -54,6 +61,7 @@ public class AllItems extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,9 +151,35 @@ public class AllItems extends AppCompatActivity {
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        Intent i = new Intent(AllItems.this, ItemDetailActivity.class);
-                        i.putExtra("item", allItemCopy.get(position).getItem());
-                        startActivity(i);
+                        Intent intent = new Intent(AllItems.this, ItemDetailActivity.class);
+                        intent.putExtra("item", allItemCopy.get(position).getItem());
+                        AlertDialog.Builder adb = new AlertDialog.Builder(AllItems.this);
+                        CharSequence[] items = new CharSequence[]{"Detail from CSE", "Detail from DSE"};
+                        adb.setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0)
+                                {
+                                    intent.putExtra("which", Constants.CSE_ITEM_DETAIL);
+                                    startActivity(intent);
+                                }
+
+                                else
+                                {
+                                    intent.putExtra("which", Constants.DSE_ITEM_DETAIL);
+                                    startActivity(intent);
+                                }
+
+
+
+
+                            }
+                        });
+                        adb.setTitle("Select Market");
+                        adb.setPositiveButton("Cancel", null);
+                        adb.show();
+
+
                     }
                 });
 

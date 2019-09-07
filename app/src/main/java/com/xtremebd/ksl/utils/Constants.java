@@ -7,4 +7,6 @@ package com.xtremebd.ksl.utils;
 public class Constants {
     public final static String TOP_GAINER = "topgainers";
     public final static String TOP_LOSERS = "toplosers";
+    public final static String DSE_ITEM_DETAIL = "dseitemdetail";
+    public final static String CSE_ITEM_DETAIL = "cseitemdetail";
 }

@@ -420,6 +420,10 @@ public class Item {
            {
                return Color.RED;
            }
+           else if(getChangepercentage().contains("0.00"))
+           {
+               return Color.BLACK;
+           }
            else
            {
                return Color.GREEN;

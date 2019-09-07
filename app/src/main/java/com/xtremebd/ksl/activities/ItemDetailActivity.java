@@ -23,6 +23,7 @@ import com.orhanobut.logger.Logger;
 import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.PriceAlertHelper;
@@ -161,7 +162,14 @@ public class ItemDetailActivity extends AppCompatActivity {
             btnPriceAlert.setText("ADD TO PRICE ALERT");
         }
 
-        getIntemDetail(item_name);
+        if(getIntent().getStringExtra("which").equals(Constants.CSE_ITEM_DETAIL))
+        {
+            getItemDetail(item_name, AppURLS.GET_CSE_ITEM_DETAIL);
+        }
+        else
+        {
+            getItemDetail(item_name, AppURLS.GET_DSE_ITEM_DETAIL);
+        }
 
     }
 
@@ -171,10 +179,10 @@ public class ItemDetailActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void getIntemDetail(final String item_name) {
+    private void getItemDetail(final String item_name, String url) {
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(AppURLS.GET_ITEM_DETAIL + item_name, new AsyncHttpResponseHandler() {
+        client.get(url + item_name, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
                 super.onStart();

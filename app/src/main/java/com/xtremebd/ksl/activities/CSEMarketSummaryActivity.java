@@ -95,7 +95,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
     private void getMarketSummary() {
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(AppURLS.GET_MARKET_SUMMARY, new AsyncHttpResponseHandler() {
+        client.get(AppURLS.GET_CSE_MARKET_SUMMARY, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -132,7 +132,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
 
     private void getIndexes() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(AppURLS.GET_INDEX, new AsyncHttpResponseHandler() {
+        client.get(AppURLS.GET_CSE_HOME_INDEX, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
@@ -147,6 +147,7 @@ public class CSEMarketSummaryActivity extends AppCompatActivity {
                 tvcscxvalue.setText(idx.getCscxvalue());
                 tvcscxchange.setText(idx.getCscxchange());
                 tvcsivalue.setText(idx.getCsivalue());
+                tvcsichange.setText(idx.getCsichange());
 
                 dialog.dismiss();
 
