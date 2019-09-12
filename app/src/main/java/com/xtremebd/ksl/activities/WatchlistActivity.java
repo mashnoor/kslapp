@@ -1,5 +1,7 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +25,9 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.AllItemListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.Geson;
+import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.TopBar;
 import com.xtremebd.ksl.utils.WatchlistHelper;
 
@@ -39,6 +46,7 @@ public class WatchlistActivity extends AppCompatActivity {
     RecyclerView itemList;
     private FirebaseAnalytics mFirebaseAnalytics;
     ProgressDialog dialog;
+    final private int SEARCH_CODE = 11;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -80,7 +88,6 @@ public class WatchlistActivity extends AppCompatActivity {
                     }
                 }
                 viewWatchListItems();
-                Logger.d(response);
                 dialog.dismiss();
             }
 
@@ -110,11 +117,119 @@ public class WatchlistActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent i = new Intent(WatchlistActivity.this, ItemDetailActivity.class);
-                i.putExtra("item", allItem.get(position).getItem());
-                startActivity(i);
+                showCustomizeDialog(allItem.get(position));
             }
         });
         itemList.setAdapter(adapter);
     }
+    private void showCustomizeDialog(final Item item) {
+        final AlertDialog.Builder customizeWatchlistDialogue = new AlertDialog.Builder(
+                this);
+
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialougeView = inflater.inflate(
+                R.layout.dialog_customize_watchlist, null);
+
+        customizeWatchlistDialogue.setView(dialougeView);
+
+        final AlertDialog alert = customizeWatchlistDialogue.create();
+
+
+        TextView removeItem = dialougeView.findViewById(R.id.tvRemoveItem);
+        TextView seeItemDetail = dialougeView.findViewById(R.id.tvSeeItemDetail);
+
+
+
+
+        //Remove Item
+        removeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                WatchlistHelper.deleteItemFromWatchList(WatchlistActivity.this, item.getItem());
+                recreate();
+
+            }
+        });
+
+        //Item Details
+        seeItemDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                Intent i = new Intent(WatchlistActivity.this, ItemDetailActivity.class);
+                i.putExtra("which", Constants.CSE_ITEM_DETAIL);
+                i.putExtra("item", item.getItem());
+                startActivity(i);
+
+            }
+        });
+
+
+        alert.show();
+
+
+    }
+
+    public void goAddItem(View v)
+    {
+        Intent i = new Intent(this, SelectItemForTradeActivity.class);
+        startActivityForResult(i, SEARCH_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEARCH_CODE && resultCode == Activity.RESULT_OK) {
+            String itemName = data.getStringExtra("itemname");
+            if (!WatchlistHelper.isIteminWatchlist(this, itemName)) {
+                getItemDetail(itemName);
+            }
+            else
+            {
+                showToast("Item already added in watchlist!");
+            }
+        }
+
+    }
+
+    private void getItemDetail(final String item_name) {
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(AppURLS.GET_CSE_ITEM_DETAIL + item_name, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                Item current_item = Geson.g().fromJson(response, Item.class);
+                current_item.setItem(item_name);
+                WatchlistHelper.addIteminWatchList(WatchlistActivity.this, current_item);
+                showToast("Item added to watchlist successfully!");
+                recreate();
+
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                dialog.dismiss();
+                showToast("Couldn't load data. Try again");
+                Logger.d(error.getMessage());
+                finish();
+
+            }
+        });
+
+
+    }
+
 }

@@ -13,6 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/buy_now_gradient_button"
+        android:gravity="center"
+        android:onClick="goAddItem"
+        android:text="ADD NEW ITEM"
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:orientation="vertical"

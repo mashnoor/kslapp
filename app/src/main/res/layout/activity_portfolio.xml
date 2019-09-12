@@ -15,12 +15,27 @@
 
         android:layout_marginTop="10dp" />
 
+    <Button
+
+        android:id="@+id/btnAddNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/buy_now_gradient_button"
+        android:gravity="center"
+        android:onClick="goAddItem"
+        android:text="ADD NEW ITEM"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/top"
+        android:textColor="@android:color/white" />
+
 
     <LinearLayout
         android:id="@+id/portfolio_upbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top"
+        android:layout_below="@id/btnAddNew"
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:padding="5dp"

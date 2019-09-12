@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -79,11 +83,14 @@ public class TradeActivity extends AppCompatActivity {
     Runnable runnable;
     Handler handler;
     String itemName;
+    @BindView(R.id.llTopBuySell)
+    LinearLayout llTopButSell;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,8 +127,9 @@ public class TradeActivity extends AppCompatActivity {
 
     }
 
-    private void registerHandler()
-    {
+    private void registerHandler() {
+
+        getMarketDepth(itemName);
         final int delay = 10000;
         runnable = new Runnable() {
             @Override
@@ -135,10 +143,8 @@ public class TradeActivity extends AppCompatActivity {
         handler.postDelayed(runnable, delay);
     }
 
-    private void releaseHandler()
-    {
-        if(handler!=null && runnable!=null)
-        {
+    private void releaseHandler() {
+        if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
             handler = null;
         }
@@ -208,6 +214,12 @@ public class TradeActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(AppURLS.GET_MARKET_DEPTH + itemName, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -226,27 +238,24 @@ public class TradeActivity extends AppCompatActivity {
 
                     MarketDepthAdapter sellAdapter = new MarketDepthAdapter(sellMarketDepth);
                     rvSellMarketDepth.setAdapter(sellAdapter);
+                    llTopButSell.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Math.max(buyMarketDepth.size(), sellMarketDepth.size()) * 26, getResources().getDisplayMetrics());
 
-                }
-                catch (Exception e)
-                {
+                    llTopButSell.requestLayout();
+
+                } catch (Exception e) {
                     showToast("Error");
-                    e.printStackTrace();
 
                 }
-
 
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Logger.d(error.getMessage());
+
             }
         });
     }
-
-
 
 
     private void showToast(String s) {
@@ -311,6 +320,7 @@ public class TradeActivity extends AppCompatActivity {
     public void goBuy(View v) {
         getConfirmation("BUY");
     }
+
     private void getConfirmation(String verb) {
         String symbol = txtItemName.getText().toString().trim();
         String quantity = txtQty.getText().toString().trim();
@@ -320,16 +330,20 @@ public class TradeActivity extends AppCompatActivity {
             showToast("All fields are required!");
             return;
         }
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(this);
-        }
-        builder.setTitle("Are you sure to " + verb + "?")
-                .setMessage("Item Name: " + symbol + "\n" +
-                        "Quantity: " + quantity + "\n" +
-                        "Price: " + price)
+
+
+        AlertDialog.Builder confimationDialogue = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialougeView = inflater.inflate(
+                R.layout.dialog_trade_confirmation, null);
+        TextView ques = dialougeView.findViewById(R.id.tvQuestion);
+        TextView msg = dialougeView.findViewById(R.id.tvConfirmMessage);
+        ques.setText("Are you sure to " + verb + "?");
+        msg.setText("Item Name: " + symbol + "\n" +
+                "Quantity: " + quantity + "\n" +
+                "Price: " + price);
+        confimationDialogue.setView(dialougeView);
+        confimationDialogue
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         doTrade(verb);

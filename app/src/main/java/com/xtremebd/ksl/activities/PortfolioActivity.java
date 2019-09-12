@@ -1,15 +1,20 @@
 package com.xtremebd.ksl.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -25,9 +30,11 @@ import com.xtremebd.ksl.R;
 import com.xtremebd.ksl.adapters.PortfolioListAdapter;
 import com.xtremebd.ksl.models.Item;
 import com.xtremebd.ksl.utils.AppURLS;
+import com.xtremebd.ksl.utils.Constants;
 import com.xtremebd.ksl.utils.Geson;
 import com.xtremebd.ksl.utils.PortfolioHelper;
 import com.xtremebd.ksl.utils.TopBar;
+import com.xtremebd.ksl.utils.WatchlistHelper;
 
 import java.util.List;
 
@@ -56,13 +63,17 @@ public class PortfolioActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    final private int SEARCH_CODE = 11;
+
 
     double totalBuyPrice = 0.0, totalPriceOnLtp = 0.0;
+    Item current_item;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +164,7 @@ public class PortfolioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 alert.dismiss();
                 Intent i = new Intent(PortfolioActivity.this, ItemDetailActivity.class);
+                i.putExtra("which", Constants.CSE_ITEM_DETAIL);
                 i.putExtra("item", item.getItem());
                 startActivity(i);
 
@@ -268,4 +280,96 @@ public class PortfolioActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+    public void goAddItem(View v) {
+        Intent i = new Intent(this, SelectItemForTradeActivity.class);
+        startActivityForResult(i, SEARCH_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEARCH_CODE && resultCode == Activity.RESULT_OK) {
+            String itemName = data.getStringExtra("itemname");
+            if (!PortfolioHelper.isIteminPortfolio(this, itemName)) {
+                getItemDetail(itemName);
+            } else {
+                showToast("Item already added in virtual portfolio!");
+            }
+        }
+
+    }
+
+    private void getItemDetail(final String item_name) {
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(AppURLS.GET_CSE_ITEM_DETAIL + item_name, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Logger.d(response);
+                current_item = Geson.g().fromJson(response, Item.class);
+                current_item.setItem(item_name);
+                showAddToPortfolioDialog();
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                dialog.dismiss();
+                showToast("Couldn't load data. Try again");
+                Logger.d(error.getMessage());
+                finish();
+
+            }
+        });
+
+
+    }
+
+    private void showAddToPortfolioDialog() {
+
+        AlertDialog.Builder portfolioAddDialouge = new AlertDialog.Builder(
+                this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialougeView = inflater.inflate(
+                R.layout.addtoportfoliodialogue, null);
+        portfolioAddDialouge.setView(dialougeView);
+
+        portfolioAddDialouge.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                EditText tvnoOfStock = dialougeView.findViewById(R.id.etNoOfStocks);
+                EditText tvbuyPrice = dialougeView.findViewById(R.id.etBuyPrice);
+
+                if (tvnoOfStock.getText().toString().trim().isEmpty() || tvbuyPrice.getText().toString().trim().isEmpty()) {
+                    showToast("All fields must be filled!");
+                    return;
+                }
+                current_item.setBuyPrice(tvbuyPrice.getText().toString().trim());
+                Logger.d(tvbuyPrice.getText().toString().trim() + " " + tvnoOfStock.getText().toString().trim());
+                current_item.setNoOfStock(tvnoOfStock.getText().toString().trim());
+                PortfolioHelper.addIteminPortfolio(PortfolioActivity.this, current_item);
+                showToast("Item dded to portfolio");
+                recreate();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                current_item = null;
+            }
+        }).show();
+
+
+    }
+
 }

@@ -23,10 +23,10 @@ public class SelectItemAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder holder, Item item) {
         holder.setText(R.id.txtItem, item.getItem())
-                .setTextColor(R.id.txtChange, Color.WHITE)
-                .setTextColor(R.id.txtLTP, Color.WHITE)
-                .setTextColor(R.id.txtVolume, Color.WHITE)
-                .setTextColor(R.id.txtChange, Color.WHITE);
+                .setText(R.id.txtChange, item.getChangepercentage())
+                .setText(R.id.txtLTP, item.getLtp())
+                .setText(R.id.txtVolume, item.getVolume())
+                .setTextColor(R.id.txtChange, item.getColor());
 
     }
 

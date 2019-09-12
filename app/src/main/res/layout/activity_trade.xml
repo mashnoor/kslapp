@@ -17,9 +17,9 @@
             layout="@layout/topbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
 
-            android:layout_marginTop="10dp" />
+            android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +41,8 @@
                 android:background="@drawable/round_edittext_search"
                 android:focusable="false"
                 android:onClick="goSelectItem"
-                android:padding="7dp"
+                android:padding="13dp"
+
                 android:textColor="@android:color/black" />
 
             <TextView
@@ -127,30 +128,30 @@
 
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/llTopBuySell"
                 android:layout_width="match_parent"
-                android:weightSum="2"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
 
                 <!-- Top Buy Layout -->
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
-                        android:gravity="center"
-
                         android:layout_marginTop="15dp"
+                        android:layout_marginBottom="7dp"
 
                         android:background="@drawable/rounded_white_container"
+
+                        android:gravity="center"
                         android:padding="13dp"
                         android:text="TOP BUY"
                         android:textColor="@android:color/black"
@@ -187,39 +188,39 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvBuyMarketDepth"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_white_container"
                         android:padding="13dp" />
 
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="1dp"
-                    android:layout_marginTop="15dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginTop="15dp"
                     android:background="@android:color/holo_red_dark" />
-
 
 
                 <!--Top Sell Layout-->
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
-                        android:gravity="center"
-
                         android:layout_marginTop="15dp"
+                        android:layout_marginBottom="7dp"
 
                         android:background="@drawable/rounded_white_container"
+
+                        android:gravity="center"
                         android:padding="13dp"
                         android:text="TOP SELL"
                         android:textColor="@android:color/black"
@@ -256,7 +257,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvSellMarketDepth"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_white_container"
                         android:padding="13dp" />
@@ -265,7 +266,6 @@
 
 
             </LinearLayout>
-
 
 
         </LinearLayout>
